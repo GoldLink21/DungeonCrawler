@@ -34,7 +34,9 @@ public class Floor {
         floorEntities[0][0]=player;
     }
 
-    public void paintTiles(Graphics g){
+    public void paint(Graphics g){
+
+        //Tiles
         for(int row = 0;row<WIDTH;row++){
             for(int col = 0;col<HEIGHT;col++){
                 int temp = floorTiles[row][col];
@@ -47,9 +49,8 @@ public class Floor {
                 g.fillRect(row*TILE_SIZE,col*TILE_SIZE,TILE_SIZE*TILE_SIZE,TILE_SIZE*TILE_SIZE);
             }
         }
-    }
 
-    public void paintEntities(Graphics g){
+        //Entities
         for(int row=0;row<WIDTH;row++) {
             for(int col=0;col<HEIGHT;col++){
                 if(floorEntities[row][col]==null){
@@ -57,5 +58,7 @@ public class Floor {
                 }
             }
         }
+
     }
+
 }

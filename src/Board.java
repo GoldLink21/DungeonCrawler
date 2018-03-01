@@ -18,6 +18,7 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         this.game = game;
         floor1 = new Floor(player);
+        player = new Player(0,0);
     }
 
     public void startGame(){
@@ -51,7 +52,7 @@ public class Board extends JPanel implements ActionListener {
             }
 
         }else if(Data.isPlay()){
-            floor1.paintTiles(g);
+            floor1.paint(g);
         }
     }
 
