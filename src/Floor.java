@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Floor {
-    int[][]floorTiles;
+    Tile[][]floorTiles;
     Entity[][]floorEntities;
     private final int WIDTH = 20,HEIGHT = 20,TILE_SIZE=25;
 
     Player player;
 
     public Floor(Player player){
-        floorTiles = new int[WIDTH][HEIGHT];
+        floorTiles = new Tile[WIDTH][HEIGHT];
         floorEntities = new Entity[WIDTH][HEIGHT];
         floorOne();
         this.player = player;
@@ -18,9 +18,9 @@ public class Floor {
     public void floorOne(){
         for(int row = 0;row<WIDTH;row++) {
             for(int col = 0; col < HEIGHT; col++) {
-               floorTiles[row][col]=0;
+               floorTiles[row][col]=new Tile(row,col,0);
                 if(row==col||row==19-col)
-                    floorTiles[row][col]=1;
+                    floorTiles[row][col]=new Tile(row,col,1);
             }
 
         }
@@ -39,21 +39,14 @@ public class Floor {
         //Tiles
         for(int row = 0;row<WIDTH;row++){
             for(int col = 0;col<HEIGHT;col++){
-                int temp = floorTiles[row][col];
-                //0=wall,1=air
-                if(temp==0)
-                    g.setColor(Color.DARK_GRAY);
-                else if(temp==1)
-                    g.setColor(Color.LIGHT_GRAY);
-
-                g.fillRect(row*TILE_SIZE,col*TILE_SIZE,TILE_SIZE*TILE_SIZE,TILE_SIZE*TILE_SIZE);
+                floorTiles[row][col].paint(g);
             }
         }
 
         //Entities
         for(int row=0;row<WIDTH;row++) {
             for(int col=0;col<HEIGHT;col++){
-                if(floorEntities[row][col]==null){
+                if(floorEntities[row][col]!=null){
                     floorEntities[row][col].paint(g);
                 }
             }

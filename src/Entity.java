@@ -16,6 +16,8 @@ public class Entity {
         this.y = GAP+(y*(SIZE+GAP));
     }
 
+    public Rectangle getBounds(){return new Rectangle(x+GAP/2,y+GAP/2,SIZE,SIZE);}
+
     public void paint(Graphics g){
         g.fillRect(x+GAP,y+GAP,SIZE,SIZE);
     }

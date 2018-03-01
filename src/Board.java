@@ -8,7 +8,7 @@ public class Board extends JPanel implements ActionListener {
     private final int BOARD_WIDTH= 500,BOARD_HEIGHT= 500;
 
     Player player;
-    Floor floor1;
+    Floor floor;
     Timer timer;
     Game game;
 
@@ -17,7 +17,7 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         this.game = game;
-        floor1 = new Floor(player);
+        floor = new Floor(player);
         player = new Player(0,0);
     }
 
@@ -52,7 +52,7 @@ public class Board extends JPanel implements ActionListener {
             }
 
         }else if(Data.isPlay()){
-            floor1.paint(g);
+            floor.paint(g);
         }
     }
 
