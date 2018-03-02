@@ -7,29 +7,31 @@ public class Board extends JPanel implements ActionListener {
 
     private final int BOARD_WIDTH= 500,BOARD_HEIGHT= 500;
 
-    Player player;
     Floor floor;
     Timer timer;
     Game game;
+    Player player;
 
-
-    public Board(Game game){
+    public Board(Game game,Player player){
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         this.game = game;
-        floor = new Floor(player);
-        player = new Player(0,0);
+        player = new Player(1,1,game);
+
+
     }
 
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
+        floor = new Floor(game,player);
+        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
+        if(Data.isPlay())
+            player.move();
         repaint();
     }
 
@@ -53,6 +55,7 @@ public class Board extends JPanel implements ActionListener {
 
         }else if(Data.isPlay()){
             floor.paint(g);
+            player.paint(g);
         }
     }
 

@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 public class Game extends JFrame implements KeyListener{
 
     private Board board;
+    private Player player;
 
     private boolean rightPressed,leftPressed,upPressed,downPressed,spacePressed;
 
@@ -15,7 +16,7 @@ public class Game extends JFrame implements KeyListener{
         setTitle("Dungeon");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        board = new Board(this);
+        board = new Board(this,player);
 
         add(board);
 
@@ -58,6 +59,7 @@ public class Game extends JFrame implements KeyListener{
             downPressed = false;
         if(e.getKeyCode()==KeyEvent.VK_SPACE&&Data.isMenu()) {
             spacePressed = false;
+            board.startGame();
             Data.togglePlay();
         }
     }
