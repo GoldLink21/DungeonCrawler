@@ -5,41 +5,72 @@ import java.awt.event.ActionListener;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int BOARD_WIDTH= 500,BOARD_HEIGHT= 500;
+    private final int BOARD_WIDTH= 500,BOARD_HEIGHT= 500,NUM_TILES = 20;
 
-    Floor floor;
+    //With it like this, the array index values are the x,y coords
+    Tile[][]map;
+
+
     Timer timer;
     Game game;
-    Player player;
 
-    public Board(Game game,Player player){
+
+    public Board(Game game){
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
         this.game = game;
-        player = new Player(1,1,game);
+        this.map = new Tile[NUM_TILES][NUM_TILES];
 
+        //fillBoard((int)(Math.random()*3));
+        floorOne();
 
+    }
+
+    private void fillBoard(int value){
+        for (int i = 0; i < NUM_TILES; i++) {
+            for (int j = 0; j < NUM_TILES; j++) {
+                map[i][j]=new Tile(value);
+            }
+        }
+    }
+
+    private void floorOne(){
+        fillBoard(0);
+        for(int i=1;i<NUM_TILES-1;i++)
+            map[i][1] = new Tile(1);
     }
 
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
-        floor = new Floor(game,player);
+
         
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(Data.isPlay())
-            player.move();
         repaint();
     }
 
     @Override
     public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        int TILE_SIZE = getWidth()/NUM_TILES;
+
+        if(Data.isPlay()) {
+            for (int i = 0; i < NUM_TILES; i++) {
+                for (int j = 0; j < NUM_TILES; j++) {
+                    int x = i * TILE_SIZE;
+                    int y = j * TILE_SIZE;
+                    g.setColor(map[i][j].getColor());
+                    g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+                }
+            }
+        }
+
         Font debugFont = new Font("TimesRoman",Font.PLAIN,15);
         Font titleFont = new Font("TimesRoman",Font.BOLD,30);
-        super.paintComponent(g);
+
         if(Data.isMenu()){
             g.setFont(titleFont);
             printSimpleString("Dungeon Crawler",getWidth(),0,(int)(getHeight()*1.0/3),g);
@@ -54,8 +85,7 @@ public class Board extends JPanel implements ActionListener {
             }
 
         }else if(Data.isPlay()){
-            floor.paint(g);
-            player.paint(g);
+
         }
     }
 
