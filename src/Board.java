@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -14,6 +15,7 @@ public class Board extends JPanel implements ActionListener {
     Timer timer;
     Game game;
 
+    ArrayList<Entity> entities = new ArrayList<>();
 
     public Board(Game game){
         setBackground(Color.LIGHT_GRAY);
@@ -23,6 +25,10 @@ public class Board extends JPanel implements ActionListener {
 
         //fillBoard((int)(Math.random()*3));
         floorOne();
+
+    }
+
+    public void setupEntities(){
 
     }
 
@@ -36,8 +42,13 @@ public class Board extends JPanel implements ActionListener {
 
     private void floorOne(){
         fillBoard(0);
-        for(int i=1;i<NUM_TILES-1;i++)
+        for(int i=1;i<NUM_TILES-1;i++) {
+            map[i][NUM_TILES-2]=new Tile(1);
             map[i][1] = new Tile(1);
+        }for(int i=1;i<NUM_TILES-1;i++) {
+            map[1][i] = new Tile(1);
+            map[NUM_TILES - 2][i] = new Tile(1);
+        }
     }
 
     public void startGame(){
@@ -76,11 +87,11 @@ public class Board extends JPanel implements ActionListener {
             printSimpleString("Dungeon Crawler",getWidth(),0,(int)(getHeight()*1.0/3),g);
             if(Data.DEBUG()) {
                 g.setFont(debugFont);
-                g.drawString("Up: " + Boolean.toString(game.isUpPressed()), 10, 20);
-                g.drawString("Down: " + Boolean.toString(game.isDownPressed()), 10, 40);
-                g.drawString("Left: " + Boolean.toString(game.isLeftPressed()), 10, 60);
-                g.drawString("Right: " + Boolean.toString(game.isRightPressed()), 10, 80);
-                g.drawString("Space: " + Boolean.toString(game.isSpacePressed()), 10, 100);
+                g.drawString("Up: " + Boolean.toString(game.isUp()), 10, 20);
+                g.drawString("Down: " + Boolean.toString(game.isDown()), 10, 40);
+                g.drawString("Left: " + Boolean.toString(game.isLeft()), 10, 60);
+                g.drawString("Right: " + Boolean.toString(game.isRight()), 10, 80);
+                g.drawString("Space: " + Boolean.toString(game.isSpace()), 10, 100);
 
             }
 

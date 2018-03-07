@@ -1,12 +1,13 @@
 import java.awt.*;
+import java.util.SimpleTimeZone;
 
 public class Player extends Entity{
     int x,y;
     Game game;
 
-    private final int SIZE = 21,SPEED=4;
+    private final int SIZE = 21,SPEED=4,GAP=4;
     public Player(int x,int y,Game game){
-        super(x,y);
+        super(Color.BLUE,x,y,21,21);
         this.game = game;
     }
 
@@ -17,13 +18,13 @@ public class Player extends Entity{
     }
 
     public void move(){
-        if(game.isUpPressed()){
+        if(game.isUp()){
             y+=SPEED;
-        }if(game.isDownPressed()){
+        }if(game.isDown()){
                 y-=SPEED;
-        }if(game.isRightPressed()){
+        }if(game.isRight()){
             x+=SPEED;
-        }if(game.isLeftPressed()){
+        }if(game.isLeft()){
             y-=SPEED;
         }
 

@@ -63,9 +63,9 @@ public class Game extends JFrame implements KeyListener{
         }
     }
 
-    public boolean isRightPressed(){return rightPressed;}
-    public boolean isLeftPressed(){return leftPressed;}
-    public boolean isUpPressed(){return upPressed;}
-    public boolean isDownPressed(){return downPressed;}
-    public boolean isSpacePressed(){return spacePressed;}
+    public boolean isRight(){return rightPressed;}
+    public boolean isLeft(){return leftPressed;}
+    public boolean isUp(){return upPressed;}
+    public boolean isDown(){return downPressed;}
+    public boolean isSpace(){return spacePressed;}
 }
