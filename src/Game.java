@@ -56,10 +56,15 @@ public class Game extends JFrame implements KeyListener{
             upPressed = false;
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
             downPressed = false;
-        if(e.getKeyCode()==KeyEvent.VK_SPACE&&Data.isMenu()) {
-            spacePressed = false;
-            board.startGame();
-            Data.togglePlay();
+        if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+            if(Data.isMenu()) {
+                spacePressed = false;
+                board.startGame();
+                Data.togglePlay();
+            }else if(Data.isPlay()&&Data.DEBUG()){
+                spacePressed = false;
+                board.randomBoard();
+            }
         }
     }
 

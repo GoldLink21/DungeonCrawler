@@ -32,6 +32,14 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
+    public void randomBoard(){
+        for (int i = 0; i < NUM_TILES; i++) {
+            for (int j = 0; j < NUM_TILES; j++) {
+                map[i][j]=new Tile((int)(Math.random()*3));
+            }
+        }
+    }
+
     private void fillBoard(int value){
         for (int i = 0; i < NUM_TILES; i++) {
             for (int j = 0; j < NUM_TILES; j++) {
