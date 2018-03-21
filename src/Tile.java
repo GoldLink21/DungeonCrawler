@@ -4,7 +4,7 @@ public class Tile {
     int x,y,value;
 
 
-    private final int SIZE = 25;
+    
     public Tile(int value){
 
         this.value = value;

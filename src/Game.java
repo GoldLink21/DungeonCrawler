@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Game extends JFrame implements KeyListener{
 
@@ -18,7 +20,20 @@ public class Game extends JFrame implements KeyListener{
         board = new Board(this);
 
         add(board);
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
 
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+
+            }
+        });
         addKeyListener(this);
         pack();
         setLocationRelativeTo(null);

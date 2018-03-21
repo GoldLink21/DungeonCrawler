@@ -87,23 +87,27 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
-        Font debugFont = new Font("TimesRoman",Font.PLAIN,15);
         Font titleFont = new Font("TimesRoman",Font.BOLD,30);
 
         if(Data.isMenu()){
             g.setFont(titleFont);
             printSimpleString("Dungeon Crawler",getWidth(),0,(int)(getHeight()*1.0/3),g);
-            if(Data.DEBUG()) {
-                g.setFont(debugFont);
-                g.drawString("Up: " + Boolean.toString(game.isUp()), 10, 20);
-                g.drawString("Down: " + Boolean.toString(game.isDown()), 10, 40);
-                g.drawString("Left: " + Boolean.toString(game.isLeft()), 10, 60);
-                g.drawString("Right: " + Boolean.toString(game.isRight()), 10, 80);
-                g.drawString("Space: " + Boolean.toString(game.isSpace()), 10, 100);
 
-            }
 
         }else if(Data.isPlay()){
+
+        }
+    }
+
+    private void printDebugText(Graphics g){
+        if(Data.DEBUG()) {
+            g.setFont(new Font("TimesRoman",Font.PLAIN,15));
+            g.setColor(Color.BLACK);
+            g.drawString("Up: "+Boolean.toString(game.isUp()),10,20);
+            g.drawString("Down: "+Boolean.toString(game.isDown()),10,40);
+            g.drawString("Left: "+Boolean.toString(game.isLeft()),10,60);
+            g.drawString("Right: "+Boolean.toString(game.isRight()),10,80);
+            g.drawString("Space: "+Boolean.toString(game.isSpace()),10,100);
 
         }
     }
