@@ -14,7 +14,7 @@ public class Map {
     public void randomBoard(){
         for (int i = 0; i < NUM_TILES; i++) {
             for (int j = 0; j < NUM_TILES; j++) {
-                map[i][j]=new Tile((int)(Math.random()*3));
+                map[i][j]=new Tile((int)(i,j,Math.random()*3));
             }
         }
     }
@@ -22,7 +22,7 @@ public class Map {
     private void fillBoard(int value){
         for (int i = 0; i < NUM_TILES; i++) {
             for (int j = 0; j < NUM_TILES; j++) {
-                map[i][j]=new Tile(value);
+                map[i][j]=new Tile(i,j,value);
             }
         }
     }
@@ -30,21 +30,22 @@ public class Map {
     public void floorOne(){
         fillBoard(WALL);
         for(int i=1;i<NUM_TILES-1;i++) {
-            map[i][NUM_TILES-2]=new Tile(PATH);
-            map[i][1] = new Tile(PATH);
+            map[i][NUM_TILES-2]=new Tile(i,NUM_TILES-2,PATH);
+            map[i][1] = new Tile(i,1,PATH);
         }for(int i=1;i<NUM_TILES-1;i++) {
-            map[1][i] = new Tile(PATH);
-            map[NUM_TILES - 2][i] = new Tile(PATH);
+            map[1][i] = new Tile(1,i,PATH);
+            map[NUM_TILES - 2][i] = new Tile(NUM_TILES-2,i,PATH);
         }
     }
 
     public void paint(Graphics g){
+        int tSize = Data.getTileSize();
         for (int i = 0; i < NUM_TILES; i++) {
             for (int j = 0; j < NUM_TILES; j++) {
-                int x = i * Data.getTileSize();
-                int y = j * Data.getTileSize();
+                int x = i * tSize;
+                int y = j * tSize;
                 map[i][j].setColor(g);
-                g.fillRect(x, y, Data.getTileSize(), Data.getTileSize());
+                g.fillRect(x, y, tSize, tSize);
             }
         }
     }
