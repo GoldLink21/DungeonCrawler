@@ -7,7 +7,7 @@ public class Map {
 
     private final int NUM_TILES = Data.getNumTiles();
     public Map(){
-        map = new Tile[Data.getNumTiles()][Data.getNumTiles()];
+        map = new Tile[NUM_TILES][NUM_TILES];
         fillBoard(WALL);
     }
 
@@ -28,13 +28,13 @@ public class Map {
     }
 
     public void floorOne(){
-        fillBoard(0);
+        fillBoard(WALL);
         for(int i=1;i<NUM_TILES-1;i++) {
-            map[i][NUM_TILES-2]=new Tile(1);
-            map[i][1] = new Tile(1);
+            map[i][NUM_TILES-2]=new Tile(PATH);
+            map[i][1] = new Tile(PATH);
         }for(int i=1;i<NUM_TILES-1;i++) {
-            map[1][i] = new Tile(1);
-            map[NUM_TILES - 2][i] = new Tile(1);
+            map[1][i] = new Tile(PATH);
+            map[NUM_TILES - 2][i] = new Tile(PATH);
         }
     }
 
