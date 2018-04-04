@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int BOARD_WIDTH= 500,BOARD_HEIGHT= 500,NUM_TILES = 20;
+    private final int BOARD_SIZE = Data.getTileSize()*Data.getNumTiles();
 
     //With it like this, the array index values are the x,y coords
-    Tile[][]map;
 
 
+    Map map;
     Timer timer;
     Game game;
 
@@ -19,12 +19,11 @@ public class Board extends JPanel implements ActionListener {
 
     public Board(Game game){
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(BOARD_WIDTH,BOARD_HEIGHT));
+        setPreferredSize(new Dimension(BOARD_SIZE,BOARD_SIZE));
         this.game = game;
-        this.map = new Tile[NUM_TILES][NUM_TILES];
+        map = new Map();
 
-        //fillBoard((int)(Math.random()*3));
-        floorOne();
+        //map.floorOne();
 
     }
 
@@ -32,38 +31,20 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    public void randomBoard(){
-        for (int i = 0; i < NUM_TILES; i++) {
-            for (int j = 0; j < NUM_TILES; j++) {
-                map[i][j]=new Tile((int)(Math.random()*3));
-            }
-        }
-    }
 
-    private void fillBoard(int value){
-        for (int i = 0; i < NUM_TILES; i++) {
-            for (int j = 0; j < NUM_TILES; j++) {
-                map[i][j]=new Tile(value);
-            }
-        }
-    }
 
-    private void floorOne(){
-        fillBoard(0);
-        for(int i=1;i<NUM_TILES-1;i++) {
-            map[i][NUM_TILES-2]=new Tile(1);
-            map[i][1] = new Tile(1);
-        }for(int i=1;i<NUM_TILES-1;i++) {
-            map[1][i] = new Tile(1);
-            map[NUM_TILES - 2][i] = new Tile(1);
-        }
-    }
 
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
+        map.floorOne();
+        int playerPos = Data.getTileSize()*2;
+        entities.add(0,new Player(playerPos,playerPos));
+    }
 
-        
+    public void paintEntities(Graphics g){
+        for(int i=0;i<entities.size();i++)
+            entities.get(i).paint(g);
     }
 
     @Override
@@ -74,17 +55,10 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        int TILE_SIZE = getWidth()/NUM_TILES;
 
         if(Data.isPlay()) {
-            for (int i = 0; i < NUM_TILES; i++) {
-                for (int j = 0; j < NUM_TILES; j++) {
-                    int x = i * TILE_SIZE;
-                    int y = j * TILE_SIZE;
-                    g.setColor(map[i][j].getColor());
-                    g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-                }
-            }
+            map.paint(g);
+            paintEntities(g);
         }
 
         Font titleFont = new Font("TimesRoman",Font.BOLD,30);
@@ -97,29 +71,25 @@ public class Board extends JPanel implements ActionListener {
         }else if(Data.isPlay()){
 
         }
+        printDebugText(g);
     }
 
     private void printDebugText(Graphics g){
         if(Data.DEBUG()) {
             g.setFont(new Font("TimesRoman",Font.PLAIN,15));
             g.setColor(Color.BLACK);
-            g.drawString("Up: "+Boolean.toString(game.isUp()),10,20);
-            g.drawString("Down: "+Boolean.toString(game.isDown()),10,40);
-            g.drawString("Left: "+Boolean.toString(game.isLeft()),10,60);
-            g.drawString("Right: "+Boolean.toString(game.isRight()),10,80);
-            g.drawString("Space: "+Boolean.toString(game.isSpace()),10,100);
+            int curY=0;
+            g.drawString("Up: "+Boolean.toString(Data.isUp()),10,curY+=20);
+            g.drawString("Down: "+Boolean.toString(Data.isDown()),10,curY+=20);
+            g.drawString("Left: "+Boolean.toString(Data.isLeft()),10,curY+=20);
+            g.drawString("Right: "+Boolean.toString(Data.isRight()),10,curY+=20);
+            g.drawString("Space: "+Boolean.toString(Data.isSpace()),10,curY+=20);
 
         }
     }
 
-    private void printSimpleString(String s, int width, int XPos, int YPos, Graphics g2d){
-        //returns the LENGTH of the STRING parameter to the variable stringLen
-        int stringLen = (int)g2d.getFontMetrics().getStringBounds(s, g2d).getWidth();
-        //determines the center of the WIDTH parameter and subtracts the center of the length
-        //to determine the X value to start the string
-        int start = width/2 - stringLen/2;
-        //prints s at the desired X position with adjustment and the desired y.
-        g2d.drawString(s, start + XPos, YPos);
+    private void printSimpleString(String s,int width,int XPos,int YPos,Graphics g2d){
+        g2d.drawString(s,(width/2-(int)(g2d.getFontMetrics().getStringBounds(s,g2d).getWidth())/2)+XPos,YPos);
     }
 
 }

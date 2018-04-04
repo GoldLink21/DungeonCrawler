@@ -1,30 +1,35 @@
 import java.awt.*;
-import java.util.SimpleTimeZone;
+import java.awt.Graphics2D;
 
 public class Player extends Entity{
     int x,y;
-    Game game;
 
     private final int SIZE = 21,SPEED=4,GAP=4;
-    public Player(int x,int y,Game game){
+    public Player(int x,int y){
         super(Color.BLUE,x,y,21,21);
-        this.game = game;
+        rot=0;
     }
 
     @Override
     public void paint(Graphics g){
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.rotate(Math.toRadians(rot));
         g.setColor(Color.BLUE);
         g.fillOval(x+GAP/2,y+GAP/2,SIZE,SIZE);
+        g.setColor(Color.BLACK);
+        g.drawOval(x+GAP/2,y+GAP/2,SIZE,SIZE);
+        g2d.rotate(Math.toRadians(-rot));
     }
 
+    @Override
     public void move(){
-        if(game.isUp()){
+        if(Data.isUp()){
             y+=SPEED;
-        }if(game.isDown()){
+        }if(Data.isDown()){
                 y-=SPEED;
-        }if(game.isRight()){
+        }if(Data.isRight()){
             x+=SPEED;
-        }if(game.isLeft()){
+        }if(Data.isLeft()){
             y-=SPEED;
         }
 

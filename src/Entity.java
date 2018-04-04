@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Entity implements Move {
 
-    int x,y,width,height;
+    int x,y,width,height,rot;
     Color color;
 
     //25*25 grid of tiles
@@ -12,7 +12,12 @@ public class Entity implements Move {
         this.color=color;
         this.width=width;
         this.height=height;
+        this.rot = 0;
         setPosition(x,y);
+    }
+
+    public void setRotation(int deg){
+        this.rot=deg;
     }
 
     @Override

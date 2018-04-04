@@ -1,14 +1,10 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Game extends JFrame implements KeyListener{
 
     private Board board;
-
-    private boolean rightPressed,leftPressed,upPressed,downPressed,spacePressed;
 
     public Game(){
         setVisible(true);
@@ -20,20 +16,6 @@ public class Game extends JFrame implements KeyListener{
         board = new Board(this);
 
         add(board);
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-        });
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                super.mouseMoved(e);
-
-            }
-        });
         addKeyListener(this);
         pack();
         setLocationRelativeTo(null);
@@ -50,42 +32,36 @@ public class Game extends JFrame implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
-            rightPressed = true;
+            Data.setRight(true);
         if(e.getKeyCode()==KeyEvent.VK_LEFT||e.getKeyCode()==KeyEvent.VK_A)
-            leftPressed = true;
+            Data.setLeft(true);
         if(e.getKeyCode()==KeyEvent.VK_UP||e.getKeyCode()==KeyEvent.VK_W)
-            upPressed = true;
+            Data.setUp(true);
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
-            downPressed = true;
+            Data.setDown(true);
         if(e.getKeyCode()==KeyEvent.VK_SPACE)
-            spacePressed=true;
+            Data.setSpace(true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
-            rightPressed = false;
+            Data.setRight(false);
         if(e.getKeyCode()==KeyEvent.VK_LEFT||e.getKeyCode()==KeyEvent.VK_A)
-            leftPressed = false;
+            Data.setLeft(false);
         if(e.getKeyCode()==KeyEvent.VK_UP||e.getKeyCode()==KeyEvent.VK_W)
-            upPressed = false;
+            Data.setUp(false);
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
-            downPressed = false;
+            Data.setDown(false);
         if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+            Data.setSpace(false);
             if(Data.isMenu()) {
-                spacePressed = false;
                 board.startGame();
                 Data.togglePlay();
             }else if(Data.isPlay()&&Data.DEBUG()){
-                spacePressed = false;
-                board.randomBoard();
+                board.map.randomBoard();
             }
         }
     }
 
-    public boolean isRight(){return rightPressed;}
-    public boolean isLeft(){return leftPressed;}
-    public boolean isUp(){return upPressed;}
-    public boolean isDown(){return downPressed;}
-    public boolean isSpace(){return spacePressed;}
 }
