@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Entity implements Move {
 
-    int x,y,width,height,rot;
+    int x,y,width,height;
     Color color;
 
     //25*25 grid of tiles
@@ -12,23 +12,22 @@ public class Entity implements Move {
         this.color=color;
         this.width=width;
         this.height=height;
-        this.rot = 0;
         setPosition(x,y);
     }
 
-    public void setRotation(int deg){
-        this.rot=deg;
+    public void waitMilli(long x){
+        long curTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis()+x;
+        while(curTime<endTime){curTime=System.currentTimeMillis();}
     }
 
     @Override
     public void paint(Graphics g) {
-        //g.fillOval((int)(x+GAP/2),(int)(y+GAP/2),SIZE,SIZE);
+
     }
 
     @Override
     public void setPosition(int x, int y){
-        //this.x = x*(SIZE+GAP)+GAP/2;
-        //this.y = y*(SIZE+GAP)+GAP/2;
         this.x=x;
         this.y=y;
     }

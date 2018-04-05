@@ -22,29 +22,22 @@ public class Board extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(BOARD_SIZE,BOARD_SIZE));
         this.game = game;
         map = new Map();
-
-        //map.floorOne();
-
     }
-
-    public void setupEntities(){
-
-    }
-
-
-
 
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
         map.floorOne();
         int playerPos = Data.getTileSize()*2;
-        entities.add(0,new Player(playerPos,playerPos));
+        entities.add(0,new Player(playerPos,playerPos,map));
+
     }
 
-    public void paintEntities(Graphics g){
-        for(int i=0;i<entities.size();i++)
+    public void paintAndMoveEntities(Graphics g){
+        for(int i=0;i<entities.size();i++) {
             entities.get(i).paint(g);
+            entities.get(i).move();
+        }
     }
 
     @Override
@@ -58,7 +51,8 @@ public class Board extends JPanel implements ActionListener {
 
         if(Data.isPlay()) {
             map.paint(g);
-            paintEntities(g);
+            paintAndMoveEntities(g);
+
         }
 
         Font titleFont = new Font("TimesRoman",Font.BOLD,30);

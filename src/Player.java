@@ -1,37 +1,64 @@
 import java.awt.*;
-import java.awt.Graphics2D;
 
 public class Player extends Entity{
     int x,y;
 
-    private final int SIZE = 21,SPEED=4,GAP=4;
-    public Player(int x,int y){
-        super(Color.BLUE,x,y,21,21);
-        rot=0;
+    private Map map;
+    private final int SPEED=1;
+
+    public Player(int x,int y,Map map){
+        super(Color.BLUE,x,y,20,20);
+        this.map = map;
+    }
+
+    private Polygon makePlayerShape(){
+        int rad=width/2;
+        int[]xPoints={x+rad,x+width,x+rad,x};
+        int[]yPoints={y,y+rad,y+height,y+rad};
+        return new Polygon(xPoints,yPoints,xPoints.length);
     }
 
     @Override
     public void paint(Graphics g){
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.rotate(Math.toRadians(rot));
+        Polygon pShape = makePlayerShape();
         g.setColor(Color.BLUE);
-        g.fillOval(x+GAP/2,y+GAP/2,SIZE,SIZE);
+        g.fillPolygon(pShape);
+        //g.fillOval(x,y,SIZE,SIZE);
         g.setColor(Color.BLACK);
-        g.drawOval(x+GAP/2,y+GAP/2,SIZE,SIZE);
-        g2d.rotate(Math.toRadians(-rot));
+        g.drawPolygon(pShape);
+        //g.drawOval(x,y,SIZE,SIZE);
+        g.setColor(Color.ORANGE);
+        g.drawRect((int)pShape.getBounds().getX(),(int)pShape.getBounds().getY(),width,height);
+    }
+
+    private int getCurTileType(Point p){
+        int curX = (int)(p.getX())/Data.getTileSize();
+        int curY = (int)(p.getY())/Data.getTileSize();
+        return map.getTile(curX,curY).getValue();
+    }
+
+    private boolean checkCollisions(){
+        Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
+        for(int i=0;i<points.length;i++)
+            if(getCurTileType(points[i])==0) return true;
+        return false;
     }
 
     @Override
     public void move(){
-        if(Data.isUp()){
-            y+=SPEED;
-        }if(Data.isDown()){
-                y-=SPEED;
-        }if(Data.isRight()){
-            x+=SPEED;
-        }if(Data.isLeft()){
+        int BoardWidth = Data.getNumTiles()*Data.getTileSize();
+        if(Data.isUp()&&y>0){
             y-=SPEED;
+            if(checkCollisions()) y+=SPEED;
+        }if(Data.isDown()&&y+height<BoardWidth){
+            y+=SPEED;
+            if(checkCollisions()) y-=SPEED;
+        }if(Data.isRight()&&x+width<BoardWidth){
+            x+=SPEED;
+            if(checkCollisions()) x-=SPEED;
+        }if(Data.isLeft()&&x>0){
+            x-=SPEED;
+            if(checkCollisions()) x+=SPEED;
         }
-
     }
 }

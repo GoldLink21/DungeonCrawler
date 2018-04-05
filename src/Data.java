@@ -3,7 +3,7 @@ public class Data {
 
     private static boolean up=false,down=false,left=false,right=false,space=false;
 
-    public static final int TILE_SIZE = 25,NUM_TILES = 20;
+    public static final int TILE_SIZE = 25,NUM_TILES = 20,TILE_TYPES=4;
 
     public static boolean DEBUG(){return DEBUG;}
     public static boolean isPlay(){return play;}
@@ -11,6 +11,7 @@ public class Data {
 
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
+    public static int getTileTypes(){return TILE_TYPES;}
 
     public static boolean isUp(){return up;}
     public static boolean isDown(){return down;}
