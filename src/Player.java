@@ -1,14 +1,22 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends Entity{
-    int x,y;
+    int x,y,dir;
+
+    private final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
+
+    ImageLoader curImg;
 
     private Map map;
-    private final int SPEED=1;
+    private final int SPEED=2;
+    private final String file = "resources/player.png";
 
-    public Player(int x,int y,Map map){
-        super(Color.BLUE,x,y,20,20);
+    public Player(Map map){
+        super(Color.BLUE,0,0,16,16);
         this.map = map;
+        dir=DIR_UP;
+        curImg = new ImageLoader(x,y,width,height,x,y,file);
     }
 
     private Polygon makePlayerShape(){
@@ -18,8 +26,15 @@ public class Player extends Entity{
         return new Polygon(xPoints,yPoints,xPoints.length);
     }
 
+    private void getCurImg(){
+
+    }
+
     @Override
     public void paint(Graphics g){
+        getCurImg();
+        curImg.paint(g);
+        /*
         Polygon pShape = makePlayerShape();
         g.setColor(Color.BLUE);
         g.fillPolygon(pShape);
@@ -29,6 +44,7 @@ public class Player extends Entity{
         //g.drawOval(x,y,SIZE,SIZE);
         g.setColor(Color.ORANGE);
         g.drawRect((int)pShape.getBounds().getX(),(int)pShape.getBounds().getY(),width,height);
+        */
     }
 
     private int getCurTileType(Point p){
@@ -50,15 +66,22 @@ public class Player extends Entity{
         if(Data.isUp()&&y>0){
             y-=SPEED;
             if(checkCollisions()) y+=SPEED;
-        }if(Data.isDown()&&y+height<BoardWidth){
+        }if(Data.isDown()&&y+height-1<BoardWidth){
             y+=SPEED;
             if(checkCollisions()) y-=SPEED;
-        }if(Data.isRight()&&x+width<BoardWidth){
+        }if(Data.isRight()&&x+width-1<BoardWidth){
             x+=SPEED;
             if(checkCollisions()) x-=SPEED;
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
             if(checkCollisions()) x+=SPEED;
         }
+    }
+
+    @Override
+    public void setPosition(int x,int y){
+        int tSize = Data.getTileSize();
+        this.x=x*tSize;
+        this.y=y*tSize;
     }
 }

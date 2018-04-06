@@ -3,7 +3,11 @@ public class Data {
 
     private static boolean up=false,down=false,left=false,right=false,space=false;
 
-    public static final int TILE_SIZE = 25,NUM_TILES = 20,TILE_TYPES=4;
+    public static final int TILE_SIZE = 30,NUM_TILES = 9,TILE_TYPES=4;
+
+    private static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
+
+    private static int lastDir=DIR_UP;
 
     public static boolean DEBUG(){return DEBUG;}
     public static boolean isPlay(){return play;}
@@ -12,6 +16,7 @@ public class Data {
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
     public static int getTileTypes(){return TILE_TYPES;}
+    public static int getLastDir(){return lastDir;}
 
     public static boolean isUp(){return up;}
     public static boolean isDown(){return down;}
@@ -24,6 +29,7 @@ public class Data {
     public static void setLeft(boolean bool){left=bool;}
     public static void setRight(boolean bool){right=bool;}
     public static void setSpace(boolean bool){space=bool;}
+    public static void setLastDir(int dir){lastDir = dir;}
 
     public static void togglePlay(){
         if(play){

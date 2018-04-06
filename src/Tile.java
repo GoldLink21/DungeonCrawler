@@ -5,7 +5,9 @@ public class Tile {
 
     private final int size = Data.getTileSize();
 
-    private final int WALL = 0,PATH=1,LAVA=2,GOAL=3;
+    private final int WALL = 0,PATH=1,LAVA=2,GOAL=3,SECRET=4;
+
+    Color[]colors={Color.DARK_GRAY,Color.LIGHT_GRAY,Color.RED,Color.WHITE,Color.GRAY};
 
     public Tile(int x,int y,int value){
         this.x=Data.getTileSize()*x;
@@ -18,23 +20,31 @@ public class Tile {
     public void setValue(int value){this.value = value;}
 
     public void setColor(Graphics g){
-        int tSize = Data.getTileSize();
+        g.setColor(colors[value]);
+        g.fill3DRect(x,y,size,size,true);
+    }
+
+    private void paintTileOld(Color c, Graphics g){
+        g.setColor(c);
+        g.fill3DRect(x,y,size,size,true);
+    }
+
+    public void setColorOld(Graphics g){
         switch(this.value) {
             case WALL: 
-                g.setColor(Color.DARK_GRAY);
-                g.fill3DRect(x,y,size,size,true);
+                paintTileOld(Color.GRAY,g);
                 break;
             case PATH: 
-                g.setColor(Color.LIGHT_GRAY);
-                g.fill3DRect(x,y,size,size,true);
+                paintTileOld(Color.LIGHT_GRAY,g);
                 break;
-            case LAVA: 
-                g.setColor(Color.RED);
-                g.fill3DRect(x,y,size,size,true);
+            case LAVA:
+                paintTileOld(Color.RED,g);
                 break;
             case GOAL:
-                g.setColor(Color.WHITE);
-                g.fill3DRect(x,y,size,size,true);
+                paintTileOld(Color.WHITE,g);
+                break;
+            case SECRET:
+                paintTileOld(Color.GRAY,g);
                 break;
             default: 
                 g.setColor(Color.GREEN);

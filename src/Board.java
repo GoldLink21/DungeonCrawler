@@ -21,15 +21,16 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(BOARD_SIZE,BOARD_SIZE));
         this.game = game;
+        MapData.setupFloors();
         map = new Map();
+
+
     }
 
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
-        map.floorOne();
-        int playerPos = Data.getTileSize()*2;
-        entities.add(0,new Player(playerPos,playerPos,map));
+
 
     }
 
@@ -45,11 +46,18 @@ public class Board extends JPanel implements ActionListener {
         repaint();
     }
 
+    private boolean first = true;
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
         if(Data.isPlay()) {
+            if(first){
+                entities.add(0,new Player(map));
+                entities.get(0).setPosition(1,1);
+                first = false;
+            }
             map.paint(g);
             paintAndMoveEntities(g);
 
@@ -65,7 +73,6 @@ public class Board extends JPanel implements ActionListener {
         }else if(Data.isPlay()){
 
         }
-        printDebugText(g);
     }
 
     private void printDebugText(Graphics g){
