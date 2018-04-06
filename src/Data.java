@@ -5,7 +5,7 @@ public class Data {
 
     public static final int TILE_SIZE = 30,NUM_TILES = 9,TILE_TYPES=4;
 
-    private static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
+    public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
     private static int lastDir=DIR_UP;
 

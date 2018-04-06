@@ -9,7 +9,7 @@ public class ImageLoader extends Component {
     BufferedImage img;
     private int x,y,width,height;
 
-    public ImageLoader(int x, int y,int height, int width, int imgx,int imgy, String fileName){
+    public ImageLoader(int x, int y,int width, int height, int imgx,int imgy, String fileName){
         this.x=x;
         this.y=y;
         this.width=width;

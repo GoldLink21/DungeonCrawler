@@ -26,13 +26,20 @@ public class Player extends Entity{
         return new Polygon(xPoints,yPoints,xPoints.length);
     }
 
-    private void getCurImg(){
-
+    private ImageLoader getCurImg(){
+        int lDir = Data.getLastDir();
+        switch(lDir){
+            case DIR_UP: return new ImageLoader(x,y,width,height,64,0,file);
+            case DIR_DOWN: return new ImageLoader(x,y,width,height,32,0,file);
+            case DIR_LEFT: return new ImageLoader(x,y,width,height,0,0,file);
+            case DIR_RIGHT: return new ImageLoader(x,y,width,height,96,0,file);
+                default: return null;
+        }
     }
 
     @Override
     public void paint(Graphics g){
-        getCurImg();
+        curImg=getCurImg();
         curImg.paint(g);
         /*
         Polygon pShape = makePlayerShape();
@@ -65,15 +72,19 @@ public class Player extends Entity{
         int BoardWidth = Data.getNumTiles()*Data.getTileSize();
         if(Data.isUp()&&y>0){
             y-=SPEED;
+            Data.setLastDir(DIR_UP);
             if(checkCollisions()) y+=SPEED;
         }if(Data.isDown()&&y+height-1<BoardWidth){
             y+=SPEED;
+            Data.setLastDir(Data.DIR_DOWN);
             if(checkCollisions()) y-=SPEED;
         }if(Data.isRight()&&x+width-1<BoardWidth){
             x+=SPEED;
+            Data.setLastDir(DIR_RIGHT);
             if(checkCollisions()) x-=SPEED;
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
+            Data.setLastDir(Data.DIR_LEFT);
             if(checkCollisions()) x+=SPEED;
         }
     }
