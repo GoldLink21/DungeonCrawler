@@ -22,6 +22,14 @@ public class ImageLoader extends Component {
     
     public BufferedImage resize(int scaleWidth, int scaleHeight){
         BufferedImage out = new BufferedImage(scaleWidth, scaleHeight, img.getType());
+        BufferedImage output = img.getScaledInstance(scaleWidth,scaleHeight,Image.SCALE_DEFAULT);
+        return output;
+        
+    }
+    
+    //Stolen
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+        return Thumbnails.of(img).size(newW, newH).asBufferedImage();
     }
     
     public static BufferedImage getBufferedImage(int width, int height, int imgx,int imgy, String fileName){
