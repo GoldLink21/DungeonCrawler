@@ -26,20 +26,6 @@ public class ImageLoader extends Component {
         
     }
 
-    /*
-    //Stolen
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
-        return Thumbnails.of(img).size(newW, newH).asBufferedImage();
-    }
-
-    public static BufferedImage getBufferedImage(int width, int height, int imgx,int imgy, String fileName){
-        try{
-            img = ImageIO.read(new File(fileName));
-        }catch (IOException e){}
-        img = img.getSubimage(imgx,imgy,width,height);
-        return img;
-    }
-    */
     @Override
     public void paint(Graphics g){
         g.drawImage(img,x,y,width,height,null);
