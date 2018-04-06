@@ -11,13 +11,7 @@ public class Map {
 
     public Map(){
         map = new Tile[numTiles][numTiles];
-        fillBoard(PATH);
-        for(int i=0;i<numTiles;i++){
-            setTile(0,i,WALL);
-            setTile(numTiles-1,i,WALL);
-            setTile(i,0,WALL);
-            setTile(i,numTiles-1,WALL);
-        }
+        loadFloor(0);
     }
 
     public void randomBoard(){
@@ -47,9 +41,7 @@ public class Map {
         loadFloor(floor+1);
     }
 
-    public void setTile(int x,int y,int val){
-        map[x][y]=new Tile(x,y,val);
-    }
+    public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
 
     private void fillBoard(int value){
         for (int i = 0; i < numTiles; i++) {

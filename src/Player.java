@@ -6,6 +6,8 @@ public class Player extends Entity{
 
     private final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
+    boolean touchedLava=false;
+
     ImageLoader curImg;
 
     private Map map;
@@ -39,9 +41,10 @@ public class Player extends Entity{
 
     @Override
     public void paint(Graphics g){
-        curImg=getCurImg();
-        curImg.paint(g);
-        /*
+
+        //curImg=getCurImg();
+        //curImg.paint(g);
+
         Polygon pShape = makePlayerShape();
         g.setColor(Color.BLUE);
         g.fillPolygon(pShape);
@@ -51,12 +54,15 @@ public class Player extends Entity{
         //g.drawOval(x,y,SIZE,SIZE);
         g.setColor(Color.ORANGE);
         g.drawRect((int)pShape.getBounds().getX(),(int)pShape.getBounds().getY(),width,height);
-        */
+
     }
 
     private int getCurTileType(Point p){
         int curX = (int)(p.getX())/Data.getTileSize();
         int curY = (int)(p.getY())/Data.getTileSize();
+        if(curX>Data.getNumTiles()||curY>Data.getNumTiles()){
+            return 0;
+        }
         return map.getTile(curX,curY).getValue();
     }
 
@@ -70,15 +76,16 @@ public class Player extends Entity{
     @Override
     public void move(){
         int BoardWidth = Data.getNumTiles()*Data.getTileSize();
+        int buffer = 5;
         if(Data.isUp()&&y>0){
             y-=SPEED;
             Data.setLastDir(DIR_UP);
             if(checkCollisions()) y+=SPEED;
-        }if(Data.isDown()&&y+height-1<BoardWidth){
+        }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
             if(checkCollisions()) y-=SPEED;
-        }if(Data.isRight()&&x+width-1<BoardWidth){
+        }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
             Data.setLastDir(DIR_RIGHT);
             if(checkCollisions()) x-=SPEED;
@@ -92,7 +99,7 @@ public class Player extends Entity{
     @Override
     public void setPosition(int x,int y){
         int tSize = Data.getTileSize();
-        this.x=x*tSize;
-        this.y=y*tSize;
+        this.x=x*tSize+tSize/4;
+        this.y=y*tSize+tSize/4;
     }
 }
