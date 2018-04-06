@@ -19,6 +19,18 @@ public class ImageLoader extends Component {
         }catch (IOException e){}
         img = img.getSubimage(imgx,imgy,width,height);
     }
+    
+    public BufferedImage resize(int scaleWidth, int scaleHeight){
+        BufferedImage out = new BufferedImage(scaleWidth, scaleHeight, img.getType());
+    }
+    
+    public static BufferedImage getBufferedImage(int width, int height, int imgx,int imgy, String fileName){
+        try{
+            img = ImageIO.read(new File(fileName));
+        }catch (IOException e){}
+        img = img.getSubimage(imgx,imgy,width,height);
+        return img;
+    }
 
     @Override
     public void paint(Graphics g){
