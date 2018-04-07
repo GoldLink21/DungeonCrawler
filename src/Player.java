@@ -29,13 +29,12 @@ public class Player extends Entity{
     }
 
     private ImageLoader getCurImg(){
-        int lDir = Data.getLastDir();
-        switch(lDir){
-            case DIR_UP: return new ImageLoader(x,y,width,height,64,0,file);
-            case DIR_DOWN: return new ImageLoader(x,y,width,height,32,0,file);
+        switch(Data.getLastDir()){
+            case DIR_UP: return new ImageLoader(x,y,width,height,16*4,0,file);
+            case DIR_DOWN: return new ImageLoader(x,y,width,height,16*2,0,file);
             case DIR_LEFT: return new ImageLoader(x,y,width,height,0,0,file);
-            case DIR_RIGHT: return new ImageLoader(x,y,width,height,96,0,file);
-                default: return null;
+            case DIR_RIGHT: return new ImageLoader(x,y,width,height,16*6,0,file);
+            default: return null;
         }
     }
 

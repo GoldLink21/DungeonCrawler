@@ -18,6 +18,7 @@ public class ImageLoader extends Component {
             img = ImageIO.read(new File(fileName));
         }catch (IOException e){}
         //img = img.getSubimage(imgx,imgy,width,height);
+
     }
     
     public BufferedImage resizeImg(int scaleWidth, int scaleHeight){
