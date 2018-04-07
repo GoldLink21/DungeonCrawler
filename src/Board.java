@@ -31,7 +31,6 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(1000/60,this);
         timer.start();
 
-
     }
 
     public void paintAndMoveEntities(Graphics g){
@@ -57,6 +56,7 @@ public class Board extends JPanel implements ActionListener {
                 entities.add(0,new Player(map));
                 entities.get(0).setPosition(1,1);
                 first = false;
+
             }
             map.paint(g);
             paintAndMoveEntities(g);

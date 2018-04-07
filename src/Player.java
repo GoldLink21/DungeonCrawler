@@ -12,7 +12,7 @@ public class Player extends Entity{
 
     private Map map;
     private final int SPEED=2;
-    private final String file = "resources/player.png";
+    private final String file = "resources/gfx/player.png";
 
     public Player(Map map){
         super(Color.BLUE,0,0,16,16);
@@ -42,9 +42,9 @@ public class Player extends Entity{
     @Override
     public void paint(Graphics g){
 
-        //curImg=getCurImg();
-        //curImg.paint(g);
+        getCurImg().paint(g);
 
+        /*
         Polygon pShape = makePlayerShape();
         g.setColor(Color.BLUE);
         g.fillPolygon(pShape);
@@ -54,7 +54,7 @@ public class Player extends Entity{
         //g.drawOval(x,y,SIZE,SIZE);
         g.setColor(Color.ORANGE);
         g.drawRect((int)pShape.getBounds().getX(),(int)pShape.getBounds().getY(),width,height);
-
+        */
     }
 
     private int getCurTileType(Point p){
@@ -80,6 +80,8 @@ public class Player extends Entity{
         if(Data.isUp()&&y>0){
             y-=SPEED;
             Data.setLastDir(DIR_UP);
+            new SoundLoader("resources/sfx/pingpong.wav");
+            //SoundLoader.play("resources/sfx/pingpong.wav");
             if(checkCollisions()) y+=SPEED;
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
