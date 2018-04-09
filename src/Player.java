@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity{
     int x,y,dir;
 
-    private final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
+    private final int IMG_SIZE=16;
 
-    boolean touchedLava=false;
+    boolean onLava=false,onEnd=false;
 
     ImageLoader curImg;
 
@@ -17,43 +17,27 @@ public class Player extends Entity{
     public Player(Map map){
         super(Color.BLUE,0,0,16,16);
         this.map = map;
-        dir=DIR_UP;
-        curImg = new ImageLoader(x,y,width,height,x,y,file);
-    }
-
-    private Polygon makePlayerShape(){
-        int rad=width/2;
-        int[]xPoints={x+rad,x+width,x+rad,x};
-        int[]yPoints={y,y+rad,y+height,y+rad};
-        return new Polygon(xPoints,yPoints,xPoints.length);
+        dir=Data.DIR_UP;
+        curImg = new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,0,0,width,height,file);
     }
 
     private ImageLoader getCurImg(){
         switch(Data.getLastDir()){
-            case DIR_UP: return new ImageLoader(x,y,width,height,16*4,0,file);
-            case DIR_DOWN: return new ImageLoader(x,y,width,height,16*2,0,file);
-            case DIR_LEFT: return new ImageLoader(x,y,width,height,0,0,file);
-            case DIR_RIGHT: return new ImageLoader(x,y,width,height,16*6,0,file);
+            case Data.DIR_UP: return getImg(4);
+            case Data.DIR_DOWN: return getImg(2);
+            case Data.DIR_LEFT: return getImg(0);
+            case Data.DIR_RIGHT: return getImg(6);
             default: return null;
         }
     }
 
+    private ImageLoader getImg(int num){
+        return new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,16*num,0,width,height,file);
+    }
+
     @Override
     public void paint(Graphics g){
-
         getCurImg().paint(g);
-
-        /*
-        Polygon pShape = makePlayerShape();
-        g.setColor(Color.BLUE);
-        g.fillPolygon(pShape);
-        //g.fillOval(x,y,SIZE,SIZE);
-        g.setColor(Color.BLACK);
-        g.drawPolygon(pShape);
-        //g.drawOval(x,y,SIZE,SIZE);
-        g.setColor(Color.ORANGE);
-        g.drawRect((int)pShape.getBounds().getX(),(int)pShape.getBounds().getY(),width,height);
-        */
     }
 
     private int getCurTileType(Point p){
@@ -68,8 +52,20 @@ public class Player extends Entity{
     private boolean checkCollisions(){
         Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
         for(int i=0;i<points.length;i++)
-            if(getCurTileType(points[i])==0) return true;
+            if(getCurTileType(points[i])==MapData.WALL) return true;
         return false;
+    }
+
+    private void checkTiles(){
+        Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
+        for(int i=0;i<points.length;i++){
+            int type = getCurTileType(points[i]);
+            if(type==MapData.LAVA){
+                onLava=true;
+            }else if(type==MapData.GOAL){
+                onEnd=true;
+            }
+        }
     }
 
     @Override
@@ -78,9 +74,7 @@ public class Player extends Entity{
         int buffer = 5;
         if(Data.isUp()&&y>0){
             y-=SPEED;
-            Data.setLastDir(DIR_UP);
-            new SoundLoader("resources/sfx/pingpong.wav");
-            //SoundLoader.play("resources/sfx/pingpong.wav");
+            Data.setLastDir(Data.DIR_UP);
             if(checkCollisions()) y+=SPEED;
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
@@ -88,7 +82,7 @@ public class Player extends Entity{
             if(checkCollisions()) y-=SPEED;
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
-            Data.setLastDir(DIR_RIGHT);
+            Data.setLastDir(Data.DIR_RIGHT);
             if(checkCollisions()) x-=SPEED;
         }if(Data.isLeft()&&x>0){
             x-=SPEED;

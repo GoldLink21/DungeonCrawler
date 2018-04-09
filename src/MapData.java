@@ -2,7 +2,7 @@ public class MapData {
 
     private final static int NUM_FLOORS = 1,NUM_TILES=Data.getNumTiles();
 
-    private static final int WALL = 0,PATH=1,LAVA=2,GOAL=3,SECRET=4,START=5;
+    public static final int WALL = 0,PATH=1,LAVA=2,GOAL=3,SECRET=4,START=5;
 
     private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
 
@@ -22,8 +22,14 @@ public class MapData {
             temp[NUM_TILES-1][i]=WALL;
             temp[i][0]=WALL;
             temp[i][NUM_TILES-1]=WALL;
+        }for(int i=1;i<NUM_TILES-2;i++){
+            temp[2][i]=WALL;
+            temp[6][i]=WALL;
+        }for(int i=2;i<NUM_TILES-1;i++){
+            temp[4][i]=WALL;
         }
         temp[1][1]=START;
+        temp[NUM_TILES-2][1]=GOAL;
         return temp;
     }
 

@@ -9,7 +9,7 @@ public class ImageLoader extends Component {
     BufferedImage img;
     private int x,y,width,height;
 
-    public ImageLoader(int x, int y,int width, int height, int imgx,int imgy, String fileName){
+    public ImageLoader(int x, int y,int width, int height, int imgx,int imgy,int newWidth, int newHeight, String fileName){
         this.x=x;
         this.y=y;
         this.width=width;
@@ -17,10 +17,9 @@ public class ImageLoader extends Component {
         try{
             img = ImageIO.read(new File(fileName));
         }catch (IOException e){}
-        //img = img.getSubimage(imgx,imgy,width,height);
-
+        img = img.getSubimage(imgx,imgy,width,height);
     }
-    
+
     public BufferedImage resizeImg(int scaleWidth, int scaleHeight){
         BufferedImage out = new BufferedImage(scaleWidth, scaleHeight, img.getType());
         return out;

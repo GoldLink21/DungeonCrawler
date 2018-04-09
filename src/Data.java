@@ -7,7 +7,7 @@ public class Data {
 
     public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
-    private static int lastDir=DIR_UP;
+    private static int lastDir=DIR_DOWN;
 
     public static boolean DEBUG(){return DEBUG;}
     public static boolean isPlay(){return play;}
