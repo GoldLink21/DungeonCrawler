@@ -55,11 +55,15 @@ public class Game extends JFrame implements KeyListener{
             Data.setDown(false);
         if(e.getKeyCode()==KeyEvent.VK_SPACE) {
             Data.setSpace(false);
+            if(Data.isPlay()&&Data.DEBUG()){
+                board.map.randomBoard();
+            }
+        }if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
                 board.startGame();
                 Data.togglePlay();
-            }else if(Data.isPlay()&&Data.DEBUG()){
-                board.map.randomBoard();
+            }else if(Data.isEnd()){
+                Data.toggleEnd();
             }
         }
     }

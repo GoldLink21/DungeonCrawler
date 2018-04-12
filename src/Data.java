@@ -1,9 +1,9 @@
 public class Data {
-    private static boolean play = false,menu = true,DEBUG=true;
+    private static boolean play = false,menu = true,DEBUG=true,end=false;
 
     private static boolean up=false,down=false,left=false,right=false,space=false;
 
-    public static final int TILE_SIZE = 30,NUM_TILES = 9,TILE_TYPES=4;
+    public static final int TILE_SIZE = 30,NUM_TILES = 9,TILE_TYPES=5;
 
     public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
@@ -12,6 +12,7 @@ public class Data {
     public static boolean DEBUG(){return DEBUG;}
     public static boolean isPlay(){return play;}
     public static boolean isMenu(){return menu;}
+    public static boolean isEnd(){return end;}
 
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
@@ -38,6 +39,16 @@ public class Data {
         }else{
             play = true;
             menu = false;
+        }
+    }
+
+    public static void toggleEnd(){
+        if(end){
+            end =false;
+            menu = true;
+        }else{
+            play=false;
+            end=true;
         }
     }
 }

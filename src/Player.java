@@ -12,10 +12,10 @@ public class Player extends Entity{
 
     private Map map;
     private final int SPEED=2;
-    private final String file = "resources/gfx/player.png";
+    private final String file = "player.png";
 
     public Player(Map map){
-        super(Color.BLUE,0,0,16,16);
+        super(Color.BLUE,0,0,20,20);
         this.map = map;
         dir=Data.DIR_UP;
         curImg = new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,0,0,width,height,file);
@@ -38,6 +38,19 @@ public class Player extends Entity{
     @Override
     public void paint(Graphics g){
         getCurImg().paint(g);
+    }
+
+    public void resetPosition(){
+        for(int i=0;i<Data.getNumTiles();i++){
+            for(int j=0;j<Data.getNumTiles();j++){
+                if(map.getTile(i,j).getValue()==MapData.START){
+                    setPosition(i,j);
+                    onEnd=false;
+                    onLava=false;
+                    return;
+                }
+            }
+        }
     }
 
     private int getCurTileType(Point p){
@@ -65,6 +78,11 @@ public class Player extends Entity{
             }else if(type==MapData.GOAL){
                 onEnd=true;
             }
+        }if(onLava){
+            resetPosition();
+        }else if(onEnd){
+            map.loadNextFloor();
+            resetPosition();
         }
     }
 
@@ -76,18 +94,22 @@ public class Player extends Entity{
             y-=SPEED;
             Data.setLastDir(Data.DIR_UP);
             if(checkCollisions()) y+=SPEED;
+            checkTiles();
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
             if(checkCollisions()) y-=SPEED;
+            checkTiles();
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
             Data.setLastDir(Data.DIR_RIGHT);
             if(checkCollisions()) x-=SPEED;
+            checkTiles();
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
             Data.setLastDir(Data.DIR_LEFT);
             if(checkCollisions()) x+=SPEED;
+            checkTiles();
         }
     }
 

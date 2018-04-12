@@ -9,7 +9,7 @@ public class Map {
 
     public Map(){
         map = new Tile[numTiles][numTiles];
-        loadFloor(0);
+        loadNextFloor();
     }
 
     public void randomBoard(){
@@ -27,11 +27,16 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
-        int[][] curFloor = MapData.getFloor(floor);
-        for(int i=0;i<Data.getNumTiles();i++){
-            for(int j=0;j<Data.getNumTiles();j++){
-                setTile(i,j,curFloor[i][j]);
+        if(MapData.getFloor(floor)!=null){
+            int[][] curFloor = MapData.getFloor(floor);
+            for (int i = 0; i < Data.getNumTiles(); i++) {
+                for (int j = 0; j < Data.getNumTiles(); j++) {
+                    setTile(i, j, curFloor[i][j]);
+                }
             }
+        }else{
+            loadFloor(0);
+            Data.toggleEnd();
         }
     }
 
@@ -46,4 +51,7 @@ public class Map {
             for (int j = 0; j < numTiles; j++)
                 map[i][j].paint(g);
     }
+
+    public int getFloor(){return floor;}
+    public void setFloor(int floor){this.floor = floor;}
 }
