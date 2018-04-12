@@ -5,7 +5,8 @@ public class Tile {
 
     private final int size = Data.getTileSize();
 
-    Color[]colors={Color.DARK_GRAY,Color.LIGHT_GRAY,Color.RED,Color.WHITE,Color.GRAY,Color.CYAN};
+    Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
+            (Color.DARK_GRAY),(Color.CYAN)};
 
     public Tile(int x,int y,int value){
         this.x=Data.getTileSize()*x;

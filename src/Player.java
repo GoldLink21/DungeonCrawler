@@ -15,7 +15,7 @@ public class Player extends Entity{
     private final String file = "player.png";
 
     public Player(Map map){
-        super(Color.BLUE,0,0,20,20);
+        super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE);
         this.map = map;
         dir=Data.DIR_UP;
         curImg = new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,0,0,width,height,file);

@@ -35,14 +35,19 @@ public class MapData {
         }
         temp[1][1]=START;
         temp[NUM_TILES-2][1]=GOAL;
-        temp[2][1]=LAVA;
+        temp[NUM_TILES/2][NUM_TILES-2]=LAVA;
         return temp;
     }
 
     private static int[][] floorTwo(){
         int[][] temp = new int[NUM_TILES][NUM_TILES];
+        for(int i=2;i<NUM_TILES-2;i++)
+            temp[i][1]=PATH;
+        temp[4][1]=LAVA;
+        for(int i=3;i<6;i++)
+            temp[i][2]=PATH;
         temp[1][1]=START;
-        temp[1][2]=GOAL;
+        temp[NUM_TILES-2][1]=GOAL;
         return temp;
     }
 
