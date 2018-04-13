@@ -13,7 +13,7 @@ public class Game extends JFrame implements KeyListener{
         setTitle("Dungeon");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        board = new Board(this);
+        board = new Board();
 
         add(board);
         addKeyListener(this);

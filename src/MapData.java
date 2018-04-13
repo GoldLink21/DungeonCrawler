@@ -2,7 +2,7 @@ public class MapData {
 
     private final static int NUM_FLOORS = 2,NUM_TILES=Data.getNumTiles();
 
-    public static final int WALL = 0,PATH=1,LAVA=2,GOAL=3,SECRET=4,START=5;
+    public static final int WALL=0,PATH=1,LAVA=2,GOAL=3,START=4;
 
     private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
 

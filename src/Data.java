@@ -16,7 +16,6 @@ public class Data {
 
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
-    public static int getTileTypes(){return TILE_TYPES;}
     public static int getLastDir(){return lastDir;}
 
     public static boolean isUp(){return up;}

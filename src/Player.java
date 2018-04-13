@@ -41,6 +41,7 @@ public class Player extends Entity{
     }
 
     public void resetPosition(){
+        map.resetTraps();
         for(int i=0;i<Data.getNumTiles();i++){
             for(int j=0;j<Data.getNumTiles();j++){
                 if(map.getTile(i,j).getValue()==MapData.START){
@@ -111,6 +112,7 @@ public class Player extends Entity{
             if(checkCollisions()) x+=SPEED;
             checkTiles();
         }
+        checkTiles();
     }
 
     @Override

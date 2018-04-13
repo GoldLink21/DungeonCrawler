@@ -2,29 +2,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener {
 
     private final int BOARD_SIZE = Data.getTileSize()*Data.getNumTiles();
 
-    //With it like this, the array index values are the x,y coords
-
-
     Map map;
     Timer timer;
-    Game game;
 
     ArrayList<Entity> entities = new ArrayList<>();
 
-    public Board(Game game){
+    public Board(){
         setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(BOARD_SIZE,BOARD_SIZE));
-        this.game = game;
         MapData.setupFloors();
         map = new Map();
-
-
     }
 
     public void startGame(){
