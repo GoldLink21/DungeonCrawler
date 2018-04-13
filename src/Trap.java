@@ -21,7 +21,7 @@ public class Trap implements ActionListener{
     }
 
     public void reset(){
-        setCurTile(type);
+        map.loadFloor(map.getFloor());
         cur = 0;
         setCurTile(MapData.LAVA);
     }
@@ -30,6 +30,8 @@ public class Trap implements ActionListener{
 
     public void setCurTile(int type){map.setTile(x[cur],y[cur],type);}
 
+    public void stop(){timer.stop();System.out.println("Stopped timer");}
+
     @Override
     public void actionPerformed(ActionEvent e){
         if(first){
@@ -37,20 +39,22 @@ public class Trap implements ActionListener{
             first=false;
         }
         setCurTile(type);
-        if(isForward){
-            if(cur>x.length-2){
-                isForward=false;
-                cur--;
-            }else
-                cur++;
-        }else{
-            if(cur<1){
-                isForward=true;
-                cur++;
-            }else
-                cur--;
+        if(timer.isRunning()) {
+            if (isForward) {
+                if (cur > x.length - 2) {
+                    isForward = false;
+                    cur--;
+                } else
+                    cur++;
+            } else {
+                if (cur < 1) {
+                    isForward = true;
+                    cur++;
+                } else
+                    cur--;
+            }
+            type = getCurType();
+            setCurTile(MapData.LAVA);
         }
-        type=getCurType();
-        setCurTile(MapData.LAVA);
     }
 }

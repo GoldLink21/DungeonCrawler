@@ -63,6 +63,7 @@ public class Game extends JFrame implements KeyListener{
                 board.startGame();
                 Data.togglePlay();
             }else if(Data.isEnd()){
+                board.map.setTrapsAdded(false);
                 Data.toggleEnd();
             }
         }

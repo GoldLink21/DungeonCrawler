@@ -11,7 +11,11 @@ public class Map {
 
     private int floor=-1;
 
-    ArrayList<Trap>traps=new ArrayList<>();
+    private static ArrayList<Trap>traps=new ArrayList<>();
+
+    boolean trapsAdded=false;
+
+    public void setTrapsAdded(boolean bool){trapsAdded=bool;}
 
     public Map(){
         map = new Tile[numTiles][numTiles];
@@ -33,9 +37,9 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
-        clearTraps();
-        int[]x1={2,3,4},y1={1,2,3};
-        addTrap(x1,y1,1);
+        if(!trapsAdded) {
+            addTraps();
+        }
         if(MapData.getFloor(floor)!=null){
             int[][] curFloor = MapData.getFloor(floor);
             for (int i = 0; i < Data.getNumTiles(); i++) {
@@ -43,6 +47,7 @@ public class Map {
                     setTile(i, j, curFloor[i][j]);
                 }
             }
+            System.out.println("Loaded Floor");
         }else{
             loadFloor(0);
             Data.toggleEnd();
@@ -50,7 +55,12 @@ public class Map {
     }
 
     public void clearTraps(){
-        traps.clear();
+        while(traps.size()>0){
+            traps.get(0).stop();
+
+            traps.remove(0);
+            System.out.println("removed trap");
+        }
     }
 
     public void addTrap(Trap trap){
@@ -60,10 +70,27 @@ public class Map {
     }
 
     public void loadNextFloor(){
+        trapsAdded=false;
+        clearTraps();
         loadFloor(floor+1);
     }
 
-    public void resetTraps(){for(int i=0;i<traps.size();i++)traps.get(i).reset();}
+    public void addTraps(){
+        clearTraps();
+        switch(floor){
+            case 0:
+                //Cannot have traps on first floor!!
+                break;
+            case 1:
+                int[] x2 = {5, 5}, y2 = {2, 3};
+                addTrap(x2, y2, 1);
+                break;
+            case 2:
+
+                break;
+        }
+        trapsAdded=true;
+    }
 
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
 

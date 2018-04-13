@@ -18,7 +18,7 @@ public class Player extends Entity{
         super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE);
         this.map = map;
         dir=Data.DIR_UP;
-        curImg = new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,0,0,width,height,file);
+        curImg = getImg(2);
     }
 
     private ImageLoader getCurImg(){
@@ -41,7 +41,6 @@ public class Player extends Entity{
     }
 
     public void resetPosition(){
-        map.resetTraps();
         for(int i=0;i<Data.getNumTiles();i++){
             for(int j=0;j<Data.getNumTiles();j++){
                 if(map.getTile(i,j).getValue()==MapData.START){

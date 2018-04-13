@@ -15,8 +15,16 @@ public class MapData {
     }
 
     public static void setupFloors(){
-        floors[0]=floorOne();
-        floors[1]=floorTwo();
+        floors[0]=floorZero();
+        floors[1]=floorOne();
+        floors[2]=floorTwo();
+
+    }
+
+    private static int[][] floorZero(){
+        int[][]temp=new int[NUM_TILES][NUM_TILES];
+
+        return temp;
     }
 
     private static int[][] floorOne(){
