@@ -1,6 +1,6 @@
 public class MapData {
 
-    private final static int NUM_FLOORS = 3,NUM_TILES=Data.getNumTiles();
+    private final static int NUM_FLOORS = 4,NUM_TILES=Data.getNumTiles();
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
@@ -18,6 +18,7 @@ public class MapData {
         floors[0]=floorZero();
         floors[1]=floorOne();
         floors[2]=floorTwo();
+        floors[3]=floorThree();
     }
 
     private static int[][] floorZero(){
@@ -57,6 +58,16 @@ public class MapData {
             temp[i][2]=PATH;
         temp[1][1]=START;
         temp[NUM_TILES-2][1]=END;
+        return temp;
+    }
+
+    private static int[][] floorThree(){
+        int[][]temp=new int[NUM_TILES][NUM_TILES];
+        temp[1][1]=START;
+        temp[7][1]=END;
+        for(int i=2;i<7;i++){
+            temp[i][1]=PATH;
+        }
         return temp;
     }
 
