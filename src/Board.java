@@ -1,23 +1,21 @@
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int BOARD_SIZE = Data.getTileSize()*Data.getNumTiles();
-
     Map map;
     Timer timer;
 
-    ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<Entity>entities=new ArrayList<>();
 
     public Board(){
         setBackground(Color.LIGHT_GRAY);
-        setPreferredSize(new Dimension(BOARD_SIZE,BOARD_SIZE));
+        final int bSize=Data.getTileSize()*Data.getNumTiles();
+        setPreferredSize(new Dimension(bSize,bSize));
         MapData.setupFloors();
         map = new Map();
     }
@@ -25,20 +23,18 @@ public class Board extends JPanel implements ActionListener {
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
-
     }
 
-    public void paintAndMoveEntities(Graphics g){
-        for(int i=0;i<entities.size();i++) {
-            entities.get(i).paint(g);
-            entities.get(i).move();
+    private void paintItAll(Graphics g){
+        map.paint(g);
+        for(Entity e:entities){
+            e.paint(g);
+            e.move();
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
-    }
+    public void actionPerformed(ActionEvent e){repaint();}
 
     private boolean first = true;
 
@@ -47,29 +43,25 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
         if(Data.isPlay()) {
             if(first){
                 entities.add(0,new Player(map));
-                entities.get(0).setPosition(1,1);
+                ((Player)entities.get(0)).resetPosition();
                 first = false;
             }
-            map.paint(g);
-            paintAndMoveEntities(g2);
+            paintItAll(g);
         }else if(Data.isMenu()) {
-            printCentered("Dungeon Crawler",titleFont,1.0/3,g2);
+            printCentered("Dungeon Crawler",titleFont,1.0/3,g);
         }else if(Data.isEnd()){
-            printCentered("The End",titleFont,1.0/3,g2);
+            printCentered("The End",titleFont,1.0/3,g);
         }
     }
 
-    private void printSimpleString(String s,int width,int XPos,int YPos,Graphics g2d){
-        g2d.drawString(s,(width/2-(int)(g2d.getFontMetrics().getStringBounds(s,g2d).getWidth())/2)+XPos,YPos);
-    }
+    private void printSimpleString(String s,int width,int YPos,Graphics g){
+        g.drawString(s,(width/2-(int)(g.getFontMetrics().getStringBounds(s,g).getWidth())/2),YPos);}
 
     private void printCentered(String s,Font font,double yPos,Graphics g){
         g.setFont(font);
-        printSimpleString(s,getWidth(),0,(int)(getHeight()*yPos),g);
+        printSimpleString(s,getWidth(),(int)(getHeight()*yPos),g);
     }
-
 }

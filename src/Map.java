@@ -1,7 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Map {
@@ -18,7 +15,7 @@ public class Map {
     public void setTrapsAdded(boolean bool){trapsAdded=bool;}
 
     public Map(){
-        map = new Tile[numTiles][numTiles];
+        map=new Tile[numTiles][numTiles];
         loadNextFloor();
     }
 
@@ -32,22 +29,19 @@ public class Map {
         if(x>=0&&x<=Data.getNumTiles())
             if(y>=0&&y<=Data.getNumTiles())
                 return map[x][y];
-        return null;
+        return new Tile(x,y,MapData.WALL);
     }
 
     public void loadFloor(int floor){
         this.floor=floor;
-        if(!trapsAdded) {
-            addTraps();
-        }
+        if(!trapsAdded)addTraps();
+
         if(MapData.getFloor(floor)!=null){
-            int[][] curFloor = MapData.getFloor(floor);
-            for (int i = 0; i < Data.getNumTiles(); i++) {
-                for (int j = 0; j < Data.getNumTiles(); j++) {
-                    setTile(i, j, curFloor[i][j]);
-                }
-            }
-            System.out.println("Loaded Floor");
+            int[][]curFloor=MapData.getFloor(floor);
+            for(int i=0;i<Data.getNumTiles();i++)
+                for(int j=0;j<Data.getNumTiles();j++)
+                    setTile(i,j,curFloor[i][j]);
+            if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
             loadFloor(0);
             Data.toggleEnd();
@@ -57,17 +51,11 @@ public class Map {
     public void clearTraps(){
         while(traps.size()>0){
             traps.get(0).stop();
-
             traps.remove(0);
-            System.out.println("removed trap");
         }
     }
 
-    public void addTrap(Trap trap){
-        traps.add(trap);
-    }public void addTrap(int[]x,int[]y,int delay){
-        traps.add(new Trap(x,y,delay,this));
-    }
+    private void addTrap(int[]x,int[]y,int delay){traps.add(new Trap(x,y,delay,this));}
 
     public void loadNextFloor(){
         trapsAdded=false;
@@ -75,18 +63,19 @@ public class Map {
         loadFloor(floor+1);
     }
 
-    public void addTraps(){
+    private void addTraps(){
         clearTraps();
         switch(floor){
-            case 0:
-                //Cannot have traps on first floor!!
+            case 0://Cannot have traps on first floor!!
                 break;
             case 1:
-                int[] x2 = {5, 5}, y2 = {2, 3};
-                addTrap(x2, y2, 1);
+                int[] x1 = {4,4,4}, y1 = {0,1,2};
+                addTrap(x1, y1, 1);
+                addTrap(y1,x1,2);
                 break;
             case 2:
-
+                int[]x={1};int[]y={2};
+                addTrap(x,y,1);
                 break;
         }
         trapsAdded=true;
@@ -94,14 +83,9 @@ public class Map {
 
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
 
-    public void setTile(Point p, int val){map[(int)p.getX()][(int)p.getY()]=new Tile((int)p.getX(),(int)p.getY(),val);}
-
     public void paint(Graphics g){
         for (int i = 0; i < numTiles; i++)
             for (int j = 0; j < numTiles; j++)
                 map[i][j].paint(g);
     }
-
-    public int getFloor(){return floor;}
-    public void setFloor(int floor){this.floor = floor;}
 }

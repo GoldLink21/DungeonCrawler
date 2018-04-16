@@ -1,8 +1,8 @@
 public class MapData {
 
-    private final static int NUM_FLOORS = 2,NUM_TILES=Data.getNumTiles();
+    private final static int NUM_FLOORS = 3,NUM_TILES=Data.getNumTiles();
 
-    public static final int WALL=0,PATH=1,LAVA=2,GOAL=3,START=4;
+    public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
     private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
 
@@ -18,13 +18,14 @@ public class MapData {
         floors[0]=floorZero();
         floors[1]=floorOne();
         floors[2]=floorTwo();
-
     }
 
     private static int[][] floorZero(){
         int[][]temp=new int[NUM_TILES][NUM_TILES];
-
+        temp[1][3]=START;
+        temp[1][2]=END;
         return temp;
+
     }
 
     private static int[][] floorOne(){
@@ -42,7 +43,7 @@ public class MapData {
             temp[4][i]=WALL;
         }
         temp[1][1]=START;
-        temp[NUM_TILES-2][1]=GOAL;
+        temp[NUM_TILES-2][1]=END;
         temp[NUM_TILES/2][NUM_TILES-2]=LAVA;
         return temp;
     }
@@ -55,8 +56,17 @@ public class MapData {
         for(int i=3;i<6;i++)
             temp[i][2]=PATH;
         temp[1][1]=START;
-        temp[NUM_TILES-2][1]=GOAL;
+        temp[NUM_TILES-2][1]=END;
         return temp;
+    }
+
+    private static void border(int[][]temp,int type){
+        for(int i=0;i<NUM_TILES;i++){
+            temp[0][i]=type;
+            temp[8][i]=type;
+            temp[i][0]=type;
+            temp[i][8]=type;
+        }
     }
 
     private static void setFloorAs(int[][]temp,int type){

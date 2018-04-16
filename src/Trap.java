@@ -1,60 +1,60 @@
-import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Trap implements ActionListener{
-    int[]x,y;
-    int cur,type;
-    Map map;
-    Timer timer;
-    boolean isForward,first;
+    private int[]x,y;
+    private int cur,type;
+    private Map map;
+    private Timer timer;
+    private boolean isForward,first,loop;
+
+    //use loop to determine if Trap restarts at first pos or goes back after finishing
 
     public Trap(int[]x,int[]y,int delay,Map map){
         this.x=x;
         this.y=y;
         this.map=map;
-        this.cur=0;
-        isForward=true;
+        type=getCurType();
+        cur=0;
         first=true;
-        this.timer=new Timer(1000/delay,this);
+        isForward=true;
+        timer=new Timer(2000/delay,this);
         timer.start();
-    }
-
-    public void reset(){
-        map.loadFloor(map.getFloor());
-        cur = 0;
-        setCurTile(MapData.LAVA);
     }
 
     private int getCurType(){return map.getTile(x[cur],y[cur]).getValue();}
 
-    public void setCurTile(int type){map.setTile(x[cur],y[cur],type);}
+    private void setCurTile(int type){map.setTile(x[cur],y[cur],type);}
 
-    public void stop(){timer.stop();System.out.println("Stopped timer");}
+    public void stop(){timer.stop();}
 
     @Override
     public void actionPerformed(ActionEvent e){
+        setCurTile(type);
         if(first){
             type=getCurType();
             first=false;
         }
-        setCurTile(type);
         if(timer.isRunning()) {
-            if (isForward) {
-                if (cur > x.length - 2) {
-                    isForward = false;
-                    cur--;
-                } else
-                    cur++;
-            } else {
-                if (cur < 1) {
-                    isForward = true;
-                    cur++;
-                } else
-                    cur--;
-            }
-            type = getCurType();
-            setCurTile(MapData.LAVA);
+            if (x.length > 1) {
+                if(isForward){
+                    if(cur>x.length-2){
+                        isForward = false;
+                        cur--;
+                    }else
+                        cur++;
+                } else {
+                    if (cur < 1) {
+                        isForward = true;
+                        cur++;
+                    } else
+                        cur--;
+                }
+                type = getCurType();
+                setCurTile(MapData.LAVA);
+            }else
+                setCurTile(MapData.LAVA);
         }
     }
 }

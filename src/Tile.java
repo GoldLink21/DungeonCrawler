@@ -1,27 +1,29 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Graphics;
 
 public class Tile {
-    int x,y,value;
-
-    private final int size = Data.getTileSize();
-    //WALL=0,PATH=1,LAVA=2,GOAL=3,START=4;
-    Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
+    private int x,y,value;
+    //WALL=0,PATH=1,LAVA=2,END=3,START=4;
+    private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
             (Color.CYAN)};
 
     public Tile(int x,int y,int value){
         this.x=Data.getTileSize()*x;
         this.y=Data.getTileSize()*y;
         this.value = value;
-    }public Tile(Point p,int value){
-        this.x=(int)p.getX();
-        this.y=(int)p.getY();
-        this.value=value;
+    }
+
+    public static void printRGB(){
+        for(Color c:colors)
+            System.out.println(c.toString());
     }
 
     public int getValue(){return value;}
 
     public void paint(Graphics g){
+        int s=Data.getTileSize();
         g.setColor(colors[value]);
-        g.fill3DRect(x,y,size,size,true);
+        g.fill3DRect(x,y,s,s,true);
     }
 }
