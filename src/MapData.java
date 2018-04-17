@@ -4,9 +4,12 @@ public class MapData {
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
-    private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
+    public static int endlessFloor;
 
-    public static int getNumFloors(){return NUM_FLOORS;}
+    public static void setEndlessFloor(int num){endlessFloor=num;}
+    public static int getEndlessFloor(){return endlessFloor;}
+
+    private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
 
     public static int[][] getFloor(int floor){
         if(floor<NUM_FLOORS)
@@ -14,11 +17,27 @@ public class MapData {
         return null;
     }
 
+    public static int[][]getRandomFloor(){
+        endlessFloor=(int)(Math.random()*NUM_FLOORS);
+        switch(endlessFloor){
+            case 0:return floorZero();
+            case 1:return floorOne();
+            case 2:return floorTwo();
+            case 3:return floorThree();
+
+            default:return floorZero();
+        }
+    }
+
     public static void setupFloors(){
         floors[0]=floorZero();
         floors[1]=floorOne();
         floors[2]=floorTwo();
         floors[3]=floorThree();
+
+        if(Data.DEBUG()){
+            floors[1]=floorZero();
+        }
     }
 
     private static int[][] floorZero(){
@@ -63,9 +82,9 @@ public class MapData {
 
     private static int[][] floorThree(){
         int[][]temp=new int[NUM_TILES][NUM_TILES];
-        temp[1][1]=START;
-        temp[7][1]=END;
-        for(int i=2;i<7;i++){
+        temp[0][1]=START;
+        temp[8][1]=END;
+        for(int i=1;i<8;i++){
             temp[i][1]=PATH;
         }
         return temp;

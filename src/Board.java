@@ -23,6 +23,7 @@ public class Board extends JPanel implements ActionListener {
     public void startGame(){
         timer = new Timer(1000/60,this);
         timer.start();
+        Data.togglePlay();
     }
 
     private void paintItAll(Graphics g){

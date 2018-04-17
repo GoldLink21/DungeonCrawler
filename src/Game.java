@@ -15,7 +15,6 @@ public class Game extends JFrame implements KeyListener{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         board = new Board();
-
         add(board);
         addKeyListener(this);
         pack();
@@ -26,9 +25,7 @@ public class Game extends JFrame implements KeyListener{
     public static void main(String[]args){new Game();}
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -54,18 +51,26 @@ public class Game extends JFrame implements KeyListener{
             Data.setUp(false);
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
             Data.setDown(false);
+
         if(e.getKeyCode()==KeyEvent.VK_SPACE) {
             Data.setSpace(false);
-            if(Data.isPlay()&&Data.DEBUG()){
-                board.map.randomBoard();
-            }
-        }if(e.getKeyCode()==KeyEvent.VK_ENTER){
+            if(Data.isPlay()&&Data.DEBUG())board.map.randomBoard();
+        }
+
+        if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
+                Data.setMode(Data.MODE_CLASSIC);
                 board.startGame();
-                Data.togglePlay();
             }else if(Data.isEnd()){
                 board.map.setTrapsAdded(false);
                 Data.toggleEnd();
+            }
+        }
+
+        if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
+            if(Data.isMenu()) {
+                Data.setMode(Data.MODE_ENDLESS);
+                board.startGame();
             }
         }
     }

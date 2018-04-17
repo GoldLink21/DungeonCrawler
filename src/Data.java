@@ -8,11 +8,14 @@ public class Data {
 
     public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
-    private static int lastDir=DIR_DOWN;
+    public static final int MODE_CLASSIC=0,MODE_ENDLESS=1;
+
+    private static int lastDir=DIR_DOWN,mode;
 
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
     public static int getLastDir(){return lastDir;}
+    public static int getMode(){return mode;}
 
     public static boolean DEBUG(){return DEBUG;}
     public static boolean isPlay(){return play;}
@@ -32,6 +35,7 @@ public class Data {
     public static void setSpace(boolean bool){space=bool;}
 
     public static void setLastDir(int dir){lastDir = dir;}
+    public static void setMode(int type){mode = type;}
 
     public static void togglePlay(){
         //This is a cool way to toggle booleans
