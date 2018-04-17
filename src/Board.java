@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Board extends JPanel implements ActionListener {
 
     Map map;
-    Timer timer;
+    int ticks = 0;
+    private Timer timer;
 
     private ArrayList<Entity>entities=new ArrayList<>();
 
@@ -21,9 +22,9 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void startGame(){
+        ticks=0;
         timer = new Timer(1000/60,this);
         timer.start();
-        Data.togglePlay();
     }
 
     private void paintItAll(Graphics g){
@@ -35,11 +36,18 @@ public class Board extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e){repaint();}
+    public void actionPerformed(ActionEvent e){
+        repaint();
+        if(Data.isPlay()&&Data.isModeClassic())
+            ticks++;
+    }
+
+    public void resetTicks(){ticks=0;}
 
     private boolean first = true;
 
-    private final Font titleFont = new Font("TimesRoman",Font.BOLD,30);
+    private final Font titleFont=new Font("TimesRoman",Font.BOLD,30),
+            subtitleFont=new Font("TimesRoman",Font.BOLD,20);
 
     @Override
     public void paintComponent(Graphics g){
@@ -55,6 +63,14 @@ public class Board extends JPanel implements ActionListener {
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
         }else if(Data.isEnd()){
             printCentered("The End",titleFont,1.0/3,g);
+            if(Data.isModeClassic()){
+                printCentered("You made it in "+Math.round(ticks/120.0*10)/10.0+" seconds",subtitleFont,3/6.0,g);
+            }else{
+                String flr = " floor";
+                if(Data.getEndlessLevels()!=1)
+                    flr+="s";
+                printCentered("You made it through "+Data.getEndlessLevels()+flr,subtitleFont,3/6.0,g);
+            }
         }
     }
 

@@ -34,13 +34,14 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
-        if(!trapsAdded)addTraps();
+
 
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);
             for(int i=0;i<Data.getNumTiles();i++)
                 for(int j=0;j<Data.getNumTiles();j++)
                     setTile(i,j,curFloor[i][j]);
+            if(!trapsAdded)addTraps();
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
             loadFloor(0);
@@ -49,12 +50,13 @@ public class Map {
     }
 
     public void loadRandomFloor(){
-        if(!trapsAdded)addTraps();
+
+        Data.setEndlessLevels(Data.getEndlessLevels()+1);
         int[][]curFloor=MapData.getRandomFloor();
         for(int i=0;i<Data.getNumTiles();i++)
             for(int j=0;j<Data.getNumTiles();j++)
                 setTile(i,j,curFloor[i][j]);
-
+        if(!trapsAdded)addRandomTraps();
     }
 
     public void clearTraps(){
@@ -79,12 +81,18 @@ public class Map {
 
     private void addTraps(){
         clearTraps();
-        int temp;
-        if(Data.getMode()==Data.MODE_CLASSIC)
-            temp=MapData.getEndlessFloor();
-        else
-            temp=floor;
-        switch(temp){
+        switch(floor){
+            case 0:break;
+            case 1:floorOneTraps();break;
+            case 2:floorTwoTraps();break;
+            case 3:floorThreeTraps();break;
+        }
+        trapsAdded=true;
+    }
+
+    private void addRandomTraps(){
+        clearTraps();
+        switch(MapData.getEndlessFloor()){
             case 0:break;
             case 1:floorOneTraps();break;
             case 2:floorTwoTraps();break;
@@ -112,7 +120,7 @@ public class Map {
                 {5,4,3,2,1,1,1,1},{6,5,4,3,2,1,1,1},{7,6,5,4,3,2,1,1},{8,7,6,5,4,3,2,1}};
         for(int i=1;i<length;i++){
             x=fillArr(i,length);
-            addTrap(x,y[i-1],5);
+            addTrap(x,y[i-1],6);
         }
     }
 

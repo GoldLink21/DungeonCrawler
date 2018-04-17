@@ -1,6 +1,5 @@
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Tile {
     private int x,y,value;
@@ -8,10 +7,16 @@ public class Tile {
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
             (Color.CYAN)};
 
+    private static ImageLoader[]images;
+
+    int tSize=Data.getTileSize();
+    private BufferedImage lava;
+
     public Tile(int x,int y,int value){
         this.x=Data.getTileSize()*x;
         this.y=Data.getTileSize()*y;
         this.value = value;
+        lava = ImageLoader.getImg("LavaGif.gif");
     }
 
     public static void printRGB(){
@@ -25,5 +30,8 @@ public class Tile {
         int s=Data.getTileSize();
         g.setColor(colors[value]);
         g.fill3DRect(x,y,s,s,true);
+        if(value==2){
+            g.drawImage(lava.getScaledInstance(tSize,tSize, Image.SCALE_SMOOTH),x,y,null);
+        }
     }
 }

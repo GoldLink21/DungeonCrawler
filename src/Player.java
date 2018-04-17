@@ -55,6 +55,11 @@ public class Player extends Entity{
             }
         }if(onLava){
             resetPosition();
+            if(Data.isModeEndless()){
+                Data.setEndlessLives(Data.getEndlessLives()-1);
+                if(Data.getEndlessLives()<1)
+                    Data.toggleEnd();
+            }
         }else if(onEnd){
             map.loadNextFloor();
             resetPosition();
@@ -63,7 +68,7 @@ public class Player extends Entity{
 
     @Override
     public void move(){
-        int BoardWidth = Data.getNumTiles() * Data.getTileSize();
+        int BoardWidth = Data.getNumTiles()*Data.getTileSize();
         int buffer = 1;
         if (Data.isUp() && y > 0) {
             y-=SPEED;
