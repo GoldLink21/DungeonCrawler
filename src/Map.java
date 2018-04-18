@@ -33,7 +33,7 @@ public class Map {
         return new Tile(x,y,MapData.WALL);
     }
 
-    private void loadFloor(int floor){
+    public void loadFloor(int floor){
         this.floor=floor;
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);

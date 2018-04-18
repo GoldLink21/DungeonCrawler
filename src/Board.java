@@ -21,9 +21,20 @@ public class Board extends JPanel implements ActionListener {
         map = new Map();
     }
 
+
+
     public void newGame(){
         timer = new Timer(1000/60,this);
         timer.start();
+
+    }
+
+    public void restartGame(){
+        if(Data.isModeClassic())
+            map.loadFloor(0);
+        else
+            map.loadNextFloor();
+        ((Player)entities.get(0)).resetPosition();
     }
 
     private void paintItAll(Graphics g){
@@ -53,6 +64,7 @@ public class Board extends JPanel implements ActionListener {
             if(first){
                 entities.add(0,new Player(map));
                 ((Player)entities.get(0)).resetPosition();
+
                 first = false;
             }
             paintItAll(g);
