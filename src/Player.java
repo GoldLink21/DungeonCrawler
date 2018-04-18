@@ -3,9 +3,7 @@ import java.awt.Color;
 
 public class Player extends Entity{
 
-    private final int IMG_SIZE=16;
-
-    boolean onLava=false,onEnd=false;
+    private boolean onLava=false,onEnd=false;
 
     private final int SPEED=2;
     private final String file = "player.png";
@@ -22,10 +20,17 @@ public class Player extends Entity{
         }
     }
 
-    private ImageLoader getImg(int num){return new ImageLoader(x,y,IMG_SIZE,IMG_SIZE,16*num,0,width,height,file);}
+    private ImageLoader getImg(int num){return new ImageLoader(x,y,16,16,16*num,0,width,height,file);}
 
     @Override
-    public void paint(Graphics g){getCurImg().paint(g);}
+    public void paint(Graphics g){
+        try {
+            getCurImg().paint(g);
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            g.fillRect(x,y,width,height);
+        }
+    }
 
     public void resetPosition(){
         for(int i=0;i<Data.getNumTiles();i++)

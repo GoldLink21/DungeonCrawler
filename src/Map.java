@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Map {
     private Tile[][]map;
 
-    private final int numTiles = Data.getNumTiles();
+    private final int nTiles = Data.getNumTiles();
 
     private int floor=-1;
 
@@ -15,14 +15,15 @@ public class Map {
     public void setTrapsAdded(boolean bool){trapsAdded=bool;}
 
     public Map(){
-        map=new Tile[numTiles][numTiles];
+        map=new Tile[nTiles][nTiles];
         loadNextFloor();
     }
 
     public void randomBoard(){
-        for (int i = 0; i < numTiles; i++)
-            for (int j = 0; j < numTiles; j++)
-                setTile(i,j,(int)(Math.random()*Data.TILE_TYPES));
+        for (int i = 0; i < nTiles; i++)
+            for (int j = 0; j < nTiles; j++)
+                //setTile(i,j,(int)(Math.random()*Data.TILE_TYPES));
+                setTile(i,j,MapData.END);
     }
 
     public Tile getTile(int x, int y){
@@ -64,8 +65,8 @@ public class Map {
         }
     }
 
-    private void addTrap(int[]x,int[]y,int delay){traps.add(new Trap(x,y,delay,true,this));}
-    private void addTrap(int[]x,int[]y,int delay,boolean circular){traps.add(new Trap(x,y,delay,circular,this));}
+    private void addTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true,this));}
+    private void addTrap(int[]x,int[]y,int delay,boolean circular){traps.add(new LavaTrap(x,y,delay,circular,this));}
 
     public void loadNextFloor(){
         trapsAdded=false;
@@ -80,7 +81,7 @@ public class Map {
     private void addTraps(int var){
         clearTraps();
         switch(var){
-            case 0:break;
+            case 0:floorZeroTraps();break;
             case 1:floorOneTraps();break;
             case 2:floorTwoTraps();break;
             case 3:floorThreeTraps();break;
@@ -88,16 +89,20 @@ public class Map {
         trapsAdded=true;
     }
 
-    private void floorOneTraps(){
-        int[]x=fillArr(4,3);int[]y=fillArr(0,3,true);
-        addTrap(x, y, 4);
-        x=fillArr(8,9,false);y=fillArr(0,9,true);
+    private void floorZeroTraps(){
+        int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
         addTrap(x,y,10);
     }
 
+    private void floorOneTraps(){
+        int[]x=fillArr(4,3);int[]y=fillArr(0,3,true);
+        addTrap(x, y, 4);
+        x=fillArr(0,9,true);y=fillArr(4,9);
+        addTrap(x,y,7);
+    }
+
     private void floorTwoTraps(){
-        int[]x2={1};int[]y2={2};
-        addTrap(x2,y2,1);
+
     }
 
     private void floorThreeTraps(){
@@ -107,7 +112,7 @@ public class Map {
                 {5,4,3,2,1,1,1,1},{6,5,4,3,2,1,1,1},{7,6,5,4,3,2,1,1},{8,7,6,5,4,3,2,1}};
         for(int i=1;i<length;i++){
             x=fillArr(i,length);
-            addTrap(x,y[i-1],6);
+            addTrap(x,y[i-1],7);
         }
     }
 
@@ -130,8 +135,8 @@ public class Map {
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
 
     public void paint(Graphics g){
-        for(int i=0;i<numTiles;i++)
-            for(int j=0;j<numTiles;j++)
+        for(int i=0;i<nTiles;i++)
+            for(int j=0;j<nTiles;j++)
                 map[i][j].paint(g);
     }
 }

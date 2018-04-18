@@ -8,7 +8,7 @@ public class Tile {
             (Color.CYAN)};
 
     private static BufferedImage[]images={ImageLoader.getImg("wall.png"),
-            ImageLoader.getImg("clay.png"),ImageLoader.getImg("magma.png"),
+            ImageLoader.getImg("clay.png"),ImageLoader.getImg("LavaGif.gif"),
             ImageLoader.getImg("start.png"),ImageLoader.getImg("end.png")};
 
     int tSize=Data.getTileSize();

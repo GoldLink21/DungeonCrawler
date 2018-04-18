@@ -70,6 +70,7 @@ public class Board extends JPanel implements ActionListener {
                     flr+="s";
                 printCentered("You made it through "+flr,subtitleFont,3/6.0,g);
             }
+            printCentered("Press Enter to continue",subtitleFont,4/6.0,g);
         }
     }
 

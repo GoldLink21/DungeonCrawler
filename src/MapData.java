@@ -1,6 +1,6 @@
 public class MapData {
 
-    private final static int NUM_FLOORS = 4,NUM_TILES=Data.getNumTiles();
+    private final static int NUM_FLOORS = 4,nTiles=Data.getNumTiles();
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
@@ -9,7 +9,7 @@ public class MapData {
     public static void setEndlessFloor(int num){endlessFloor=num;}
     public static int getEndlessFloor(){return endlessFloor;}
 
-    private static int[][][]floors= new int[NUM_FLOORS][NUM_TILES][NUM_TILES];
+    private static int[][][]floors= new int[NUM_FLOORS][nTiles][nTiles];
 
     public static int[][] getFloor(int floor){
         if(floor<NUM_FLOORS)
@@ -42,47 +42,57 @@ public class MapData {
     }
 
     private static int[][] floorZero(){
-        int[][]temp=new int[NUM_TILES][NUM_TILES];
-        temp[1][3]=START;
-        temp[1][2]=END;
+        int[][]temp=new int[nTiles][nTiles];
+        temp[1][7]=START;
+        temp[7][1]=END;
+        for(int i=1;i<4;i++)
+            temp[i][6]=PATH;
+        for(int i=4;i<6;i++)
+            temp[3][i]=PATH;
+        for(int i=3;i<6;i++)
+            temp[i][4]=PATH;
+        for(int i=2;i<5;i++)
+            temp[5][i]=PATH;
+        for(int i=5;i<8;i++)
+            temp[i][2]=PATH;
         return temp;
 
     }
 
     private static int[][] floorOne(){
-        int[][]temp=new int[NUM_TILES][NUM_TILES];
+        int[][]temp=new int[nTiles][nTiles];
         setFloorAs(temp,PATH);
-        for(int i=0;i<NUM_TILES;i++){
+        for(int i=0;i<nTiles;i++){
             temp[0][i]=WALL;
-            temp[NUM_TILES-1][i]=WALL;
+            temp[nTiles-1][i]=WALL;
             temp[i][0]=WALL;
-            temp[i][NUM_TILES-1]=WALL;
-        }for(int i=1;i<NUM_TILES-2;i++){
+            temp[i][nTiles-1]=WALL;
+        }for(int i=1;i<nTiles-2;i++){
             temp[2][i]=WALL;
             temp[6][i]=WALL;
-        }for(int i=2;i<NUM_TILES-1;i++){
+        }for(int i=2;i<nTiles-1;i++){
             temp[4][i]=WALL;
         }
         temp[1][1]=START;
-        temp[NUM_TILES-2][1]=END;
-        temp[NUM_TILES/2][NUM_TILES-2]=LAVA;
+        temp[nTiles-2][1]=END;
+        temp[4][nTiles-2]=LAVA;
         return temp;
     }
 
     private static int[][] floorTwo(){
-        int[][] temp = new int[NUM_TILES][NUM_TILES];
-        for(int i=2;i<NUM_TILES-2;i++)
+        int[][] temp = new int[nTiles][nTiles];
+        for(int i=2;i<nTiles-2;i++)
             temp[i][1]=PATH;
         temp[4][1]=LAVA;
         for(int i=3;i<6;i++)
             temp[i][2]=PATH;
         temp[1][1]=START;
-        temp[NUM_TILES-2][1]=END;
+        temp[nTiles-2][1]=END;
         return temp;
     }
 
     private static int[][] floorThree(){
-        int[][]temp=new int[NUM_TILES][NUM_TILES];
+        int[][]temp=new int[nTiles][nTiles];
         temp[0][1]=START;
         temp[8][1]=END;
         for(int i=1;i<8;i++){
@@ -92,7 +102,7 @@ public class MapData {
     }
 
     private static void border(int[][]temp,int type){
-        for(int i=0;i<NUM_TILES;i++){
+        for(int i=0;i<nTiles;i++){
             temp[0][i]=type;
             temp[8][i]=type;
             temp[i][0]=type;
@@ -101,8 +111,8 @@ public class MapData {
     }
 
     private static void setFloorAs(int[][]temp,int type){
-        for(int i=0;i<NUM_TILES;i++){
-            for(int j=0;j<NUM_TILES;j++){
+        for(int i=0;i<nTiles;i++){
+            for(int j=0;j<nTiles;j++){
                 temp[i][j]=type;
             }
         }

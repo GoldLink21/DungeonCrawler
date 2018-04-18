@@ -23,8 +23,7 @@ public class ImageLoader{
     public void paint(Graphics g){g.drawImage(img.getScaledInstance(newWidth,newHeight,Image.SCALE_SMOOTH),x,y,null);}
 
     public static BufferedImage getImg(String fileName){
-        try{
-            return ImageIO.read(new File("resources/gfx/"+fileName));
+        try{return ImageIO.read(new File("resources/gfx/"+fileName));
         }catch(IOException e){e.printStackTrace();}
         return null;
     }
