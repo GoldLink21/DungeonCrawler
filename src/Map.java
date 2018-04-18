@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Map {
-    Tile[][]map;
+    private Tile[][]map;
 
     private final int numTiles = Data.getNumTiles();
 
@@ -10,7 +10,7 @@ public class Map {
 
     private static ArrayList<Trap>traps=new ArrayList<>();
 
-    boolean trapsAdded=false;
+    private boolean trapsAdded=false;
 
     public void setTrapsAdded(boolean bool){trapsAdded=bool;}
 
@@ -32,7 +32,7 @@ public class Map {
         return new Tile(x,y,MapData.WALL);
     }
 
-    public void loadFloor(int floor){
+    private void loadFloor(int floor){
         this.floor=floor;
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);
@@ -47,7 +47,7 @@ public class Map {
         }
     }
 
-    public void loadRandomFloor(){
+    private void loadRandomFloor(){
 
         Data.setEndlessLevels(Data.getEndlessLevels()+1);
         int[][]curFloor=MapData.getRandomFloor();
@@ -57,7 +57,7 @@ public class Map {
         if(!trapsAdded)addTraps(MapData.getEndlessFloor());
     }
 
-    public void clearTraps(){
+    private void clearTraps(){
         while(traps.size()>0){
             traps.get(0).stop();
             traps.remove(0);

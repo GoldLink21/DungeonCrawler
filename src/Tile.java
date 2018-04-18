@@ -6,7 +6,7 @@ public class Tile {
     //WALL=0,PATH=1,LAVA=2,END=3,START=4
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
             (Color.CYAN)};
-    
+
     private static BufferedImage[]images={ImageLoader.getImg("wall.png"),
             ImageLoader.getImg("clay.png"),ImageLoader.getImg("magma.png"),
             ImageLoader.getImg("start.png"),ImageLoader.getImg("end.png")};

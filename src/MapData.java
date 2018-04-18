@@ -4,7 +4,7 @@ public class MapData {
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
-    public static int endlessFloor;
+    private static int endlessFloor;
 
     public static void setEndlessFloor(int num){endlessFloor=num;}
     public static int getEndlessFloor(){return endlessFloor;}

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Board extends JPanel implements ActionListener {
 
     Map map;
-    static int ticks = 0;
+    private static int ticks = 0;
     private Timer timer;
 
     private ArrayList<Entity>entities=new ArrayList<>();
