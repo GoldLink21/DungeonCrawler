@@ -7,19 +7,18 @@ public class Game extends JFrame implements KeyListener{
 
     private Board board;
 
-    public Game(){
+    private Game(){
         setVisible(true);
         setResizable(false);
         setFocusable(true);
         setTitle("Dungeon");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         board = new Board();
         add(board);
         addKeyListener(this);
         pack();
         setLocationRelativeTo(null);
-        board.startGame();
+        board.newGame();
     }
 
     public static void main(String[]args){new Game();}
@@ -60,13 +59,10 @@ public class Game extends JFrame implements KeyListener{
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
                 Data.setMode(Data.MODE_CLASSIC);
-                board.resetTicks();
-                board.startGame();
                 Data.togglePlay();
                 System.out.println("Classic Started");
             }else if(Data.isEnd()){
                 board.map.setTrapsAdded(false);
-                board.resetTicks();
                 Data.toggleEnd();
             }
         }
@@ -74,9 +70,7 @@ public class Game extends JFrame implements KeyListener{
         if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
             if(Data.isMenu()) {
                 Data.setMode(Data.MODE_ENDLESS);
-                Data.setEndlessLives(3);
-                Data.setEndlessLevels(0);
-                board.startGame();
+                Data.newEndless();
                 Data.togglePlay();
                 System.out.println("Endless started");
             }

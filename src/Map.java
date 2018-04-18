@@ -34,14 +34,12 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
-
-
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);
             for(int i=0;i<Data.getNumTiles();i++)
                 for(int j=0;j<Data.getNumTiles();j++)
                     setTile(i,j,curFloor[i][j]);
-            if(!trapsAdded)addTraps();
+            if(!trapsAdded)addTraps(floor);
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
             loadFloor(0);
@@ -56,7 +54,7 @@ public class Map {
         for(int i=0;i<Data.getNumTiles();i++)
             for(int j=0;j<Data.getNumTiles();j++)
                 setTile(i,j,curFloor[i][j]);
-        if(!trapsAdded)addRandomTraps();
+        if(!trapsAdded)addTraps(MapData.getEndlessFloor());
     }
 
     public void clearTraps(){
@@ -79,20 +77,9 @@ public class Map {
         }
     }
 
-    private void addTraps(){
+    private void addTraps(int var){
         clearTraps();
-        switch(floor){
-            case 0:break;
-            case 1:floorOneTraps();break;
-            case 2:floorTwoTraps();break;
-            case 3:floorThreeTraps();break;
-        }
-        trapsAdded=true;
-    }
-
-    private void addRandomTraps(){
-        clearTraps();
-        switch(MapData.getEndlessFloor()){
+        switch(var){
             case 0:break;
             case 1:floorOneTraps();break;
             case 2:floorTwoTraps();break;

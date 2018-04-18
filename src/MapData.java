@@ -35,10 +35,10 @@ public class MapData {
         floors[2]=floorTwo();
         floors[3]=floorThree();
 
-        /*
+
         if(Data.DEBUG()){
             floors[1]=floorZero();
-        }*/
+        }
     }
 
     private static int[][] floorZero(){

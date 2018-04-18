@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Board extends JPanel implements ActionListener {
 
     Map map;
-    int ticks = 0;
+    static int ticks = 0;
     private Timer timer;
 
     private ArrayList<Entity>entities=new ArrayList<>();
@@ -21,8 +21,7 @@ public class Board extends JPanel implements ActionListener {
         map = new Map();
     }
 
-    public void startGame(){
-        ticks=0;
+    public void newGame(){
         timer = new Timer(1000/60,this);
         timer.start();
     }
@@ -38,16 +37,14 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         repaint();
-        if(Data.isPlay()&&Data.isModeClassic())
-            ticks++;
+        if(Data.isPlay()&&Data.isModeClassic()) ticks++;
+        if(Data.isMenu())ticks=0;
     }
-
-    public void resetTicks(){ticks=0;}
 
     private boolean first = true;
 
-    private final Font titleFont=new Font("TimesRoman",Font.BOLD,30),
-            subtitleFont=new Font("TimesRoman",Font.BOLD,20);
+    private final Font titleFont=new Font("TimesRoman",Font.BOLD,28),
+            subtitleFont=new Font("TimesRoman",Font.BOLD,16);
 
     @Override
     public void paintComponent(Graphics g){
@@ -61,15 +58,17 @@ public class Board extends JPanel implements ActionListener {
             paintItAll(g);
         }else if(Data.isMenu()) {
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
+            printCentered("Press Enter to play Classic mode",subtitleFont,.5,g);
+            printCentered("Press Backspace to play Endless mode",subtitleFont,2/3.0,g);
         }else if(Data.isEnd()){
             printCentered("The End",titleFont,1.0/3,g);
             if(Data.isModeClassic()){
-                printCentered("You made it in "+Math.round(ticks/120.0*10)/10.0+" seconds",subtitleFont,3/6.0,g);
+                printCentered("You made it in "+Math.round(ticks/60.0*10)/10.0+" seconds",subtitleFont,3/6.0,g);
             }else{
-                String flr = " floor";
+                String flr = Data.getEndlessLevels()+" floor";
                 if(Data.getEndlessLevels()!=1)
                     flr+="s";
-                printCentered("You made it through "+Data.getEndlessLevels()+flr,subtitleFont,3/6.0,g);
+                printCentered("You made it through "+flr,subtitleFont,3/6.0,g);
             }
         }
     }

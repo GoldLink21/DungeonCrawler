@@ -51,6 +51,10 @@ public class Data {
         menu^=true;
     }
 
+    public static void newEndless(){
+        endlessLives=3;
+        endlessLevels=0;
+    }
 
     public static void toggleEnd(){
         if(end){
