@@ -1,41 +1,46 @@
 public class MapData {
 
-    private final static int NUM_FLOORS = 4,nTiles=Data.getNumTiles();
+    private final static int nFloors = 4,nTiles=Data.getNumTiles();
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
 
-    private static int endlessFloor;
+    private static int endlessFloor=0;
 
     public static void setEndlessFloor(int num){endlessFloor=num;}
     public static int getEndlessFloor(){return endlessFloor;}
 
-    private static int[][][]floors= new int[NUM_FLOORS][nTiles][nTiles];
+    private static int[][][]floors= new int[nFloors][nTiles][nTiles];
 
     public static int[][] getFloor(int floor){
-        if(floor<NUM_FLOORS)
+        if(floor<nFloors)
             return floors[floor];
         return null;
     }
 
     public static int[][]getRandomFloor(){
-        endlessFloor=(int)(Math.random()*NUM_FLOORS);
-        switch(endlessFloor){
+        int old = endlessFloor;
+        do {
+            endlessFloor = (int) (Math.random() * nFloors);
+        }while(endlessFloor==old);
+        return floors[endlessFloor];
+    }
+
+    private static int[][] floorMethod(int num){
+        switch(num){
             case 0:return floorZero();
             case 1:return floorOne();
             case 2:return floorTwo();
             case 3:return floorThree();
 
-            default:return floorZero();
+            default:return null;
         }
     }
 
     public static void setupFloors(){
-        floors[0]=floorZero();
-        floors[1]=floorOne();
-        floors[2]=floorTwo();
-        floors[3]=floorThree();
-
-
+        for(int i=0;i<nFloors;i++){
+            floors[i]=floorMethod(i);
+        }
+        
         if(Data.DEBUG()){
             floors[1]=floorZero();
         }
@@ -97,6 +102,16 @@ public class MapData {
         temp[8][1]=END;
         for(int i=1;i<8;i++){
             temp[i][1]=PATH;
+        }
+        return temp;
+    }
+
+    private static int[][]floorFour(){
+        int[][]temp=new int[nTiles][nTiles];
+        temp[2][4]=START;
+        temp[6][4]=END;
+        for(int i=5;i<8;i++){
+            temp[2][i]=PATH;
         }
         return temp;
     }

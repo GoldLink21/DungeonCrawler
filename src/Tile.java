@@ -10,36 +10,42 @@ public class Tile {
             (Color.CYAN)};
 
     private int[] numVariants={1,1,1,1,1};
+
+    private int maxVariants=1;
     private String[] tileNames={"wall","","","",""};
 
     private BufferedImage[] getVariants(int value,String fileName){
         BufferedImage[]temp=new BufferedImage[numVariants[value]];
         for(int i=0;i<numVariants[value];i++){
-            temp[i]=ImageLoader.getImg(fileName+i+".png");
+            temp[i]=ImageLoader.getImg(fileName+(i+1)+".png");
         }
         return temp;
     }
 
+
     private BufferedImage[][]getAllImages(){
-        BufferedImage[][]temp;
-
-
+        BufferedImage[][]temp=new BufferedImage[numVariants.length][maxVariants];
+        for(int i=0;i<temp.length;i++){
+            temp[i]=getVariants(i,tileNames[i]);
+        }
+        return temp;
     }
+
 
     private static BufferedImage[]images={ImageLoader.getImg("wall.png"),
             ImageLoader.getImg("clay.png"),ImageLoader.getImg("LavaGif.gif"),
             ImageLoader.getImg("start.png"),ImageLoader.getImg("end.png")};
 
-    int tSize=Data.getTileSize();
+    final int tSize=Data.getTileSize();
 
     public Tile(int x,int y,int value){
-        this.x=Data.getTileSize()*x;
-        this.y=Data.getTileSize()*y;
+        this.x=tSize*x;
+        this.y=tSize*y;
         this.value = value;
         variant=1;
     }public Tile(int x,int y,int value,int variant){
-        this.x=Data.getTileSize()*x;
-        this.y=Data.getTileSize()*y;
+        this.x=tSize*x;
+        this.y=tSize*y;
         this.value = value;
         this.variant=variant;
     }
@@ -49,13 +55,11 @@ public class Tile {
     public int getValue(){return value;}
 
     public void paint(Graphics g){
-        int s=Data.getTileSize();
         if(images[value]!=null) {
-            g.drawImage(images[value].getScaledInstance(s, s, Image.SCALE_SMOOTH), x, y, null);
+            g.drawImage(images[value].getScaledInstance(tSize,tSize,Image.SCALE_SMOOTH),x,y,null);
         }else{
             g.setColor(colors[value]);
-            g.fill3DRect(x,y,s,s,true);
+            g.fill3DRect(x,y,tSize,tSize,true);
         }
-
     }
 }
