@@ -21,7 +21,22 @@ public class Board extends JPanel implements ActionListener {
         map = new Map();
     }
 
+    public void addEntity(Entity e){
+        entities.add(e);
+    }
 
+    public void addDarts(){
+        ArrayList<Trap>traps=Map.getTraps();
+        for(int i=0;i<traps.size();i++){
+            if(traps.get(i)instanceof DartTrap){
+                DartTrap d=(DartTrap)traps.get(i);
+                if(d.isToFire()) {
+                    addEntity(new Dart(d.getX(), d.getY(), d.getDir(), map));
+                    ((DartTrap) traps.get(i)).setToFire(false);
+                }
+            }
+        }
+    }
 
     public void newGame(){
         timer = new Timer(1000/60,this);
@@ -43,6 +58,7 @@ public class Board extends JPanel implements ActionListener {
             e.paint(g);
             e.move();
         }
+        addDarts();
     }
 
     @Override

@@ -6,8 +6,12 @@ public class LavaTrap extends Trap implements ActionListener{
     private int cur,type;
     private boolean isForward,first,circular;
 
+    int[]x,y;
+
     public LavaTrap(int[]x,int[]y,int delay,boolean circular,Map map){
-        super(x,y,delay,map);
+        super(delay,map);
+        this.x=x;
+        this.y=y;
         type=getCurType();
         cur=0;
         first=true;

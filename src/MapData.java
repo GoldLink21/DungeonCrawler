@@ -2,7 +2,7 @@ public class MapData {
 
     private final static int nFloors = 4,nTiles=Data.getNumTiles();
 
-    public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4;
+    public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
 
     private static int endlessFloor=0;
 
@@ -40,7 +40,7 @@ public class MapData {
         for(int i=0;i<nFloors;i++){
             floors[i]=floorMethod(i);
         }
-        
+
         if(Data.DEBUG()){
             floors[1]=floorZero();
         }

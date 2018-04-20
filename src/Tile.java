@@ -5,11 +5,11 @@ public class Tile {
     private int x,y,value,variant;
 
     //Variant is for a different look of the same tile
-    //WALL=0,PATH=1,LAVA=2,END=3,START=4
+    //WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
-            (Color.CYAN)};
+            (Color.CYAN),(Color.ORANGE)};
 
-    private int[] numVariants={1,1,1,1,1};
+    private int[] numVariants={1,1,1,1,1,1};
 
     private int maxVariants=1;
     private String[] tileNames={"wall","","","",""};

@@ -19,6 +19,8 @@ public class Map {
         loadNextFloor();
     }
 
+    public static ArrayList<Trap> getTraps() {return traps;}
+
     public void randomBoard(){
         for (int i = 0; i < nTiles; i++)
             for (int j = 0; j < nTiles; j++)
@@ -46,6 +48,7 @@ public class Map {
             loadFloor(0);
             Data.toggleEnd();
         }
+
     }
 
     private void loadRandomFloor(){
@@ -92,6 +95,7 @@ public class Map {
     private void floorZeroTraps(){
         int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
         addTrap(x,y,10);
+        traps.add(new DartTrap(1,1,10,Data.DIR_RIGHT,this));
     }
 
     private void floorOneTraps(){
@@ -130,6 +134,10 @@ public class Map {
             for(int i=0;i<length;i++)
                 arr[i]=val--;
         return arr;
+    }
+
+    public void addEntity(Entity e){
+
     }
 
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}

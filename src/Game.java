@@ -16,9 +16,10 @@ public class Game extends JFrame implements KeyListener{
         board = new Board();
         add(board);
         addKeyListener(this);
+        board.newGame();
         pack();
         setLocationRelativeTo(null);
-        board.newGame();
+
     }
 
     public static void main(String[]args){new Game();}

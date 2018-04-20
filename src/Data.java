@@ -4,7 +4,7 @@ public class Data {
     private static boolean up=false,down=false,left=false,right=false,space=false;
 
     private static final int TILE_SIZE = 35,NUM_TILES = 9;
-    public static final int TILE_TYPES=5,PLAYER_SIZE = 25;
+    public static final int TILE_TYPES=5,PLAYER_SIZE = 18;
 
     public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
