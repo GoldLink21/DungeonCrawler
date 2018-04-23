@@ -12,7 +12,7 @@ public class Tile {
     private int[] numVariants={1,1,1,1,1,1};
 
     private int maxVariants=1;
-    private String[] tileNames={"wall","","","",""};
+    private String[] tileNames={"wall","","","","",""};
 
     private BufferedImage[] getVariants(int value,String fileName){
         BufferedImage[]temp=new BufferedImage[numVariants[value]];
@@ -34,7 +34,7 @@ public class Tile {
 
     private static BufferedImage[]images={ImageLoader.getImg("wall.png"),
             ImageLoader.getImg("clay.png"),ImageLoader.getImg("LavaGif.gif"),
-            ImageLoader.getImg("start.png"),ImageLoader.getImg("end.png")};
+            ImageLoader.getImg("start.png"),ImageLoader.getImg("end.png"),ImageLoader.getImg("start.png")};
 
     final int tSize=Data.getTileSize();
 

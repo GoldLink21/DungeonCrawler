@@ -8,6 +8,7 @@ public abstract class Entity implements Move {
     protected int x,y,width,height,dir;
     protected Color color;
     protected Map map;
+    protected boolean remove=false;
 
     protected Entity(Color color,int x,int y,int height, int width,Map map){
         this.color=color;
@@ -47,5 +48,12 @@ public abstract class Entity implements Move {
     @Override
     public void move(){}
 
-    public Rectangle getBounds(){return new Rectangle(x,y,width,height);}
+    protected boolean isRemove(){return remove;}
+
+    protected Rectangle getBounds(){return new Rectangle(x,y,width,height);}
+
+    protected boolean collidesWith(Entity e){
+        if(getBounds().intersects(e.getBounds())) return true;
+        return false;
+    }
 }

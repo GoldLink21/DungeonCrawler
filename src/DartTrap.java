@@ -11,7 +11,6 @@ public class DartTrap extends Trap {
         this.x=x;
         this.y=y;
         this.dir=dir;
-
     }
 
     @Override

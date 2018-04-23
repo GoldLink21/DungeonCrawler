@@ -40,10 +40,6 @@ public class MapData {
         for(int i=0;i<nFloors;i++){
             floors[i]=floorMethod(i);
         }
-
-        if(Data.DEBUG()){
-            floors[1]=floorZero();
-        }
     }
 
     private static int[][] floorZero(){

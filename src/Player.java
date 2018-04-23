@@ -44,9 +44,9 @@ public class Player extends Entity{
     }
 
     private boolean checkWallCollisions(){
-        int[] temp=getCornerTypes();
+        int[]temp=getCornerTypes();
         for(int i:temp)
-            if(i==MapData.WALL)return true;
+            if(i==MapData.WALL||i==MapData.TRAP)return true;
         return false;
     }
 

@@ -68,8 +68,8 @@ public class Map {
         }
     }
 
-    private void addTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true,this));}
-    private void addTrap(int[]x,int[]y,int delay,boolean circular){traps.add(new LavaTrap(x,y,delay,circular,this));}
+    private void addLavaTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true,this));}
+    private void addDartTrap(int x,int y,int delay,int dir){traps.add(new DartTrap(x,y,delay,dir,this));}
 
     public void loadNextFloor(){
         trapsAdded=false;
@@ -94,15 +94,16 @@ public class Map {
 
     private void floorZeroTraps(){
         int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
-        addTrap(x,y,10);
-        traps.add(new DartTrap(1,1,10,Data.DIR_RIGHT,this));
+        addLavaTrap(x,y,10);
+        traps.add(new DartTrap(1,1,15,Data.DIR_RIGHT,this));
+        addDartTrap(1,5,2,Data.DIR_DOWN);
     }
 
     private void floorOneTraps(){
         int[]x=fillArr(4,3);int[]y=fillArr(0,3,true);
-        addTrap(x, y, 4);
+        addLavaTrap(x, y, 4);
         x=fillArr(0,9,true);y=fillArr(4,9);
-        addTrap(x,y,7);
+        addLavaTrap(x,y,7);
     }
 
     private void floorTwoTraps(){
@@ -116,7 +117,7 @@ public class Map {
                 {5,4,3,2,1,1,1,1},{6,5,4,3,2,1,1,1},{7,6,5,4,3,2,1,1},{8,7,6,5,4,3,2,1}};
         for(int i=1;i<length;i++){
             x=fillArr(i,length);
-            addTrap(x,y[i-1],7);
+            addLavaTrap(x,y[i-1],7);
         }
     }
 
@@ -134,10 +135,6 @@ public class Map {
             for(int i=0;i<length;i++)
                 arr[i]=val--;
         return arr;
-    }
-
-    public void addEntity(Entity e){
-
     }
 
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}

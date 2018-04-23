@@ -10,6 +10,7 @@ public class Board extends JPanel implements ActionListener {
     Map map;
     private static int ticks = 0;
     private Timer timer;
+    private boolean mapMade=false;
 
     private ArrayList<Entity>entities=new ArrayList<>();
 
@@ -18,20 +19,15 @@ public class Board extends JPanel implements ActionListener {
         final int bSize=Data.getTileSize()*Data.getNumTiles();
         setPreferredSize(new Dimension(bSize,bSize));
         MapData.setupFloors();
-        map = new Map();
     }
 
-    public void addEntity(Entity e){
-        entities.add(e);
-    }
-
-    public void addDarts(){
+    private void addDarts(){
         ArrayList<Trap>traps=Map.getTraps();
         for(int i=0;i<traps.size();i++){
             if(traps.get(i)instanceof DartTrap){
                 DartTrap d=(DartTrap)traps.get(i);
-                if(d.isToFire()) {
-                    addEntity(new Dart(d.getX(), d.getY(), d.getDir(), map));
+                if(d.isToFire()){
+                    entities.add(new Dart(d.getX(), d.getY(), d.getDir(), map));
                     ((DartTrap) traps.get(i)).setToFire(false);
                 }
             }
@@ -45,6 +41,9 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void restartGame(){
+        if(!mapMade){
+            map=new Map();
+        }
         if(Data.isModeClassic())
             map.loadFloor(0);
         else
@@ -59,6 +58,18 @@ public class Board extends JPanel implements ActionListener {
             e.move();
         }
         addDarts();
+        removeEntities();
+    }
+
+    private void removeEntities(){
+        int i=0;
+        while(i<entities.size()){
+            if(entities.get(i).isRemove()){
+                entities.remove(i);
+            }else{
+                i++;
+            }
+        }
     }
 
     @Override
