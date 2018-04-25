@@ -7,6 +7,8 @@ public class Dart extends Entity {
     public Dart(int x, int y, int dir, Map map) {
         super(Color.green, x, y, 10, 10, map);
         this.dir=dir;
+        this.x+=3;
+        this.y+=3;
     }
 
     private boolean checkCollision(){
@@ -17,58 +19,52 @@ public class Dart extends Entity {
         return false;
     }
 
+    private final boolean done=true;
+
     @Override
     public void paint(Graphics g){
+        Polygon p=getPoly();
         g.setColor(color);
-        int[]xArr=new int[3],yArr=new int[3];
+        g.fillPolygon(p);
+        g.setColor(Color.WHITE);
+        g.drawPolygon(p);
+    }
 
-        //Initial values that are the same on two of one type
-        if(dir==Data.DIR_LEFT||dir==Data.DIR_RIGHT){
-            yArr[0]=y;//top
-            yArr[1]=y+height;//bottom
-            yArr[2]=y+height/2;//mid
-        }else{
-            xArr[0]=x;//left
-            xArr[1]=x+width;//right
-            xArr[2]=x+width/2;//mid
-        }
-        //Find specifics on exact dir
-        switch(dir){
+    private Polygon getPoly(){
+        Polygon p=new Polygon();
+        switch (dir) {
             case Data.DIR_UP:
-
+                p.addPoint(x+width/2,y);
+                p.addPoint(x+width,y+height);
+                p.addPoint(x,y+height);
                 break;
             case Data.DIR_RIGHT:
-
+                p.addPoint(x,y);
+                p.addPoint(x,y+height);
+                p.addPoint(x+width,y+height/2);
                 break;
             case Data.DIR_DOWN:
-
+                p.addPoint(x,y);
+                p.addPoint(x+width,y);
+                p.addPoint(x+width/2,y+height);
                 break;
             case Data.DIR_LEFT:
-
+                p.addPoint(x+width,y);
+                p.addPoint(x+width,y+height);
+                p.addPoint(x,y+height/2);
                 break;
         }
-        g.fillPolygon(xArr,yArr,3);
-        g.setColor(Color.WHITE);
-        g.drawPolygon(xArr,yArr,3);
+        return p;
     }
 
     @Override
     public void move(){
         switch(dir){
-            case Data.DIR_DOWN:
-                y++;
-                break;
-            case Data.DIR_UP:
-                y--;
-                break;
-            case Data.DIR_LEFT:
-                x--;
-                break;
-            case Data.DIR_RIGHT:
-                x++;
-                break;
-        }if(checkCollision()){
+            case Data.DIR_DOWN:y++;break;
+            case Data.DIR_UP:y--;break;
+            case Data.DIR_LEFT:x--;break;
+            case Data.DIR_RIGHT:x++;break;
+        }if(checkCollision())
             remove=true;
-        }
     }
 }
