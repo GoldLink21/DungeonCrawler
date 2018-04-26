@@ -23,12 +23,12 @@ public class Board extends JPanel implements ActionListener {
 
     private void addDarts(){
         ArrayList<Trap>traps=Map.getTraps();
-        for(int i=0;i<traps.size();i++){
-            if(traps.get(i)instanceof DartTrap){
-                DartTrap d=(DartTrap)traps.get(i);
+        for(Trap t:traps){
+            if(t instanceof DartTrap){
+                DartTrap d=(DartTrap)t;
                 if(d.isToFire()){
                     entities.add(new Dart(d.getX(), d.getY(), d.getDir(), map));
-                    ((DartTrap) traps.get(i)).setToFire(false);
+                    ((DartTrap) t).setToFire(false);
                 }
             }
         }

@@ -52,8 +52,5 @@ public abstract class Entity implements Move {
 
     protected Rectangle getBounds(){return new Rectangle(x,y,width,height);}
 
-    protected boolean collidesWith(Entity e){
-        if(getBounds().intersects(e.getBounds())) return true;
-        return false;
-    }
+    protected boolean collidesWith(Entity e){return getBounds().intersects(e.getBounds());}
 }

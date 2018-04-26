@@ -6,7 +6,7 @@ public class LavaTrap extends Trap implements ActionListener{
     private int cur,type;
     private boolean isForward,first,circular;
 
-    int[]x,y;
+    private int[]x,y;
 
     public LavaTrap(int[]x,int[]y,int delay,boolean circular,Map map){
         super(delay,map);

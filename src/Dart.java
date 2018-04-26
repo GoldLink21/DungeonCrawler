@@ -13,9 +13,10 @@ public class Dart extends Entity {
 
     private boolean checkCollision(){
         int[]temp=getCornerTypes();
-        for(int i=0;i<temp.length;i++)
-            if(temp[i]==MapData.WALL)
+        for(int i:temp){
+            if(i==MapData.WALL)
                 return true;
+        }
         return false;
     }
 

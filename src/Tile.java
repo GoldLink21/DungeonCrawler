@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Tile {
     private int x,y,value,variant;
@@ -55,9 +56,9 @@ public class Tile {
     public int getValue(){return value;}
 
     public void paint(Graphics g){
-        if(images[value]!=null) {
+        try{
             g.drawImage(images[value].getScaledInstance(tSize,tSize,Image.SCALE_SMOOTH),x,y,null);
-        }else{
+        }catch(NullPointerException e){
             g.setColor(colors[value]);
             g.fill3DRect(x,y,tSize,tSize,true);
         }
