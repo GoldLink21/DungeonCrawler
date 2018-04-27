@@ -16,11 +16,17 @@ public class ImageLoader{
         this.newWidth=newWidth;
         try{
             img = ImageIO.read(new File("resources/gfx/"+fileName));
-        }catch(IOException e){e.printStackTrace();}
-        img=img.getSubimage(imgX,imgY,width,height);
+            img=img.getSubimage(imgX,imgY,width,height);
+        }catch(IOException e){
+            e.printStackTrace();
+            img = null;
+        }
     }
 
-    public void paint(Graphics g){g.drawImage(img.getScaledInstance(newWidth,newHeight,Image.SCALE_SMOOTH),x,y,null);}
+    public void paint(Graphics g){
+        try{g.drawImage(img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), x, y, null);
+        }catch(NullPointerException e){e.printStackTrace();}
+    }
 
     public static BufferedImage getImg(String fileName){
         try{return ImageIO.read(new File("resources/gfx/"+fileName));

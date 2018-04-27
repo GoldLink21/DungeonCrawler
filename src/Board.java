@@ -29,6 +29,7 @@ public class Board extends JPanel implements ActionListener {
                 if(d.isToFire()){
                     entities.add(new Dart(d.getX(), d.getY(), d.getDir(), map));
                     ((DartTrap) t).setToFire(false);
+                    System.out.println("fired");
                 }
             }
         }
@@ -41,9 +42,8 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void restartGame(){
-        if(!mapMade){
+        if(!mapMade)
             map=new Map();
-        }
         if(Data.isModeClassic())
             map.loadFloor(0);
         else
@@ -75,7 +75,7 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         repaint();
-        if(Data.isPlay()&&Data.isModeClassic()) ticks++;
+        if(Data.isPlay()&&Data.isModeClassic())ticks++;
         if(Data.isMenu())ticks=0;
     }
 

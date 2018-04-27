@@ -24,12 +24,9 @@ public class Player extends Entity{
 
     @Override
     public void paint(Graphics g){
-        try {
-            getCurImg().paint(g);
-        }catch(NullPointerException e){
-            e.printStackTrace();
-            g.fillRect(x,y,width,height);
-        }
+        try {getCurImg().paint(g);}
+        catch(NullPointerException e){
+            g.fillRect(x,y,width,height);}
     }
 
     public void resetPosition(){

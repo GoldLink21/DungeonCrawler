@@ -2,8 +2,6 @@ import java.awt.*;
 
 public class Dart extends Entity {
 
-
-
     public Dart(int x, int y, int dir, Map map) {
         super(Color.green, x, y, 10, 10, map);
         this.dir=dir;
@@ -13,10 +11,9 @@ public class Dart extends Entity {
 
     private boolean checkCollision(){
         int[]temp=getCornerTypes();
-        for(int i:temp){
+        for(int i:temp)
             if(i==MapData.WALL)
                 return true;
-        }
         return false;
     }
 
