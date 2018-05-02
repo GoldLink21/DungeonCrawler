@@ -61,6 +61,18 @@ public class Board extends JPanel implements ActionListener {
         removeEntities();
     }
 
+    private void checkCollisions(){
+        for(int i=1;i<entities.size();i++){
+            if(entities.get(i).collidesWith(entities.get(0))){
+                entities.remove(i);
+                ((Player)entities.get(0)).resetPosition();
+                if(Data.isModeEndless()){
+                    Data.setEndlessLives(Data.getEndlessLives()-1);
+                }
+            }
+        }
+    }
+
     private void removeEntities(){
         int i=0;
         while(i<entities.size()){

@@ -95,7 +95,6 @@ public class Map {
     private void floorZeroTraps(){
         int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
         addLavaTrap(x,y,10);
-        traps.add(new DartTrap(1,1,15,Data.DIR_RIGHT,this));
         addDartTrap(1,5,2,Data.DIR_DOWN);
     }
 
