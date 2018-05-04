@@ -28,8 +28,7 @@ public class Board extends JPanel implements ActionListener {
                 DartTrap d=(DartTrap)t;
                 if(d.isToFire()){
                     entities.add(new Dart(d.getX(), d.getY(), d.getDir(), map));
-                    ((DartTrap) t).setToFire(false);
-                    System.out.println("fired");
+                    ((DartTrap)t).setToFire(false);
                 }
             }
         }
@@ -58,6 +57,7 @@ public class Board extends JPanel implements ActionListener {
             e.move();
         }
         addDarts();
+        checkCollisions();
         removeEntities();
     }
 
@@ -76,11 +76,8 @@ public class Board extends JPanel implements ActionListener {
     private void removeEntities(){
         int i=0;
         while(i<entities.size()){
-            if(entities.get(i).isRemove()){
-                entities.remove(i);
-            }else{
-                i++;
-            }
+            if(entities.get(i).isRemove())entities.remove(i);
+            else i++;
         }
     }
 
@@ -103,7 +100,6 @@ public class Board extends JPanel implements ActionListener {
             if(first){
                 entities.add(0,new Player(map));
                 ((Player)entities.get(0)).resetPosition();
-
                 first = false;
             }
             paintItAll(g);
@@ -117,8 +113,7 @@ public class Board extends JPanel implements ActionListener {
                 printCentered("You made it in "+Math.round(ticks/60.0*10)/10.0+" seconds",subtitleFont,3/6.0,g);
             }else{
                 String flr = Data.getEndlessLevels()+" floor";
-                if(Data.getEndlessLevels()!=1)
-                    flr+="s";
+                if(Data.getEndlessLevels()!=1)flr+="s";
                 printCentered("You made it through "+flr,subtitleFont,3/6.0,g);
             }
             printCentered("Press Enter to continue",subtitleFont,4/6.0,g);

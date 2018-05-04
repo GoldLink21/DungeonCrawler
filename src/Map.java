@@ -37,12 +37,13 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
+        clearTraps();
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);
             for(int i=0;i<Data.getNumTiles();i++)
                 for(int j=0;j<Data.getNumTiles();j++)
                     setTile(i,j,curFloor[i][j]);
-            if(!trapsAdded)addTraps(floor);
+            addTraps(floor);
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
             loadFloor(0);
@@ -52,7 +53,6 @@ public class Map {
     }
 
     private void loadRandomFloor(){
-
         Data.setEndlessLevels(Data.getEndlessLevels()+1);
         int[][]curFloor=MapData.getRandomFloor();
         for(int i=0;i<Data.getNumTiles();i++)
@@ -66,6 +66,7 @@ public class Map {
             traps.get(0).stop();
             traps.remove(0);
         }
+        trapsAdded=false;
     }
 
     private void addLavaTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true,this));}
@@ -76,9 +77,8 @@ public class Map {
         clearTraps();
         if(Data.getMode()==Data.MODE_CLASSIC)
             loadFloor(floor+1);
-        else if(Data.getMode()==Data.MODE_ENDLESS){
+        else if(Data.getMode()==Data.MODE_ENDLESS)
             loadRandomFloor();
-        }
     }
 
     private void addTraps(int var){

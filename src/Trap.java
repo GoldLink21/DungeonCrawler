@@ -2,10 +2,9 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Trap implements ActionListener{
-
+public abstract class Trap implements ActionListener{
     Map map;
-    Timer timer;
+    private Timer timer;
 
     protected Trap(int delay,Map map){
         this.map=map;

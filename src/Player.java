@@ -6,7 +6,7 @@ public class Player extends Entity{
     private boolean onLava=false,onEnd=false;
 
     private final int SPEED=2;
-    private final String file = "player.png";
+    private final String file="player.png";
 
     public Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
 
@@ -23,11 +23,7 @@ public class Player extends Entity{
     private ImageLoader getImg(int num){return new ImageLoader(x,y,16,16,16*num,0,width,height,file);}
 
     @Override
-    public void paint(Graphics g){
-        try {getCurImg().paint(g);}
-        catch(NullPointerException e){
-            g.fillRect(x,y,width,height);}
-    }
+    public void paint(Graphics g){try{getCurImg().paint(g);}catch(NullPointerException e){g.fillRect(x,y,width,height);}}
 
     public void resetPosition(){
         for(int i=0;i<Data.getNumTiles();i++)
@@ -72,12 +68,12 @@ public class Player extends Entity{
     public void move(){
         int BoardWidth = Data.getNumTiles()*Data.getTileSize();
         int buffer = 1;
-        if (Data.isUp() && y > 0) {
+        if (Data.isUp()&&y>0){
             y-=SPEED;
             Data.setLastDir(Data.DIR_UP);
             if(checkWallCollisions())y+=SPEED;
             checkTiles();
-        }if (Data.isDown()&&y+height-buffer<BoardWidth){
+        }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
             if (checkWallCollisions())y-=SPEED;
