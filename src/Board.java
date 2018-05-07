@@ -50,7 +50,7 @@ public class Board extends JPanel implements ActionListener {
         ((Player)entities.get(0)).resetPosition();
     }
 
-    private void paintItAll(Graphics g){
+    private void paintAndCollisions(Graphics g){
         map.paint(g);
         for(Entity e:entities){
             e.paint(g);
@@ -102,7 +102,7 @@ public class Board extends JPanel implements ActionListener {
                 ((Player)entities.get(0)).resetPosition();
                 first = false;
             }
-            paintItAll(g);
+            paintAndCollisions(g);
         }else if(Data.isMenu()) {
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
             printCentered("Press Enter to play Classic mode",subtitleFont,.5,g);

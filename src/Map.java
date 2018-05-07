@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Map {
-    private Tile[][]map;
+    private static Tile[][]map;
 
     private final int nTiles = Data.getNumTiles();
 
@@ -10,7 +10,7 @@ public class Map {
 
     private static ArrayList<Trap>traps=new ArrayList<>();
 
-    private boolean trapsAdded=false;
+    private static boolean trapsAdded=false;
 
     public void setTrapsAdded(boolean bool){trapsAdded=bool;}
 
@@ -47,7 +47,7 @@ public class Map {
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
             loadFloor(0);
-            Data.toggleEnd();
+            Data.endGame();
         }
 
     }
@@ -61,7 +61,7 @@ public class Map {
         if(!trapsAdded)addTraps(MapData.getEndlessFloor());
     }
 
-    private void clearTraps(){
+    public static void clearTraps(){
         while(traps.size()>0){
             traps.get(0).stop();
             traps.remove(0);

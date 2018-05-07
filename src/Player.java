@@ -56,7 +56,7 @@ public class Player extends Entity{
             if(Data.isModeEndless()){
                 Data.setEndlessLives(Data.getEndlessLives()-1);
                 if(Data.getEndlessLives()<1)
-                    Data.toggleEnd();
+                    Data.endGame();
             }
         }else if(onEnd){
             map.loadNextFloor();

@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public abstract class Trap implements ActionListener{
     Map map;
-    private Timer timer;
+    protected Timer timer;
 
     protected Trap(int delay,Map map){
         this.map=map;

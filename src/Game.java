@@ -37,8 +37,6 @@ public class Game extends JFrame implements KeyListener{
             Data.setUp(true);
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
             Data.setDown(true);
-        if(e.getKeyCode()==KeyEvent.VK_SPACE)
-            Data.setSpace(true);
     }
 
     @Override
@@ -52,20 +50,16 @@ public class Game extends JFrame implements KeyListener{
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
             Data.setDown(false);
 
-        if(e.getKeyCode()==KeyEvent.VK_SPACE) {
-            Data.setSpace(false);
-            if(Data.isPlay()&&Data.DEBUG())board.map.randomBoard();
-        }
 
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
                 Data.setMode(Data.MODE_CLASSIC);
-                Data.togglePlay();
+                Data.startGame();
                 board.restartGame();
                 System.out.println("Classic Started");
             }else if(Data.isEnd()){
-                board.map.setTrapsAdded(false);
-                Data.toggleEnd();
+                Map.clearTraps();
+                Data.toMenu();
             }
         }
 
@@ -73,7 +67,7 @@ public class Game extends JFrame implements KeyListener{
             if(Data.isMenu()) {
                 Data.setMode(Data.MODE_ENDLESS);
                 Data.newEndless();
-                Data.togglePlay();
+                Data.startGame();
                 board.restartGame();
                 System.out.println("Endless started");
             }
