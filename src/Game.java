@@ -11,7 +11,7 @@ public class Game extends JFrame implements KeyListener{
         setVisible(true);
         setResizable(false);
         setFocusable(true);
-        setTitle("Dungeon");
+        setTitle("Dungeon Crawler");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         board = new Board();
         add(board);
@@ -19,7 +19,6 @@ public class Game extends JFrame implements KeyListener{
         board.newGame();
         pack();
         setLocationRelativeTo(null);
-
     }
 
     public static void main(String[]args){new Game();}
@@ -28,28 +27,11 @@ public class Game extends JFrame implements KeyListener{
     public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
-            Data.setRight(true);
-        if(e.getKeyCode()==KeyEvent.VK_LEFT||e.getKeyCode()==KeyEvent.VK_A)
-            Data.setLeft(true);
-        if(e.getKeyCode()==KeyEvent.VK_UP||e.getKeyCode()==KeyEvent.VK_W)
-            Data.setUp(true);
-        if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
-            Data.setDown(true);
-    }
+    public void keyPressed(KeyEvent e) {setKeys(e,true);}
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
-            Data.setRight(false);
-        if(e.getKeyCode()==KeyEvent.VK_LEFT||e.getKeyCode()==KeyEvent.VK_A)
-            Data.setLeft(false);
-        if(e.getKeyCode()==KeyEvent.VK_UP||e.getKeyCode()==KeyEvent.VK_W)
-            Data.setUp(false);
-        if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
-            Data.setDown(false);
-
+        setKeys(e,false);
 
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
@@ -72,6 +54,17 @@ public class Game extends JFrame implements KeyListener{
                 System.out.println("Endless started");
             }
         }
+    }
+
+    private void setKeys(KeyEvent e,boolean bool){
+        if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
+            Data.setRight(bool);
+        if(e.getKeyCode()==KeyEvent.VK_LEFT||e.getKeyCode()==KeyEvent.VK_A)
+            Data.setLeft(bool);
+        if(e.getKeyCode()==KeyEvent.VK_UP||e.getKeyCode()==KeyEvent.VK_W)
+            Data.setUp(bool);
+        if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
+            Data.setDown(bool);
     }
 
 }

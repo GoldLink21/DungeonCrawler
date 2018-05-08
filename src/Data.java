@@ -43,10 +43,6 @@ public class Data {
     public static void setEndlessLives(int num){endlessLives=num;}
     public static void setEndlessLevels(int num){endlessLevels=num;}
 
-    public static void setPlay(boolean bool){play=bool;}
-    public static void setEnd(boolean end){Data.end = end;}
-    public static void setMenu(boolean menu){Data.menu = menu;}
-
     public static void startGame(){
         end=false;
         menu=false;
@@ -65,24 +61,9 @@ public class Data {
         menu=true;
     }
 
-    public static void togglePlay(){
-        //This is a cool way to toggle booleans
-        play^=true;
-        menu^=true;
-    }
-
     public static void newEndless(){
         endlessLives=3;
         endlessLevels=0;
     }
 
-    public static void toggleEnd(){
-        if(end){
-            end =false;
-            menu = true;
-        }else{
-            play=false;
-            end=true;
-        }
-    }
 }
