@@ -55,13 +55,13 @@ public class Player extends Entity{
             resetPosition();
             if(Data.isModeEndless()){
                 Data.setEndlessLives(Data.getEndlessLives()-1);
-                if(Data.getEndlessLives()<1)
-                    Data.endGame();
             }
         }else if(onEnd){
             map.loadNextFloor();
             resetPosition();
         }
+        if(Data.getEndlessLives()<1)
+            Data.endGame();
     }
 
     @Override

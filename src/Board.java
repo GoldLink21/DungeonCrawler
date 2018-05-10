@@ -69,6 +69,7 @@ public class Board extends JPanel implements ActionListener {
                 if(Data.isModeEndless()){
                     Data.setEndlessLives(Data.getEndlessLives()-1);
                 }
+                System.out.println(Data.getEndlessLives());
             }
         }
     }
