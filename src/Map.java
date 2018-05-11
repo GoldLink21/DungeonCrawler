@@ -46,7 +46,7 @@ public class Map {
             addTraps(floor);
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
-            loadFloor(0);
+            this.floor=0;
             Data.endGame();
         }
 
@@ -59,6 +59,7 @@ public class Map {
             for(int j=0;j<Data.getNumTiles();j++)
                 setTile(i,j,curFloor[i][j]);
         if(!trapsAdded)addTraps(MapData.getEndlessFloor());
+        if(Data.DEBUG())System.out.println("Randomly Loaded Floor "+MapData.getEndlessFloor());
     }
 
     public static void clearTraps(){

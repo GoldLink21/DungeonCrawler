@@ -18,7 +18,7 @@ public class ImageLoader{
             img = ImageIO.read(new File("resources/gfx/"+fileName));
             img=img.getSubimage(imgX,imgY,width,height);
         }catch(IOException e){
-            e.printStackTrace();
+            //e.printStackTrace();
             img = null;
         }
     }

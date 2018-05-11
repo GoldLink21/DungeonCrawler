@@ -37,7 +37,10 @@ public class Game extends JFrame implements KeyListener{
             if(Data.isMenu()) {
                 Data.setMode(Data.MODE_CLASSIC);
                 Data.startGame();
+
+
                 board.restartGame();
+
                 System.out.println("Classic Started");
             }else if(Data.isEnd()){
                 Map.clearTraps();

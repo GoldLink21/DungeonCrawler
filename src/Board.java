@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Board extends JPanel implements ActionListener {
 
-    Map map;
+    private Map map;
     private static int ticks = 0;
     private Timer timer;
     private boolean mapMade=false;
@@ -37,7 +37,6 @@ public class Board extends JPanel implements ActionListener {
     public void newGame(){
         timer = new Timer(1000/60,this);
         timer.start();
-
     }
 
     public void restartGame(){
@@ -47,6 +46,10 @@ public class Board extends JPanel implements ActionListener {
             map.loadFloor(0);
         else
             map.loadNextFloor();
+        if(first){
+            entities.add(0,new Player(map));
+            first = false;
+        }
         ((Player)entities.get(0)).resetPosition();
     }
 
@@ -66,10 +69,8 @@ public class Board extends JPanel implements ActionListener {
             if(entities.get(i).collidesWith(entities.get(0))){
                 entities.remove(i);
                 ((Player)entities.get(0)).resetPosition();
-                if(Data.isModeEndless()){
+                if(Data.isModeEndless())
                     Data.setEndlessLives(Data.getEndlessLives()-1);
-                }
-                System.out.println(Data.getEndlessLives());
             }
         }
     }
@@ -79,6 +80,17 @@ public class Board extends JPanel implements ActionListener {
         while(i<entities.size()){
             if(entities.get(i).isRemove())entities.remove(i);
             else i++;
+        }
+    }
+
+    private void removeDarts(){
+        int i=1;
+        while(i<entities.size()){
+            if(entities.get(i)instanceof Dart) {
+                entities.remove(i);
+                i--;
+            }
+            i++;
         }
     }
 
@@ -98,11 +110,6 @@ public class Board extends JPanel implements ActionListener {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         if(Data.isPlay()) {
-            if(first){
-                entities.add(0,new Player(map));
-                ((Player)entities.get(0)).resetPosition();
-                first = false;
-            }
             paintAndCollisions(g);
         }else if(Data.isMenu()) {
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);

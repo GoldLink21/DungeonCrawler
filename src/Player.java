@@ -60,8 +60,9 @@ public class Player extends Entity{
             map.loadNextFloor();
             resetPosition();
         }
-        if(Data.getEndlessLives()<1)
+        if(Data.isModeEndless()&&Data.getEndlessLives()<1)
             Data.endGame();
+
     }
 
     @Override
