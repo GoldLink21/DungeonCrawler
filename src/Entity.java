@@ -5,12 +5,13 @@ import java.awt.Rectangle;
 
 public abstract class Entity implements Move {
 
-    protected int x,y,width,height,dir;
-    protected Color color;
-    protected Map map;
-    protected boolean remove=false;
+    //They're "package-private" when they don't have public, private or protected before it
+    int x,y,width,height,dir;
+    Color color;
+    Map map;
+    boolean remove=false;
 
-    protected Entity(Color color,int x,int y,int height, int width,Map map){
+    Entity(Color color,int x,int y,int height, int width,Map map){
         this.color=color;
         this.width=width;
         this.height=height;
@@ -19,7 +20,7 @@ public abstract class Entity implements Move {
         setPosition(x,y);
     }
 
-    protected int[] getCornerTypes(){
+    int[] getCornerTypes(){
         Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
         int[] temp=new int[4];
         for(int i=0;i<points.length;i++)
@@ -27,7 +28,7 @@ public abstract class Entity implements Move {
         return temp;
     }
 
-    protected int getCurTileType(Point p){
+    private int getCurTileType(Point p){
         int curX = (int)(p.getX())/Data.getTileSize();
         int curY = (int)(p.getY())/Data.getTileSize();
         if(curX>Data.getNumTiles()||curY>Data.getNumTiles())
@@ -48,9 +49,9 @@ public abstract class Entity implements Move {
     @Override
     public void move(){}
 
-    protected boolean isRemove(){return remove;}
+    boolean isRemove(){return remove;}
 
-    protected Rectangle getBounds(){return new Rectangle(x,y,width,height);}
+    private Rectangle getBounds(){return new Rectangle(x,y,width,height);}
 
-    protected boolean collidesWith(Entity e){return getBounds().intersects(e.getBounds());}
+    boolean collidesWith(Entity e){return getBounds().intersects(e.getBounds());}
 }

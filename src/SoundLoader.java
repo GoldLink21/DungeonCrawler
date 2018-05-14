@@ -5,16 +5,24 @@ import java.io.IOException;
 public class SoundLoader{
 
     private Clip clip;
+    private boolean loop;
 
-    public SoundLoader(final String fileName,boolean loop,boolean playOnStart){
+    SoundLoader(final String fileName,boolean loop){
         try{
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File("resources/sfx/"+fileName)));
             if(loop)
                 clip.setLoopPoints(0,-1);
-            if(playOnStart)
-                clip.start();
+            clip.start();
             //Catching multiple exceptions at once with just |
+        }catch(UnsupportedAudioFileException|IOException|LineUnavailableException e){e.printStackTrace();}
+    }
+
+    SoundLoader(final String fileName){
+        try{
+            clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("resources/sfx/"+fileName)));
+            clip.start();
         }catch(UnsupportedAudioFileException|IOException|LineUnavailableException e){e.printStackTrace();}
     }
 

@@ -30,7 +30,7 @@ public class Tile {
 
     private final int tSize=Data.getTileSize();
 
-    public Tile(int x,int y,int value){
+    Tile(int x,int y,int value){
         this.x=tSize*x;
         this.y=tSize*y;
         this.value = value;

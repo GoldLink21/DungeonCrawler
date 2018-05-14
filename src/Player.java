@@ -8,7 +8,9 @@ public class Player extends Entity{
     private final int SPEED=2;
     private final String file="player.png";
 
-    public Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
+    Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);
+        SoundLoader s = new SoundLoader("pingpong.wav",true,false);
+    }
 
     private ImageLoader getCurImg(){
         switch(Data.getLastDir()){
