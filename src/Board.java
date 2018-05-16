@@ -12,7 +12,7 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private boolean mapMade=false;
 
-    private ArrayList<Entity>entities=new ArrayList<>();
+    private static ArrayList<Entity>entities=new ArrayList<>();
 
     public Board(){
         setBackground(Color.LIGHT_GRAY);
@@ -83,7 +83,7 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void removeDarts(){
+    public static void removeDarts(){
         int i=1;
         while(i<entities.size()){
             if(entities.get(i)instanceof Dart) {

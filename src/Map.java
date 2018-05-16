@@ -37,6 +37,7 @@ public class Map {
 
     public void loadFloor(int floor){
         this.floor=floor;
+
         clearTraps();
         if(MapData.getFloor(floor)!=null){
             int[][]curFloor=MapData.getFloor(floor);
@@ -76,6 +77,7 @@ public class Map {
     public void loadNextFloor(){
         trapsAdded=false;
         clearTraps();
+        Board.removeDarts();
         if(Data.getMode()==Data.MODE_CLASSIC)
             loadFloor(floor+1);
         else if(Data.getMode()==Data.MODE_ENDLESS)

@@ -20,10 +20,54 @@ public class Player extends Entity{
         }
     }
 
+    private ImageLoader getAltImg(){
+        switch(Data.getLastDir()){
+            case Data.DIR_UP: return getImg(5);
+            case Data.DIR_DOWN: return getImg(3);
+            case Data.DIR_LEFT: return getImg(1);
+            case Data.DIR_RIGHT: return getImg(7);
+            default: return null;
+        }
+    }
+
     private ImageLoader getImg(int num){return new ImageLoader(x,y,16,16,16*num,0,width,height,file);}
 
+    private int imgCounter=0;
+
     @Override
-    public void paint(Graphics g){try{getCurImg().paint(g);}catch(NullPointerException e){g.fillRect(x,y,width,height);}}
+    public void paint(Graphics g){
+
+        try{
+            animate(g);
+        }catch(NullPointerException e){
+            g.fillRect(x, y, width, height);
+        }
+    }
+
+    private boolean isMoving(){
+        if(Data.isDown()||Data.isUp())
+            return true;
+        if(Data.isLeft()||Data.isRight())
+            return true;
+        return false;
+    }
+
+    private final int ANIM_DELAY=12;
+
+    private void animate(Graphics g){
+        ImageLoader cur;
+        if(imgCounter<ANIM_DELAY/2) {
+            cur = getCurImg();
+        }else{
+            cur=getAltImg();
+        }
+        if(isMoving()) {
+            imgCounter++;
+            if (imgCounter > ANIM_DELAY)
+                imgCounter = 0;
+        }
+        cur.paint(g);
+    }
 
     public void resetPosition(){
         for(int i=0;i<Data.getNumTiles();i++)
