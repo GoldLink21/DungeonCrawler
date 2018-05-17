@@ -8,7 +8,7 @@ public class Player extends Entity{
     private final int SPEED=2;
     private final String file="player.png";
 
-    public Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
+    Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
 
     private ImageLoader getCurImg(){
         switch(Data.getLastDir()){
@@ -44,17 +44,10 @@ public class Player extends Entity{
         }
     }
 
-    private boolean isMoving(){
-        if(Data.isDown()||Data.isUp())
-            return true;
-        if(Data.isLeft()||Data.isRight())
-            return true;
-        return false;
-    }
-
-    private final int ANIM_DELAY=12;
+    private boolean isMoving(){return (Data.isLeft()||Data.isRight()||Data.isDown()||Data.isUp());}
 
     private void animate(Graphics g){
+        final int ANIM_DELAY=12;
         ImageLoader cur;
         if(imgCounter<ANIM_DELAY/2) {
             cur = getCurImg();
@@ -121,7 +114,7 @@ public class Player extends Entity{
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
-            if (checkWallCollisions())y-=SPEED;
+            if(checkWallCollisions())y-=SPEED;
             checkTiles();
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;

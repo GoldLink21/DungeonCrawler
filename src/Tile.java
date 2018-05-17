@@ -9,8 +9,6 @@ public class Tile {
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
             (Color.CYAN),(Color.ORANGE)};
 
-    private int[] numVariants={1,1,1,1,1,1};
-
     private static String[] tileNames={"wall","path","lava","end","start","trap"};
 
 

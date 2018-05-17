@@ -8,7 +8,7 @@ public class LavaTrap extends Trap implements ActionListener{
 
     private int[]x,y;
 
-    public LavaTrap(int[]x,int[]y,int delay,boolean circular,Map map){
+    LavaTrap(int[]x,int[]y,int delay,boolean circular,Map map){
         super(delay,map);
         this.x=x;
         this.y=y;

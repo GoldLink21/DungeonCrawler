@@ -12,21 +12,9 @@ public class Map {
 
     private static boolean trapsAdded=false;
 
-    public void setTrapsAdded(boolean bool){trapsAdded=bool;}
+    Map(){map=new Tile[nTiles][nTiles];}
 
-    public Map(){
-        map=new Tile[nTiles][nTiles];
-        loadNextFloor();
-    }
-
-    public static ArrayList<Trap> getTraps() {return traps;}
-
-    public void randomBoard(){
-        for (int i = 0; i < nTiles; i++)
-            for (int j = 0; j < nTiles; j++)
-                //setTile(i,j,(int)(Math.random()*Data.TILE_TYPES));
-                setTile(i,j,MapData.END);
-    }
+    public static ArrayList<Trap> getTraps(){return traps;}
 
     public Tile getTile(int x, int y){
         if(x>=0&&x<=Data.getNumTiles())

@@ -9,12 +9,12 @@ public class Board extends JPanel implements ActionListener {
 
     private Map map;
     private static int ticks = 0;
-    private Timer timer;
+    private static Timer timer;
     private boolean mapMade=false;
 
     private static ArrayList<Entity>entities=new ArrayList<>();
 
-    public Board(){
+    Board(){
         setBackground(Color.LIGHT_GRAY);
         final int bSize=Data.getTileSize()*Data.getNumTiles();
         setPreferredSize(new Dimension(bSize,bSize));

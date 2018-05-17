@@ -9,7 +9,7 @@ public class ImageLoader{
     private static BufferedImage img;
     private int x,y,newWidth,newHeight;
 
-    public ImageLoader(int x, int y,int width, int height, int imgX,int imgY,int newWidth, int newHeight, String fileName){
+    ImageLoader(int x, int y,int width, int height, int imgX,int imgY,int newWidth, int newHeight, String fileName){
         this.x=x;
         this.y=y;
         this.newHeight=newHeight;
@@ -25,12 +25,19 @@ public class ImageLoader{
 
     public void paint(Graphics g){
         try{g.drawImage(img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), x, y, null);
-        }catch(NullPointerException e){e.printStackTrace();}
+        }catch(NullPointerException e){g.fillRect(x,y,newWidth,newHeight);}
     }
 
     public static BufferedImage getImg(String fileName){
-        try{return ImageIO.read(new File("resources/gfx/"+fileName));
-        }catch(IOException e){e.printStackTrace();}
+        try{
+            return ImageIO.read(new File("resources/gfx/"+fileName));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    public static void paintImage(BufferedImage img,int x,int y,int height,int width){
+        
     }
 }
