@@ -63,7 +63,7 @@ public class Data {
 
     public static void newEndless(){
         endlessLives=3;
-        endlessLevels=-2;
+        endlessLevels=-1;
     }
 
 }

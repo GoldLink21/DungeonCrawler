@@ -1,6 +1,9 @@
 public class MapData {
 
-    private final static int nFloors = 4,nTiles=Data.getNumTiles();
+    //To make a new floor, add a method to build the floor, increase
+    //nFloors, implement method in floorMethod(), add Traps on Map
+
+    private final static int nFloors = 5,nTiles=Data.getNumTiles();
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
 
@@ -9,7 +12,7 @@ public class MapData {
     public static void setEndlessFloor(int num){endlessFloor=num;}
     public static int getEndlessFloor(){return endlessFloor;}
 
-    private static int[][][]floors= new int[nFloors][nTiles][nTiles];
+    private static int[][][]floors=new int[nFloors][nTiles][nTiles];
 
     public static int[][] getFloor(int floor){
         if(floor<nFloors)
@@ -31,7 +34,7 @@ public class MapData {
             case 1:return floorOne();
             case 2:return floorTwo();
             case 3:return floorThree();
-
+            case 4:return floorFour();
             default:return null;
         }
     }
@@ -104,10 +107,10 @@ public class MapData {
 
     private static int[][]floorFour(){
         int[][]temp=new int[nTiles][nTiles];
-        temp[2][4]=START;
-        temp[6][4]=END;
-        for(int i=5;i<8;i++){
-            temp[2][i]=PATH;
+        temp[4][0]=START;
+        temp[4][8]=END;
+        for(int i=1;i<8;i++){
+            temp[4][i]=PATH;
         }
         return temp;
     }
@@ -120,6 +123,8 @@ public class MapData {
             temp[i][8]=type;
         }
     }
+
+    public static int nFloors(){return nFloors;}
 
     private static void setFloorAs(int[][]temp,int type){
         for(int i=0;i<nTiles;i++){

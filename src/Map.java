@@ -23,7 +23,8 @@ public class Map {
         return new Tile(x,y,MapData.WALL);
     }
 
-    public void loadFloor(int floor){
+    private void loadFloor(int floor){
+        System.out.println("Pre-floor is "+this.floor);
         this.floor=floor;
 
         clearTraps();
@@ -35,7 +36,7 @@ public class Map {
             addTraps(floor);
             if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
         }else{
-            this.floor=0;
+            this.floor=-1;
             Data.endGame();
         }
 
@@ -66,9 +67,9 @@ public class Map {
         trapsAdded=false;
         clearTraps();
         Board.removeDarts();
-        if(Data.getMode()==Data.MODE_CLASSIC)
+        if(Data.isModeClassic())
             loadFloor(floor+1);
-        else if(Data.getMode()==Data.MODE_ENDLESS)
+        else if(Data.isModeEndless())
             loadRandomFloor();
     }
 
@@ -79,6 +80,7 @@ public class Map {
             case 1:floorOneTraps();break;
             case 2:floorTwoTraps();break;
             case 3:floorThreeTraps();break;
+            case 4:floorFourTraps();
         }
         trapsAdded=true;
     }
@@ -109,6 +111,16 @@ public class Map {
             x=fillArr(i,length);
             addLavaTrap(x,y[i-1],7);
         }
+    }
+
+    private void floorFourTraps(){
+        addDartTrap(3,1,3,Data.DIR_RIGHT);
+        addDartTrap(5,2,2,Data.DIR_LEFT);
+        addDartTrap(3,3,3,Data.DIR_RIGHT);
+        addDartTrap(5,4,2,Data.DIR_LEFT);
+        addDartTrap(3,5,3,Data.DIR_RIGHT);
+        addDartTrap(5,6,2,Data.DIR_LEFT);
+        addDartTrap(3,7,3,Data.DIR_RIGHT);
     }
 
     private int[] fillArr(int val,int length){

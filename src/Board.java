@@ -42,10 +42,7 @@ public class Board extends JPanel implements ActionListener {
     public void restartGame(){
         if(!mapMade)
             map=new Map();
-        if(Data.isModeClassic())
-            map.loadFloor(0);
-        else
-            map.loadNextFloor();
+        map.loadNextFloor();
         if(first){
             entities.add(0,new Player(map));
             first = false;

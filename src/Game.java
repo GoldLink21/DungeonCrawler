@@ -57,6 +57,11 @@ public class Game extends JFrame implements KeyListener{
                 System.out.println("Endless started");
             }
         }
+
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+            Data.toMenu();
+            System.out.println("Rage Quit!");
+        }
     }
 
     private void setKeys(KeyEvent e,boolean bool){

@@ -3,7 +3,7 @@ import java.awt.*;
 public class Dart extends Entity {
 
     Dart(int x, int y, int dir, Map map) {
-        super(Color.green, x, y, 10, 10, map);
+        super(Color.green, x, y, 9, 9, map);
         this.dir=dir;
         this.x+=3;
         this.y+=3;
@@ -30,7 +30,7 @@ public class Dart extends Entity {
 
     private Polygon getPoly(){
         Polygon p=new Polygon();
-        switch (dir) {
+        switch(dir){
             case Data.DIR_UP:
                 p.addPoint(x+width/2,y);
                 p.addPoint(x+width,y+height);
