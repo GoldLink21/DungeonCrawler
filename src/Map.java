@@ -6,7 +6,7 @@ public class Map {
 
     private final int nTiles = Data.getNumTiles();
 
-    private int floor=-1;
+    private static int floor=-1;
 
     private static ArrayList<Trap>traps=new ArrayList<>();
 
@@ -23,20 +23,19 @@ public class Map {
         return new Tile(x,y,MapData.WALL);
     }
 
-    private void loadFloor(int floor){
-        System.out.println("Pre-floor is "+this.floor);
-        this.floor=floor;
+    private void loadFloor(int flr){
+        floor=flr;
 
         clearTraps();
-        if(MapData.getFloor(floor)!=null){
-            int[][]curFloor=MapData.getFloor(floor);
+        if(MapData.getFloor(flr)!=null){
+            int[][]curFloor=MapData.getFloor(flr);
             for(int i=0;i<Data.getNumTiles();i++)
                 for(int j=0;j<Data.getNumTiles();j++)
                     setTile(i,j,curFloor[i][j]);
-            addTraps(floor);
-            if(Data.DEBUG())System.out.println("Loaded Floor "+floor);
+            addTraps(flr);
+            if(Data.DEBUG())System.out.println("Loaded Floor "+flr);
         }else{
-            this.floor=-1;
+            floor=-1;
             Data.endGame();
         }
 
@@ -50,6 +49,7 @@ public class Map {
                 setTile(i,j,curFloor[i][j]);
         if(!trapsAdded)addTraps(MapData.getEndlessFloor());
         if(Data.DEBUG())System.out.println("Randomly Loaded Floor "+MapData.getEndlessFloor());
+        floor=-1;
     }
 
     public static void clearTraps(){
@@ -80,7 +80,7 @@ public class Map {
             case 1:floorOneTraps();break;
             case 2:floorTwoTraps();break;
             case 3:floorThreeTraps();break;
-            case 4:floorFourTraps();
+            case 4:floorFourTraps();break;
         }
         trapsAdded=true;
     }
@@ -140,6 +140,8 @@ public class Map {
     }
 
     public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
+
+    public static void setFloor(int val){floor=val;}
 
     public void paint(Graphics g){
         for(int i=0;i<nTiles;i++)

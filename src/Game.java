@@ -61,6 +61,7 @@ public class Game extends JFrame implements KeyListener{
         if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
             Data.toMenu();
             System.out.println("Rage Quit!");
+            Map.setFloor(-1);
         }
     }
 

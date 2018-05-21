@@ -3,6 +3,7 @@ public class Data {
 
     private static boolean up=false,down=false,left=false,right=false;
 
+    //tSize=35
     private static final int TILE_SIZE = 35,NUM_TILES = 9;
     public static final int PLAYER_SIZE = 18;
 

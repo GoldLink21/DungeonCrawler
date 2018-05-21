@@ -3,7 +3,7 @@ public class MapData {
     //To make a new floor, add a method to build the floor, increase
     //nFloors, implement method in floorMethod(), add Traps on Map
 
-    private final static int nFloors = 5,nTiles=Data.getNumTiles();
+    private final static int nFloors = 6,nTiles=Data.getNumTiles();
 
     public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
 
@@ -35,6 +35,7 @@ public class MapData {
             case 2:return floorTwo();
             case 3:return floorThree();
             case 4:return floorFour();
+            case 5:return floorFive();
             default:return null;
         }
     }
@@ -59,6 +60,7 @@ public class MapData {
             temp[5][i]=PATH;
         for(int i=5;i<8;i++)
             temp[i][2]=PATH;
+        temp[1][5]=TRAP;
         return temp;
 
     }
@@ -112,6 +114,15 @@ public class MapData {
         for(int i=1;i<8;i++){
             temp[4][i]=PATH;
         }
+        return temp;
+    }
+
+    private static int[][]floorFive(){
+        int[][]temp=new int[nTiles][nTiles];
+        setFloorAs(temp,PATH);
+        border(temp,LAVA);
+        temp[1][1]=START;
+        temp[7][7]=END;
         return temp;
     }
 
