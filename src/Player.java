@@ -5,7 +5,6 @@ public class Player extends Entity{
 
     private boolean onLava=false,onEnd=false;
 
-    private final int SPEED=2;
     private final String file="player.png";
 
     Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
@@ -36,11 +35,10 @@ public class Player extends Entity{
 
     @Override
     public void paint(Graphics g){
-
         try{
             animate(g);
         }catch(NullPointerException e){
-            g.fillRect(x, y, width, height);
+           g.fillRect(x, y, width, height);
         }
     }
 
@@ -104,6 +102,7 @@ public class Player extends Entity{
 
     @Override
     public void move(){
+        int SPEED=Data.PLAYER_SPEED;
         int BoardWidth = Data.getNumTiles()*Data.getTileSize();
         int buffer = 1;
         if (Data.isUp()&&y>0){

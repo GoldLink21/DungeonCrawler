@@ -5,7 +5,6 @@ import java.io.IOException;
 public class SoundLoader{
 
     private Clip clip;
-    private boolean loop;
 
     SoundLoader(final String fileName,boolean loop){
         try{

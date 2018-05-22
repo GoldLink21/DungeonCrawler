@@ -108,7 +108,12 @@ public class Board extends JPanel implements ActionListener {
         super.paintComponent(g);
         if(Data.isPlay()) {
             paintAndCollisions(g);
-        }else if(Data.isMenu()) {
+        }
+        printAllText(g);
+    }
+
+    private void printAllText(Graphics g){
+        if(Data.isMenu()){
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
             printCentered("Press Enter to play Classic mode",subtitleFont,.5,g);
             printCentered("Press Backspace to play Endless mode",subtitleFont,2/3.0,g);

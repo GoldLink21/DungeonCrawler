@@ -36,8 +36,4 @@ public class ImageLoader{
         }
         return null;
     }
-
-    public static void paintImage(BufferedImage img,int x,int y,int height,int width){
-        
-    }
 }

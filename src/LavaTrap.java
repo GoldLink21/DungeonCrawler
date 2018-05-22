@@ -1,8 +1,6 @@
-import javax.swing.Timer;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class LavaTrap extends Trap implements ActionListener{
+public class LavaTrap extends Trap{
     private int cur,type;
     private boolean isForward,first,circular;
 

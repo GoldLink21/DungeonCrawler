@@ -3,9 +3,9 @@ public class Data {
 
     private static boolean up=false,down=false,left=false,right=false;
 
-    //tSize=35
+    //tSize=35, pSize=18
     private static final int TILE_SIZE = 35,NUM_TILES = 9;
-    public static final int PLAYER_SIZE = 18;
+    public static final int PLAYER_SIZE = 18,PLAYER_SPEED=2;;
 
     public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
@@ -16,7 +16,6 @@ public class Data {
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
     public static int getLastDir(){return lastDir;}
-    public static int getMode(){return mode;}
     public static int getEndlessLives(){return endlessLives;}
     public static int getEndlessLevels(){return endlessLevels;}
 

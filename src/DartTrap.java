@@ -6,8 +6,8 @@ public class DartTrap extends Trap {
 
     private boolean toFire = false,tileSet=false;
 
-    public DartTrap(int x, int y, int delay,int dir, Map map) {
-        super(delay, map);
+    DartTrap(int x, int y, int delay,int dir, Map map) {
+        super(delay,map);
         this.x=x;
         this.y=y;
         this.dir=dir;
