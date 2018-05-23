@@ -48,6 +48,7 @@ public class Board extends JPanel implements ActionListener {
             first = false;
         }
         ((Player)entities.get(0)).resetPosition();
+        Data.resetKeys();
     }
 
     private void paintAndCollisions(Graphics g){
@@ -64,10 +65,15 @@ public class Board extends JPanel implements ActionListener {
     private void checkCollisions(){
         for(int i=1;i<entities.size();i++){
             if(entities.get(i).collidesWith(entities.get(0))){
+                if(entities.get(i)instanceof Dart) {
+                    ((Player) entities.get(0)).resetPosition();
+                    if (Data.isModeEndless())
+                        Data.setEndlessLives(Data.getEndlessLives() - 1);
+                }else if(entities.get(i)instanceof Key){
+                    Data.increaseKeys();
+                    System.out.println("Keys: "+Data.getKeys());
+                }
                 entities.remove(i);
-                ((Player)entities.get(0)).resetPosition();
-                if(Data.isModeEndless())
-                    Data.setEndlessLives(Data.getEndlessLives()-1);
             }
         }
     }
@@ -83,7 +89,7 @@ public class Board extends JPanel implements ActionListener {
     public static void removeDarts(){
         int i=1;
         while(i<entities.size()){
-            if(entities.get(i)instanceof Dart) {
+            if(entities.get(i)instanceof Dart||entities.get(i)instanceof Key) {
                 entities.remove(i);
                 i--;
             }
@@ -113,7 +119,12 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void printAllText(Graphics g){
-        if(Data.isMenu()){
+        g.setColor(Color.BLACK);
+        if(Data.isPlay()){
+            g.setColor(Color.WHITE);
+            g.setFont(subtitleFont);
+            g.drawString("Keys: "+String.valueOf(Data.getKeys()),getHeight()-70,15);
+        }if(Data.isMenu()){
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
             printCentered("Press Enter to play Classic mode",subtitleFont,.5,g);
             printCentered("Press Backspace to play Endless mode",subtitleFont,2/3.0,g);
@@ -137,4 +148,6 @@ public class Board extends JPanel implements ActionListener {
         g.setFont(font);
         printSimpleString(s,getWidth(),(int)(getHeight()*yPos),g);
     }
+
+    public static void addEntity(Entity e){entities.add(e);}
 }

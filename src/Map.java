@@ -32,7 +32,7 @@ public class Map {
             for(int i=0;i<Data.getNumTiles();i++)
                 for(int j=0;j<Data.getNumTiles();j++)
                     setTile(i,j,curFloor[i][j]);
-            addTraps(flr);
+            addTrapsAndKeys(flr);
             if(Data.DEBUG())System.out.println("Loaded Floor "+flr);
         }else{
             floor=-1;
@@ -47,7 +47,7 @@ public class Map {
         for(int i=0;i<Data.getNumTiles();i++)
             for(int j=0;j<Data.getNumTiles();j++)
                 setTile(i,j,curFloor[i][j]);
-        if(!trapsAdded)addTraps(MapData.getEndlessFloor());
+        if(!trapsAdded)addTrapsAndKeys(MapData.getEndlessFloor());
         if(Data.DEBUG())System.out.println("Randomly Loaded Floor "+MapData.getEndlessFloor());
         floor=-1;
     }
@@ -65,6 +65,7 @@ public class Map {
 
     public void loadNextFloor(){
         trapsAdded=false;
+        Data.resetKeys();
         clearTraps();
         Board.removeDarts();
         if(Data.isModeClassic())
@@ -73,7 +74,7 @@ public class Map {
             loadRandomFloor();
     }
 
-    private void addTraps(int var){
+    private void addTrapsAndKeys(int var){
         clearTraps();
         switch(var){
             case 0:floorZeroTraps();break;
@@ -99,7 +100,7 @@ public class Map {
     }
 
     private void floorTwoTraps(){
-
+        addKey(3,2);
     }
 
     private void floorThreeTraps(){
@@ -148,4 +149,6 @@ public class Map {
             for(int j=0;j<nTiles;j++)
                 map[i][j].paint(g);
     }
+
+    private void addKey(int x,int y){Board.addEntity(new Key(x,y,this));}
 }

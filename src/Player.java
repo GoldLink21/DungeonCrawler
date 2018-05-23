@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class Player extends Entity{
 
-    private boolean onLava=false,onEnd=false;
+    private boolean onLava=false,onEnd=false,onLock=false;
 
     private final String file="player.png";
 
@@ -85,6 +85,12 @@ public class Player extends Entity{
                 onLava=true;
             }else if(i==MapData.END){
                 onEnd=true;
+            }else if(i==MapData.LOCK){
+                if(Data.getKeys()>0){
+                    Data.decreaseKeys();
+                    
+                }
+
             }
         }if(onLava){
             resetPosition();
@@ -108,23 +114,27 @@ public class Player extends Entity{
         if (Data.isUp()&&y>0){
             y-=SPEED;
             Data.setLastDir(Data.DIR_UP);
-            if(checkWallCollisions())y+=SPEED;
             checkTiles();
+            if(checkWallCollisions())y+=SPEED;
+
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
-            if(checkWallCollisions())y-=SPEED;
             checkTiles();
+            if(checkWallCollisions())y-=SPEED;
+
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
             Data.setLastDir(Data.DIR_RIGHT);
-            if (checkWallCollisions())x-=SPEED;
             checkTiles();
+            if (checkWallCollisions())x-=SPEED;
+
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
             Data.setLastDir(Data.DIR_LEFT);
-            if (checkWallCollisions())x+=SPEED;
             checkTiles();
+            if (checkWallCollisions())x+=SPEED;
+
         }
         checkTiles();
     }

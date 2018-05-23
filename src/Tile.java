@@ -7,9 +7,9 @@ public class Tile {
 
     //WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
-            (Color.CYAN),(Color.ORANGE)};
+            (Color.CYAN),(Color.ORANGE),(Color.YELLOW)};
 
-    private static String[] tileNames={"wall","path","lava","end","start","trap"};
+    private static String[] tileNames={"wall","path","lava","end","start","trap","lock"};
 
 
     private static BufferedImage[]getImages(){

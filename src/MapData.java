@@ -5,7 +5,7 @@ public class MapData {
 
     private final static int nFloors = 6,nTiles=Data.getNumTiles();
 
-    public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
+    public static final int WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5,LOCK=6;
 
     private static int endlessFloor=0;
 

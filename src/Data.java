@@ -3,6 +3,8 @@ public class Data {
 
     private static boolean up=false,down=false,left=false,right=false;
 
+    private static int nKeys=0;
+
     //tSize=35, pSize=18
     private static final int TILE_SIZE = 35,NUM_TILES = 9;
     public static final int PLAYER_SIZE = 18,PLAYER_SPEED=2;;
@@ -18,6 +20,7 @@ public class Data {
     public static int getLastDir(){return lastDir;}
     public static int getEndlessLives(){return endlessLives;}
     public static int getEndlessLevels(){return endlessLevels;}
+    public static int getKeys(){return nKeys;}
 
     public static boolean DEBUG(){return true;}
 
@@ -42,6 +45,9 @@ public class Data {
     public static void setMode(int type){mode = type;}
     public static void setEndlessLives(int num){endlessLives=num;}
     public static void setEndlessLevels(int num){endlessLevels=num;}
+    public static void resetKeys(){nKeys=0;}
+    public static void increaseKeys(){nKeys++;}
+    public static void decreaseKeys(){nKeys--;}
 
     public static void startGame(){
         end=false;
