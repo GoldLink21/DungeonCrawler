@@ -20,6 +20,14 @@ public abstract class Entity implements Move {
         setPosition(x,y);
     }
 
+    Point[]getCornerMapPoints(){
+        Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
+        for(Point p:points){
+            p.setLocation(((int)p.getX()/Data.getTileSize()),(int)(p.getY()/Data.getTileSize()));
+        }
+        return points;
+    }
+
     int[] getCornerTypes(){
         Point[]points={new Point(x,y),new Point(x+width,y),new Point(x,y+height),new Point(x+width,y+height)};
         int[] temp=new int[4];
@@ -42,8 +50,8 @@ public abstract class Entity implements Move {
     @Override
     public void setPosition(int x,int y){
         int tSize = Data.getTileSize();
-        this.x=x*tSize+tSize/4;
-        this.y=y*tSize+tSize/4;
+        this.x=x*tSize+tSize/2-width/2;
+        this.y=y*tSize+tSize/2-height/2;
     }
 
     @Override

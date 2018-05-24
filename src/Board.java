@@ -123,7 +123,10 @@ public class Board extends JPanel implements ActionListener {
         if(Data.isPlay()){
             g.setColor(Color.WHITE);
             g.setFont(subtitleFont);
-            g.drawString("Keys: "+String.valueOf(Data.getKeys()),getHeight()-70,15);
+            g.drawString("Keys: "+Data.getKeys(),getHeight()-70,16);
+            if(Data.isModeEndless()){
+                g.drawString("Lives: "+Data.getEndlessLives(),10,16);
+            }
         }if(Data.isMenu()){
             printCentered("Dungeon Crawler",titleFont,1.0/3,g);
             printCentered("Press Enter to play Classic mode",subtitleFont,.5,g);

@@ -1,5 +1,4 @@
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 
 public class Player extends Entity{
 
@@ -74,21 +73,25 @@ public class Player extends Entity{
     private boolean checkWallCollisions(){
         int[]temp=getCornerTypes();
         for(int i:temp)
-            if(i==MapData.WALL||i==MapData.TRAP)return true;
+            if(i==MapData.WALL||i==MapData.TRAP||i==MapData.LOCK)return true;
         return false;
     }
 
+    private boolean removeKey=false;
+
     private void checkTiles(){
         int[]temp=getCornerTypes();
-        for(int i:temp){
-            if(i==MapData.LAVA){
+        for(int i=0;i<temp.length;i++){
+            if(temp[i]==MapData.LAVA){
                 onLava=true;
-            }else if(i==MapData.END){
+            }else if(temp[i]==MapData.END){
                 onEnd=true;
-            }else if(i==MapData.LOCK){
+            }else if(temp[i]==MapData.LOCK){
                 if(Data.getKeys()>0){
-                    Data.decreaseKeys();
-                    
+                    removeKey=true;
+                    Point[]corners=getCornerMapPoints();
+                    Map.setTile((int)corners[i].getX(),(int)corners[i].getY(),MapData.PATH);
+                    //new SoundLoader("unlock");
                 }
 
             }
@@ -116,26 +119,27 @@ public class Player extends Entity{
             Data.setLastDir(Data.DIR_UP);
             checkTiles();
             if(checkWallCollisions())y+=SPEED;
-
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
             Data.setLastDir(Data.DIR_DOWN);
             checkTiles();
             if(checkWallCollisions())y-=SPEED;
-
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
             Data.setLastDir(Data.DIR_RIGHT);
             checkTiles();
             if (checkWallCollisions())x-=SPEED;
-
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
             Data.setLastDir(Data.DIR_LEFT);
             checkTiles();
             if (checkWallCollisions())x+=SPEED;
-
         }
         checkTiles();
+        if(removeKey){
+            Data.decreaseKeys();
+            removeKey=false;
+        }if(Data.getKeys()<0)
+            Data.resetKeys();
     }
 }

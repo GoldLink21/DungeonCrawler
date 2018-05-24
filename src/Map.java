@@ -82,6 +82,7 @@ public class Map {
             case 2:floorTwoTraps();break;
             case 3:floorThreeTraps();break;
             case 4:floorFourTraps();break;
+            case 5:floorFiveTraps();break;
         }
         trapsAdded=true;
     }
@@ -100,7 +101,7 @@ public class Map {
     }
 
     private void floorTwoTraps(){
-        addKey(3,2);
+        addKey(4,7);
     }
 
     private void floorThreeTraps(){
@@ -124,6 +125,11 @@ public class Map {
         addDartTrap(3,7,3,Data.DIR_RIGHT);
     }
 
+    private void floorFiveTraps(){
+        addKey(7,1);
+        addKey(1,7);
+    }
+
     private int[] fillArr(int val,int length){
         int[]arr=new int[length];
         for(int i=0;i<length;i++)
@@ -140,7 +146,7 @@ public class Map {
         return arr;
     }
 
-    public void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
+    public static void setTile(int x,int y,int val){map[x][y]=new Tile(x,y,val);}
 
     public static void setFloor(int val){floor=val;}
 

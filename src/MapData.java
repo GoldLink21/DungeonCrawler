@@ -94,6 +94,9 @@ public class MapData {
             temp[i][2]=PATH;
         temp[1][1]=START;
         temp[nTiles-2][1]=END;
+        for(int i=2;i<8;i++)
+            temp[4][i]=PATH;
+        temp[6][1]=LOCK;
         return temp;
     }
 
@@ -121,6 +124,8 @@ public class MapData {
         int[][]temp=new int[nTiles][nTiles];
         setFloorAs(temp,PATH);
         border(temp,LAVA);
+        temp[6][7]=LOCK;
+        temp[7][6]=LOCK;
         temp[1][1]=START;
         temp[7][7]=END;
         return temp;
