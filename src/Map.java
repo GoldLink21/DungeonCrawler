@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class Map {
     private static Tile[][]map;
@@ -83,6 +84,7 @@ public class Map {
             case 3:floorThreeTraps();break;
             case 4:floorFourTraps();break;
             case 5:floorFiveTraps();break;
+            case 6:floorSixTraps();break;
         }
         trapsAdded=true;
     }
@@ -130,6 +132,12 @@ public class Map {
         addKey(1,7);
     }
 
+    private void floorSixTraps(){
+        addKey(1,4);
+        addKey(4,1);
+        addKey(4,7);
+    }
+
     private int[] fillArr(int val,int length){
         int[]arr=new int[length];
         for(int i=0;i<length;i++)
@@ -156,5 +164,9 @@ public class Map {
                 map[i][j].paint(g);
     }
 
-    private void addKey(int x,int y){Board.addEntity(new Key(x,y,this));}
+    private void addKey(int x,int y){
+        try {
+            Board.addEntity(new Key(x, y, this));
+        }catch(ConcurrentModificationException e){}
+    }
 }

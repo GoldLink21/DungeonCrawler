@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -51,12 +52,22 @@ public class Board extends JPanel implements ActionListener {
         Data.resetKeys();
     }
 
+    //Iterator<Entity>iter=entities.iterator();
+
     private void paintAndCollisions(Graphics g){
         map.paint(g);
+        /*
+        while(iter.hasNext()){
+            Entity cur =iter.next();
+            cur.move();
+            cur.paint(g);
+        }
+        */
         for(Entity e:entities){
             e.paint(g);
             e.move();
         }
+
         addDarts();
         checkCollisions();
         removeEntities();
