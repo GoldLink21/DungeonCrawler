@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Player extends Entity{
 
-    private boolean onLava=false,onEnd=false,onLock=false;
+    private boolean onLava=false,onEnd=false;
 
     private final String file="player.png";
 
@@ -91,12 +91,13 @@ public class Player extends Entity{
                     removeKey=true;
                     Point[]corners=getCornerMapPoints();
                     Map.setTile((int)corners[i].getX(),(int)corners[i].getY(),MapData.PATH);
-                    //new SoundLoader("unlock");
+                    new SoundLoader("unlock.wav");
                 }
 
             }
         }if(onLava){
             resetPosition();
+            new SoundLoader("respawn.wav");
             if(Data.isModeEndless()){
                 Data.setEndlessLives(Data.getEndlessLives()-1);
             }

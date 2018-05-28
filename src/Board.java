@@ -56,13 +56,6 @@ public class Board extends JPanel implements ActionListener {
 
     private void paintAndCollisions(Graphics g){
         map.paint(g);
-        /*
-        while(iter.hasNext()){
-            Entity cur =iter.next();
-            cur.move();
-            cur.paint(g);
-        }
-        */
         for(Entity e:entities){
             e.paint(g);
             e.move();

@@ -21,8 +21,18 @@ public class SoundLoader{
         try{
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File("resources/sfx/"+fileName)));
+
+            //setVol(clip,10);
+
             clip.start();
         }catch(UnsupportedAudioFileException|IOException|LineUnavailableException e){e.printStackTrace();}
+    }
+
+    //Fix
+    private static void setVol(Clip clip, int level){
+        FloatControl vol = (FloatControl)clip.getControl(FloatControl.Type.VOLUME);
+        if(vol!=null)
+            vol.setValue(Float.valueOf(String.valueOf(level/100.0)));
     }
 
     public void stop(){clip.stop();}

@@ -2,14 +2,15 @@ import java.awt.*;
 
 public class Key extends Entity {
 
-    Key(int x,int y,Map map){super(Color.ORANGE,x,y,10,10,map);}
+    Key(int x,int y,Map map){super(Color.ORANGE,x,y,10,7,map);}
 
     @Override
     public void paint(Graphics g){
-        g.setColor(color);
-        g.fillRect(x,y,width,height);
+        try{
+            g.drawImage(ImageLoader.getImg("key.png"),x,y,null);
+        }catch(NullPointerException e){
+            g.setColor(color);
+            g.fillRect(x, y, width, height);
+        }
     }
-
-    @Override
-    public void move(){}
 }
