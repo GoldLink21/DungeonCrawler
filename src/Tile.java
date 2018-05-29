@@ -5,13 +5,15 @@ import java.io.IOException;
 public class Tile {
     private int x,y,value;
 
-    //WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5;
+    //WALL=0,PATH=1,LAVA=2,END=3,START=4,TRAP=5,LOCK=6;
+
+    //Predefined colors for in case of error
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
             (Color.CYAN),(Color.ORANGE),(Color.YELLOW)};
 
     private static String[] tileNames={"wall","path","lava","end","start","trap","lock"};
 
-
+    //Gets all the images for the tiles based on the names in the above array
     private static BufferedImage[]getImages(){
         BufferedImage[]temp=new BufferedImage[tileNames.length];
         for(int i=0;i<tileNames.length;i++) {
@@ -38,6 +40,7 @@ public class Tile {
 
     public void paint(Graphics g){
         try{
+            //If there is no picture for it, draws a square of the predefined colors above
             g.drawImage(images[value].getScaledInstance(tSize,tSize,Image.SCALE_SMOOTH),x,y,null);
         }catch(NullPointerException e){
             g.setColor(colors[value]);

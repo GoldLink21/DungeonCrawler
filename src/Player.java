@@ -91,13 +91,13 @@ public class Player extends Entity{
                     removeKey=true;
                     Point[]corners=getCornerMapPoints();
                     Map.setTile((int)corners[i].getX(),(int)corners[i].getY(),MapData.PATH);
-                    new SoundLoader("unlock.wav");
+                    //new SoundLoader("unlock.wav");
                 }
 
             }
         }if(onLava){
             resetPosition();
-            new SoundLoader("respawn.wav");
+            //new SoundLoader("respawn.wav");
             if(Data.isModeEndless()){
                 Data.setEndlessLives(Data.getEndlessLives()-1);
             }

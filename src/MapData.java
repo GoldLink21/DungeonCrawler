@@ -1,5 +1,7 @@
 public class MapData {
 
+    //Holds all the data for the map tiles
+
     //To make a new floor, add a method to build the floor, increase
     //nFloors, implement method in floorMethod(), add Traps on Map
 
@@ -9,7 +11,6 @@ public class MapData {
 
     private static int endlessFloor=0;
 
-    public static void setEndlessFloor(int num){endlessFloor=num;}
     public static int getEndlessFloor(){return endlessFloor;}
 
     private static int[][][]floors=new int[nFloors][nTiles][nTiles];
@@ -152,8 +153,6 @@ public class MapData {
             temp[i][8]=type;
         }
     }
-
-    public static int nFloors(){return nFloors;}
 
     private static void setFloorAs(int[][]temp,int type){
         for(int i=0;i<nTiles;i++){

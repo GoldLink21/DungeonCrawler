@@ -14,6 +14,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean mapMade=false;
 
     private static ArrayList<Entity>entities=new ArrayList<>();
+    private static ArrayList<Entity>toAdd=new ArrayList<>();
 
     Board(){
         setBackground(Color.LIGHT_GRAY);
@@ -52,7 +53,7 @@ public class Board extends JPanel implements ActionListener {
         Data.resetKeys();
     }
 
-    //Iterator<Entity>iter=entities.iterator();
+
 
     private void paintAndCollisions(Graphics g){
         map.paint(g);
@@ -60,10 +61,15 @@ public class Board extends JPanel implements ActionListener {
             e.paint(g);
             e.move();
         }
-
+        addEntities();
         addDarts();
         checkCollisions();
         removeEntities();
+    }
+
+    private void addEntities(){
+        while(toAdd.size()>0)
+            entities.add(toAdd.remove(0));
     }
 
     private void checkCollisions(){
@@ -156,5 +162,5 @@ public class Board extends JPanel implements ActionListener {
         printSimpleString(s,getWidth(),(int)(getHeight()*yPos),g);
     }
 
-    public static void addEntity(Entity e){entities.add(e);}
+    public static void addEntity(Entity e){toAdd.add(e);}
 }
