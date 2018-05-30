@@ -17,14 +17,14 @@ public class Map {
 
     public static ArrayList<Trap> getTraps(){return traps;}
 
-    public Tile getTile(int x, int y){
+    public static Tile getTile(int x, int y){
         if(x>=0&&x<=Data.getNumTiles())
             if(y>=0&&y<=Data.getNumTiles())
                 return map[x][y];
         return new Tile(x,y,MapData.WALL);
     }
 
-    private void loadFloor(int flr){
+    private static void loadFloor(int flr){
         floor=flr;
 
         clearTraps();
@@ -42,7 +42,7 @@ public class Map {
 
     }
 
-    private void loadRandomFloor(){
+    private static void loadRandomFloor(){
         Data.setEndlessLevels(Data.getEndlessLevels()+1);
         int[][]curFloor=MapData.getRandomFloor();
         for(int i=0;i<Data.getNumTiles();i++)
@@ -61,10 +61,10 @@ public class Map {
         trapsAdded=false;
     }
 
-    private void addLavaTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true,this));}
-    private void addDartTrap(int x,int y,int delay,int dir){traps.add(new DartTrap(x,y,delay,dir,this));}
+    private static void addLavaTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true));}
+    private static void addDartTrap(int x,int y,int delay,int dir){traps.add(new DartTrap(x,y,delay,dir));}
 
-    public void loadNextFloor(){
+    public static void loadNextFloor(){
         trapsAdded=false;
         Data.resetKeys();
         clearTraps();
@@ -75,7 +75,7 @@ public class Map {
             loadRandomFloor();
     }
 
-    private void addTrapsAndKeys(int var){
+    private static void addTrapsAndKeys(int var){
         clearTraps();
         switch(var){
             case 0:floorZeroTraps();break;
@@ -89,24 +89,24 @@ public class Map {
         trapsAdded=true;
     }
 
-    private void floorZeroTraps(){
+    private static void floorZeroTraps(){
         int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
         addLavaTrap(x,y,10);
         addDartTrap(1,5,2,Data.DIR_DOWN);
     }
 
-    private void floorOneTraps(){
+    private static void floorOneTraps(){
         int[]x=fillArr(4,3);int[]y=fillArr(0,3,true);
         addLavaTrap(x, y, 4);
         x=fillArr(0,9,true);y=fillArr(4,9);
         addLavaTrap(x,y,7);
     }
 
-    private void floorTwoTraps(){
+    private static void floorTwoTraps(){
         addKey(4,7);
     }
 
-    private void floorThreeTraps(){
+    private static void floorThreeTraps(){
         int length=8;
         int[]x;
         int[][]y={{2,1,1,1,1,1,1,1,1},{3,2,1,1,1,1,1,1},{4,3,2,1,1,1,1,1},
@@ -117,7 +117,7 @@ public class Map {
         }
     }
 
-    private void floorFourTraps(){
+    private static void floorFourTraps(){
         addDartTrap(3,1,3,Data.DIR_RIGHT);
         addDartTrap(5,2,2,Data.DIR_LEFT);
         addDartTrap(3,3,3,Data.DIR_RIGHT);
@@ -127,23 +127,23 @@ public class Map {
         addDartTrap(3,7,3,Data.DIR_RIGHT);
     }
 
-    private void floorFiveTraps(){
+    private static void floorFiveTraps(){
         addKey(7,1);
         addKey(1,7);
     }
 
-    private void floorSixTraps(){
+    private static void floorSixTraps(){
         addKey(1,4);
         addKey(4,1);
         addKey(4,7);
     }
 
-    private int[] fillArr(int val,int length){
+    private static int[] fillArr(int val,int length){
         int[]arr=new int[length];
         for(int i=0;i<length;i++)
             arr[i]=val;
         return arr;
-    }private int[] fillArr(int val,int length,boolean up){
+    }private static int[] fillArr(int val,int length,boolean up){
         int[]arr=new int[length];
         if(up)
             for(int i=0;i<length;i++)
@@ -164,9 +164,9 @@ public class Map {
                 map[i][j].paint(g);
     }
 
-    private void addKey(int x,int y){
+    private static void addKey(int x,int y){
         try {
-            Board.addEntity(new Key(x, y, this));
+            Board.addEntity(new Key(x, y));
         }catch(ConcurrentModificationException e){}
     }
 }

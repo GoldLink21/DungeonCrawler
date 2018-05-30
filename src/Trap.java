@@ -3,11 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class Trap implements ActionListener{
-    Map map;
+
+    //Just a thing that does things on a timer
+
     Timer timer;
 
-    Trap(int delay,Map map){
-        this.map=map;
+    Trap(int delay){
         timer=new Timer(5000/delay,this);
         timer.start();
     }

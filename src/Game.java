@@ -65,6 +65,7 @@ public class Game extends JFrame implements KeyListener{
         }
     }
 
+    //Helper method for making the keys for the controls easier to setup
     private void setKeys(KeyEvent e,boolean bool){
         if(e.getKeyCode()==KeyEvent.VK_RIGHT||e.getKeyCode()==KeyEvent.VK_D)
             Data.setRight(bool);

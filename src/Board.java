@@ -24,12 +24,13 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void addDarts(){
+        //Adds darts to traps that are ready to fire
         ArrayList<Trap>traps=Map.getTraps();
         for(Trap t:traps){
             if(t instanceof DartTrap){
                 DartTrap d=(DartTrap)t;
                 if(d.isToFire()){
-                    entities.add(new Dart(d.getX(), d.getY(), d.getDir(), map));
+                    entities.add(new Dart(d.getX(), d.getY(), d.getDir()));
                     ((DartTrap)t).setToFire(false);
                 }
             }
@@ -42,11 +43,12 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void restartGame(){
+        //This is run whenever you start a new game and sets the map
         if(!mapMade)
             map=new Map();
-        map.loadNextFloor();
+        Map.loadNextFloor();
         if(first){
-            entities.add(0,new Player(map));
+            entities.add(0,new Player());
             first = false;
         }
         ((Player)entities.get(0)).resetPosition();
@@ -68,6 +70,8 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void addEntities(){
+        //Takes from the entity que and adds to the actual entities
+        //This fixes the InterruptedException
         while(toAdd.size()>0)
             entities.add(toAdd.remove(0));
     }
@@ -114,6 +118,7 @@ public class Board extends JPanel implements ActionListener {
         if(Data.isMenu())ticks=0;
     }
 
+    //Helps determine the very first tick to create the map and add only a single player
     private boolean first = true;
 
     private final Font titleFont=new Font("TimesRoman",Font.BOLD,28),
@@ -129,6 +134,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void printAllText(Graphics g){
+        //This method handles all of the text to be rendered on the screen
         g.setColor(Color.BLACK);
         if(Data.isPlay()){
             g.setColor(Color.WHITE);
@@ -155,9 +161,13 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void printSimpleString(String s,int width,int YPos,Graphics g){
-        g.drawString(s,(width/2-(int)(g.getFontMetrics().getStringBounds(s,g).getWidth())/2),YPos);}
+        //I condensed it down to only one line
+        g.drawString(s,(width/2-(int)(g.getFontMetrics().getStringBounds(s,g).getWidth())/2),YPos);
+    }
+
 
     private void printCentered(String s,Font font,double yPos,Graphics g){
+        //Modified version of printSimpleString for only printing in the center of the screen
         g.setFont(font);
         printSimpleString(s,getWidth(),(int)(getHeight()*yPos),g);
     }

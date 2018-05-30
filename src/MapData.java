@@ -13,6 +13,7 @@ public class MapData {
 
     public static int getEndlessFloor(){return endlessFloor;}
 
+    //Used a fancy 3D array to hold level layouts and each floor
     private static int[][][]floors=new int[nFloors][nTiles][nTiles];
 
     public static int[][] getFloor(int floor){
@@ -22,6 +23,7 @@ public class MapData {
     }
 
     public static int[][]getRandomFloor(){
+        //Rolls a new floor for random, and you won't get the same floor twice
         int old = endlessFloor;
         do {
             endlessFloor = (int) (Math.random() * nFloors);
@@ -145,6 +147,7 @@ public class MapData {
         return temp;
     }
 
+    //Builds a border around the cur array
     private static void border(int[][]temp,int type){
         for(int i=0;i<nTiles;i++){
             temp[0][i]=type;
@@ -154,6 +157,7 @@ public class MapData {
         }
     }
 
+    //Sets every value in the array to a value
     private static void setFloorAs(int[][]temp,int type){
         for(int i=0;i<nTiles;i++){
             for(int j=0;j<nTiles;j++){

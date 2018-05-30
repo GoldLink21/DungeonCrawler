@@ -4,9 +4,10 @@ public class Player extends Entity{
 
     private boolean onLava=false,onEnd=false;
 
+    //Name of the file
     private final String file="player.png";
 
-    Player(Map map){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE,map);}
+    Player(){super(Color.BLUE,0,0,Data.PLAYER_SIZE,Data.PLAYER_SIZE);}
 
     private ImageLoader getCurImg(){
         switch(Data.getLastDir()){
@@ -62,7 +63,7 @@ public class Player extends Entity{
     public void resetPosition(){
         for(int i=0;i<Data.getNumTiles();i++)
             for(int j=0;j<Data.getNumTiles();j++)
-                if(map.getTile(i,j).getValue()==MapData.START){
+                if(Map.getTile(i,j).getValue()==MapData.START){
                     setPosition(i,j);
                     onEnd=false;
                     onLava=false;
@@ -102,7 +103,7 @@ public class Player extends Entity{
                 Data.setEndlessLives(Data.getEndlessLives()-1);
             }
         }else if(onEnd){
-            map.loadNextFloor();
+            Map.loadNextFloor();
             resetPosition();
         }
         if(Data.isModeEndless()&&Data.getEndlessLives()<1)

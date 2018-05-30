@@ -5,6 +5,7 @@ import java.io.IOException;
 public class SoundLoader{
 
     //Does not work at school computer for some reason
+    // As such, I leave it unimplemented in the final release
 
     private Clip clip;
 

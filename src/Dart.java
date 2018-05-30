@@ -2,14 +2,15 @@ import java.awt.*;
 
 public class Dart extends Entity {
 
-    Dart(int x, int y, int dir, Map map) {
-        super(Color.green, x, y, 9, 9, map);
+    Dart(int x, int y, int dir) {
+        super(Color.green, x, y, 9, 9);
         this.dir=dir;
         this.x+=3;
         this.y+=3;
     }
 
     private boolean checkCollision(){
+        //Checks if the Dart has hit a wall
         int[]temp=getCornerTypes();
         for(int i:temp)
             if(i==MapData.WALL)
@@ -17,18 +18,8 @@ public class Dart extends Entity {
         return false;
     }
 
-    private final boolean done=true;
-
-    @Override
-    public void paint(Graphics g){
-        Polygon p=getPoly();
-        g.setColor(color);
-        g.fillPolygon(p);
-        g.setColor(Color.WHITE);
-        g.drawPolygon(p);
-    }
-
     private Polygon getPoly(){
+        //Makes a triangle that faces different ways depending on the direction of the Dart
         Polygon p=new Polygon();
         switch(dir){
             case Data.DIR_UP:
@@ -53,6 +44,15 @@ public class Dart extends Entity {
                 break;
         }
         return p;
+    }
+
+    @Override
+    public void paint(Graphics g){
+        Polygon p=getPoly();
+        g.setColor(color);
+        g.fillPolygon(p);
+        g.setColor(Color.WHITE);
+        g.drawPolygon(p);
     }
 
     @Override

@@ -6,8 +6,8 @@ public class LavaTrap extends Trap{
 
     private int[]x,y;
 
-    LavaTrap(int[]x,int[]y,int delay,boolean circular,Map map){
-        super(delay,map);
+    LavaTrap(int[]x,int[]y,int delay,boolean circular){
+        super(delay);
         this.x=x;
         this.y=y;
         type=getCurType();
@@ -17,9 +17,9 @@ public class LavaTrap extends Trap{
         this.circular=circular;
     }
 
-    private int getCurType(){return map.getTile(x[cur],y[cur]).getValue();}
+    private int getCurType(){return Map.getTile(x[cur],y[cur]).getValue();}
 
-    private void setCurTile(int type){map.setTile(x[cur],y[cur],type);}
+    private void setCurTile(int type){Map.setTile(x[cur],y[cur],type);}
 
     @Override
     public void actionPerformed(ActionEvent e){
@@ -30,6 +30,8 @@ public class LavaTrap extends Trap{
             cur--;
         }
         if(timer.isRunning()){
+            //Loops through the arrays of points and depending on circular
+            // will either go backwards after or restart immediately
             if(x.length > 1){
                 if(circular) {
                     if (isForward) {

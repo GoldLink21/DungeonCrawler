@@ -4,22 +4,14 @@ public class DartTrap extends Trap {
 
     private int x,y,dir;
 
-    private boolean toFire = false,tileSet=false;
+    private boolean toFire = false;
 
-    DartTrap(int x, int y, int delay,int dir, Map map) {
-        super(delay,map);
+    DartTrap(int x, int y, int delay,int dir) {
+        super(delay);
         this.x=x;
         this.y=y;
         this.dir=dir;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(!tileSet){
-            map.setTile(x,y,MapData.TRAP);
-            tileSet=true;
-        }
-        toFire=true;
+        Map.setTile(x,y,MapData.TRAP);
     }
 
     public void setToFire(boolean bool){toFire=bool;}
@@ -31,4 +23,10 @@ public class DartTrap extends Trap {
     public int getX() {return x;}
 
     public int getY() {return y;}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //Every time the timer ticks which is controlled by delay, it fires
+        toFire=true;
+    }
 }

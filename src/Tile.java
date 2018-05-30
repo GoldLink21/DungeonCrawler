@@ -26,8 +26,10 @@ public class Tile {
         return temp;
     }
 
+    //Holds all the images
     private static BufferedImage[]images=getImages();
 
+    //Just for short notation
     private final int tSize=Data.getTileSize();
 
     Tile(int x,int y,int value){

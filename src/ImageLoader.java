@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImageLoader{
+    //Helps load in images either by making an object that you can paint, or fetching the image for you
     private static BufferedImage img;
     private int x,y,newWidth,newHeight;
 
@@ -18,17 +19,21 @@ public class ImageLoader{
             img = ImageIO.read(new File("resources/gfx/"+fileName));
             img=img.getSubimage(imgX,imgY,width,height);
         }catch(IOException e){
-            //e.printStackTrace();
+            e.printStackTrace();
             img = null;
         }
     }
 
     public void paint(Graphics g){
-        try{g.drawImage(img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), x, y, null);
-        }catch(NullPointerException e){g.fillRect(x,y,newWidth,newHeight);}
+        try{
+            g.drawImage(img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), x, y, null);
+        }catch(NullPointerException e){
+            g.fillRect(x,y,newWidth,newHeight);
+        }
     }
 
     public static BufferedImage getImg(String fileName){
+        //Used to fetch the image itself, bypassing the object
         try{
             return ImageIO.read(new File("resources/gfx/"+fileName));
         }catch(IOException e){
