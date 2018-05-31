@@ -4,7 +4,7 @@ public class Key extends Entity {
 
     //Literally just an entity with a different picture
 
-    Key(int x,int y){super(Color.ORANGE,x,y,10,7);}
+    Key(int x,int y){super(Color.ORANGE,x,y,20,14);}
 
     @Override
     public void paint(Graphics g){

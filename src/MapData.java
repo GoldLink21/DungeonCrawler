@@ -130,7 +130,7 @@ public class MapData {
         border(temp,LAVA);
         temp[6][7]=LOCK;
         temp[7][6]=LOCK;
-        temp[1][1]=START;
+        temp[2][2]=START;
         temp[7][7]=END;
         return temp;
     }
