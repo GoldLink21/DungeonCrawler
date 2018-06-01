@@ -38,7 +38,8 @@ public class Player extends Entity{
         try{
             animate(g);
         }catch(NullPointerException e){
-           g.fillRect(x, y, width, height);
+            g.setColor(color);
+            g.fillRect(x, y, width, height);
         }
     }
 
