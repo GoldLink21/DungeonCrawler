@@ -9,7 +9,7 @@ public class Tile {
 
     //Predefined colors for in case of error
     private static Color[]colors={(Color.DARK_GRAY),(Color.LIGHT_GRAY),(Color.RED).darker().darker(),(Color.WHITE),
-            (Color.CYAN),(Color.ORANGE),(Color.YELLOW)};
+            (Color.CYAN),(Color.ORANGE),(Color.YELLOW).brighter()};
 
     private static String[] tileNames={"wall","path","lava","end","start","trap","lock"};
 
