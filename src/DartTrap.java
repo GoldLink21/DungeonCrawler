@@ -2,11 +2,12 @@ import java.awt.event.ActionEvent;
 
 public class DartTrap extends Trap {
 
-    private int x,y,dir;
+    private int x,y;
+    private Data.Direction dir;
 
     private boolean toFire = false;
 
-    DartTrap(int x, int y, int delay,int dir) {
+    DartTrap(int x, int y, int delay,Data.Direction dir) {
         super(delay);
         this.x=x;
         this.y=y;
@@ -18,7 +19,7 @@ public class DartTrap extends Trap {
 
     public boolean isToFire(){return toFire;}
 
-    public int getDir(){return dir;}
+    public Data.Direction getDir(){return dir;}
 
     public int getX() {return x;}
 

@@ -6,7 +6,8 @@ import java.awt.Rectangle;
 public abstract class Entity implements Move {
 
     //They're "package-private" when they don't have public, private or protected before it
-    int x,y,width,height,dir;
+    int x,y,width,height;
+    Data.Direction dir;
     Color color;
     boolean remove=false;
 
@@ -14,7 +15,7 @@ public abstract class Entity implements Move {
         this.color=color;
         this.width=width;
         this.height=height;
-        this.dir=Data.DIR_DOWN;
+        this.dir=Data.Direction.DOWN;
         setPosition(x,y);
     }
 

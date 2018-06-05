@@ -35,7 +35,7 @@ public class Game extends JFrame implements KeyListener{
 
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             if(Data.isMenu()) {
-                Data.setMode(Data.MODE_CLASSIC);
+                Data.setMode(Data.Mode.CLASSIC);
                 Data.startGame();
 
 
@@ -50,7 +50,7 @@ public class Game extends JFrame implements KeyListener{
 
         if(e.getKeyCode()==KeyEvent.VK_BACK_SPACE){
             if(Data.isMenu()) {
-                Data.setMode(Data.MODE_ENDLESS);
+                Data.setMode(Data.Mode.ENDLESS);
                 Data.newEndless();
                 Data.startGame();
                 board.restartGame();
@@ -76,5 +76,6 @@ public class Game extends JFrame implements KeyListener{
         if(e.getKeyCode()==KeyEvent.VK_DOWN||e.getKeyCode()==KeyEvent.VK_S)
             Data.setDown(bool);
     }
+
 
 }

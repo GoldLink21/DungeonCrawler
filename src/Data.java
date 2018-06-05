@@ -15,17 +15,27 @@ public class Data {
     public static final int PLAYER_SIZE = 18,PLAYER_SPEED=2;
 
     //Final ints to hold directions instead of using degrees or something
-    public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
 
+    //public static final int DIR_UP=0,DIR_RIGHT=1,DIR_DOWN=2,DIR_LEFT=3;
+
+    public enum Direction{
+        UP,RIGHT,DOWN,LEFT
+    }
+
+    public enum Mode{
+        CLASSIC,ENDLESS
+    }
     //Constants for the mode numbers
-    public static final int MODE_CLASSIC=0,MODE_ENDLESS=1;
+    //public static final int MODE_CLASSIC=0,MODE_ENDLESS=1;
 
-    private static int lastDir=DIR_DOWN,mode=MODE_CLASSIC,endlessLives=3,endlessLevels=0;
+    private static Direction lastDir=Direction.DOWN;
+    private static Mode mode=Mode.CLASSIC;
+    private static int endlessLives=3,endlessLevels=0;
 
     //A bunch of getters
     public static int getNumTiles(){return NUM_TILES;}
     public static int getTileSize(){return TILE_SIZE;}
-    public static int getLastDir(){return lastDir;}
+    public static Direction getLastDir(){return lastDir;}
     public static int getEndlessLives(){return endlessLives;}
     public static int getEndlessLevels(){return endlessLevels;}
     public static int getKeys(){return nKeys;}
@@ -42,8 +52,8 @@ public class Data {
     public static boolean isRight(){return right;}
 
     //Faster way to tell the mode
-    public static boolean isModeEndless(){return mode==MODE_ENDLESS;}
-    public static boolean isModeClassic(){return mode==MODE_CLASSIC;}
+    public static boolean isModeEndless(){return mode==Mode.ENDLESS;}
+    public static boolean isModeClassic(){return mode==Mode.CLASSIC;}
 
     //A bunch of setters
     public static void setUp(boolean bool){up=bool;}
@@ -51,8 +61,8 @@ public class Data {
     public static void setLeft(boolean bool){left=bool;}
     public static void setRight(boolean bool){right=bool;}
 
-    public static void setLastDir(int dir){lastDir = dir;}
-    public static void setMode(int type){mode = type;}
+    public static void setLastDir(Direction dir){lastDir = dir;}
+    public static void setMode(Mode m){mode = m;}
     public static void setEndlessLives(int num){endlessLives=num;}
     public static void setEndlessLevels(int num){endlessLevels=num;}
     public static void resetKeys(){nKeys=0;}

@@ -17,11 +17,11 @@ public class Tile {
     private static BufferedImage[]getImages(){
         BufferedImage[]temp=new BufferedImage[tileNames.length];
         for(int i=0;i<tileNames.length;i++) {
-            try {
+            //try {
                 temp[i] = ImageLoader.getImg(tileNames[i] + ".png");
-            }catch(NullPointerException e){
+            /*}catch(NullPointerException e){
                 temp[i]=null;
-            }
+            }*/
         }
         return temp;
     }

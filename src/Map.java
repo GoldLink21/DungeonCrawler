@@ -62,7 +62,8 @@ public class Map {
     }
 
     private static void addLavaTrap(int[]x,int[]y,int delay){traps.add(new LavaTrap(x,y,delay,true));}
-    private static void addDartTrap(int x,int y,int delay,int dir){traps.add(new DartTrap(x,y,delay,dir));}
+
+    private static void addDartTrap(int x,int y,int delay,Data.Direction dir){traps.add(new DartTrap(x,y,delay,dir));}
 
     public static void loadNextFloor(){
         trapsAdded=false;
@@ -92,7 +93,7 @@ public class Map {
     private static void floorZeroTraps(){
         int[]x=fillArr(6,5,false);int[]y=fillArr(2,5,true);
         addLavaTrap(x,y,10);
-        addDartTrap(1,5,2,Data.DIR_DOWN);
+        addDartTrap(1,5,2,Data.Direction.DOWN);
     }
 
     private static void floorOneTraps(){
@@ -118,13 +119,13 @@ public class Map {
     }
 
     private static void floorFourTraps(){
-        addDartTrap(3,1,3,Data.DIR_RIGHT);
-        addDartTrap(5,2,2,Data.DIR_LEFT);
-        addDartTrap(3,3,3,Data.DIR_RIGHT);
-        addDartTrap(5,4,2,Data.DIR_LEFT);
-        addDartTrap(3,5,3,Data.DIR_RIGHT);
-        addDartTrap(5,6,2,Data.DIR_LEFT);
-        addDartTrap(3,7,3,Data.DIR_RIGHT);
+        addDartTrap(3,1,3,Data.Direction.RIGHT);
+        addDartTrap(5,2,2,Data.Direction.LEFT);
+        addDartTrap(3,3,3,Data.Direction.RIGHT);
+        addDartTrap(5,4,2,Data.Direction.LEFT);
+        addDartTrap(3,5,3,Data.Direction.RIGHT);
+        addDartTrap(5,6,2,Data.Direction.LEFT);
+        addDartTrap(3,7,3,Data.Direction.RIGHT);
     }
 
     private static void floorFiveTraps(){
@@ -164,9 +165,5 @@ public class Map {
                 map[i][j].paint(g);
     }
 
-    private static void addKey(int x,int y){
-        try {
-            Board.addEntity(new Key(x, y));
-        }catch(ConcurrentModificationException e){}
-    }
+    private static void addKey(int x,int y){Board.addEntity(new Key(x, y));}
 }

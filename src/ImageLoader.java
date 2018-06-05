@@ -1,6 +1,6 @@
 import javax.imageio.ImageIO;
-import java.awt.Image;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +34,14 @@ public class ImageLoader{
 
     public static BufferedImage getImg(String fileName){
         //Used to fetch the image itself, bypassing the object
+        
         try{
             return ImageIO.read(new File("resources/gfx/"+fileName));
         }catch(IOException e){
             e.printStackTrace();
         }
         return null;
+
+
     }
 }

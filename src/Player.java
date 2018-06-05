@@ -11,20 +11,20 @@ public class Player extends Entity{
 
     private ImageLoader getCurImg(){
         switch(Data.getLastDir()){
-            case Data.DIR_UP: return getImg(4);
-            case Data.DIR_DOWN: return getImg(2);
-            case Data.DIR_LEFT: return getImg(0);
-            case Data.DIR_RIGHT: return getImg(6);
+            case UP: return getImg(4);
+            case DOWN: return getImg(2);
+            case LEFT: return getImg(0);
+            case RIGHT: return getImg(6);
             default: return null;
         }
     }
 
     private ImageLoader getAltImg(){
         switch(Data.getLastDir()){
-            case Data.DIR_UP: return getImg(5);
-            case Data.DIR_DOWN: return getImg(3);
-            case Data.DIR_LEFT: return getImg(1);
-            case Data.DIR_RIGHT: return getImg(7);
+            case UP: return getImg(5);
+            case DOWN: return getImg(3);
+            case LEFT: return getImg(1);
+            case RIGHT: return getImg(7);
             default: return null;
         }
     }
@@ -119,22 +119,22 @@ public class Player extends Entity{
         int buffer = 1;
         if (Data.isUp()&&y>0){
             y-=SPEED;
-            Data.setLastDir(Data.DIR_UP);
+            Data.setLastDir(Data.Direction.UP);
             checkTiles();
             if(checkWallCollisions())y+=SPEED;
         }if(Data.isDown()&&y+height-buffer<BoardWidth){
             y+=SPEED;
-            Data.setLastDir(Data.DIR_DOWN);
+            Data.setLastDir(Data.Direction.DOWN);
             checkTiles();
             if(checkWallCollisions())y-=SPEED;
         }if(Data.isRight()&&x+width-buffer<BoardWidth){
             x+=SPEED;
-            Data.setLastDir(Data.DIR_RIGHT);
+            Data.setLastDir(Data.Direction.RIGHT);
             checkTiles();
             if (checkWallCollisions())x-=SPEED;
         }if(Data.isLeft()&&x>0){
             x-=SPEED;
-            Data.setLastDir(Data.DIR_LEFT);
+            Data.setLastDir(Data.Direction.LEFT);
             checkTiles();
             if (checkWallCollisions())x+=SPEED;
         }
